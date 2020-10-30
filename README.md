@@ -1,31 +1,30 @@
-# volto-addon-template
-[![Releases](https://img.shields.io/github/v/release/eea/volto-addon-template)](https://github.com/eea/volto-addon-template/releases)
+# volto-accordion-block
+[![Releases](https://img.shields.io/github/v/release/eea/volto-accordion-block)](https://github.com/eea/volto-accordion-block/releases)
 
-[Volto](https://github.com/plone/volto) add-on
+[Volto](https://github.com/plone/volto) add-on to create group based accordions in blocks.
 
 ## Features
 
-###
-
-Demo GIF
 
 ## Getting started
 
 1. Create new volto project if you don't already have one:
     ```
-    $ npm install -g yo @plone/generator-volto
-    $ yo @plone/volto my-volto-project --addon @eeacms/volto-addon-template
+    $ npm install -g @plone/create-volto-app
+    $ create-volto-app my-volto-project
     $ cd my-volto-project
     ```
 
-1. If you already have a volto project, just update `package.json`:
+1. Update `package.json`:
     ``` JSON
     "addons": [
-        "@eeacms/volto-addon-template"
+        "@eeacms/volto-blocks-form",
+        "@eeacms/volto-accordion-block"
     ],
 
     "dependencies": {
-        "@eeacms/volto-addon-template": "1.0.0"
+        "@eeacms/volto-blocks-form": "github:eea/volto-blocks-form#0.4.0",
+        "@eeacms/volto-accordion-block": "github:eea/volto-accordion-block#0.1.0"
     }
     ```
 
@@ -41,14 +40,14 @@ Demo GIF
 
 ## How to contribute
 
-See [DEVELOP.md](https://github.com/eea/volto-addon-template/blob/master/DEVELOP.md).
+See [DEVELOP.md](https://github.com/eea/volto-accordion-block/blob/master/DEVELOP.md).
 
 ## Copyright and license
 
 The Initial Owner of the Original Code is European Environment Agency (EEA).
 All Rights Reserved.
 
-See [LICENSE.md](https://github.com/eea/volto-addon-template/blob/master/LICENSE.md) for details.
+See [LICENSE.md](https://github.com/eea/volto-accordion-block/blob/master/LICENSE.md) for details.
 
 ## Funding
 
