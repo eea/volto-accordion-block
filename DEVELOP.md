@@ -1,26 +1,45 @@
-# volto-addon-template
+# volto-accordion-block
 
 ## Develop
 
 Before starting make sure your development environment is properly set. See [Volto Developer Documentation](https://docs.voltocms.com/getting-started/install/)
 
-1. Make sure you have installed `yo`, `@plone/generator-volto` and `mrs.developer`
+1. Install `mrs.developer`
 
-        $ npm install -g yo
-        $ npm install -g @plone/generator-volto
         $ npm install -g mrs.developer
+
+1. Install `@plone/create-volto-app`
+
+        $ npm install -g @plone/create-volto-app
 
 1. Create new volto app
 
-        $ yo @plone/volto my-volto-project --addon @eeacms/volto-addon-template
+        $ create-volto-app my-volto-project
         $ cd my-volto-project
+
+1. Update `package.json` with the following information:
+
+        {
+            "scripts": {
+                "develop": "missdev --config=jsconfig.json --output=addons"
+            },
+
+            "addons": [
+                "@eeacms/volto-blocks-form",
+                "@eeacms/volto-accordion-block"
+            ],
+
+            "dependencies": {
+                "@eeacms/volto-blocks-form": "github:eea/volto-blocks-form#0.4.0",
+            }
+        }
 
 1. Add the following to `mrs.developer.json`:
 
         {
-            "volto-addon-template": {
-                "url": "https://github.com/eea/volto-addon-template.git",
-                "package": "@eeacms/volto-addon-template",
+            "volto-accordion-block": {
+                "url": "https://github.com/eea/volto-accordion-block.git",
+                "package": "@eeacms/volto-accordion-block",
                 "branch": "develop",
                 "path": "src"
             }
@@ -49,4 +68,4 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1. Happy hacking!
 
-        $ cd src/addons/volto-addon-template/
+        $ cd src/addons/volto-accordion-block/
