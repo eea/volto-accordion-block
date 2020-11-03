@@ -1,20 +1,21 @@
 {
-  "name": "@eeacms/volto-addon-template",
+  "name": "@eeacms/volto-accordion-block",
   "version": "0.1.0",
-  "description": "volto-addon-template: Volto add-on",
+  "description": "volto-accordion-block: Volto group block to add accordions",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
   "license": "MIT",
-  "homepage": "https://github.com/eea/volto-addon-template",
+  "homepage": "https://github.com/eea/volto-accordion-block",
   "keywords": [
     "volto-addon",
+    "volto-accordion",
     "volto",
     "plone",
     "react"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:eea/volto-addon-template.git"
+    "url": "git@github.com:eea/volto-accordion-block.git"
   },
   "devDependencies": {
     "release-it": "*"
