@@ -1,5 +1,5 @@
 const Schema = {
-  title: 'Group block settings',
+  title: 'Accordion block settings',
   fieldsets: [
     {
       id: 'default',

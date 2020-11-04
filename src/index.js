@@ -31,7 +31,7 @@ const applyConfig = (config) => {
       },
     },
   };
-  config.blocks.blocksConfig.group = {
+  config.blocks.blocksConfig.accordion = {
     id: 'accordion',
     title: 'Accordion',
     icon: circleBottomSVG,
