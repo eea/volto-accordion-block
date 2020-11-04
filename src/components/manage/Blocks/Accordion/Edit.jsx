@@ -41,17 +41,15 @@ const Edit = (props) => {
 
   return (
     <section className="section-block">
-      {Object.keys(data).length === 1 ? (
-        <AccordionEdit
-          data={data}
-          onChange={(initialData) => {
-            onChangeBlock(block, {
-              ...data,
-              ...this.createFrom(initialData),
-            });
-          }}
-        />
-      ) : (
+      <AccordionEdit
+        data={data}
+        onChange={(initialData) => {
+          onChangeBlock(block, {
+            ...data,
+            ...this.createFrom(initialData),
+          });
+        }}
+      >
         <BlocksForm
           metadata={metadata}
           properties={properties}
@@ -81,7 +79,7 @@ const Edit = (props) => {
           }}
           pathname={pathname}
         />
-      )}
+      </AccordionEdit>
     </section>
   );
 };

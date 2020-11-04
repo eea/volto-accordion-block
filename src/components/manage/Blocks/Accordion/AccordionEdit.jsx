@@ -37,7 +37,7 @@ export default ({ data, onChange, children, variants }) => {
               duration={500}
               height={activeIndex === 0 ? 'auto' : 0}
             >
-              dsvsdvs
+              {children}
             </AnimateHeight>
           </Accordion.Content>
         </React.Fragment>
