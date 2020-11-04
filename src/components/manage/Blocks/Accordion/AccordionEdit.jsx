@@ -4,7 +4,7 @@ import { Icon } from '@plone/volto/components';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import AnimateHeight from 'react-animate-height';
-export default ({ data, onChange, children, variants }) => {
+export default ({ data, children }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   function handleClick(e, titleProps) {

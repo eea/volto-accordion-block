@@ -41,15 +41,7 @@ const Edit = (props) => {
 
   return (
     <section className="section-block">
-      <AccordionEdit
-        data={data}
-        onChange={(initialData) => {
-          onChangeBlock(block, {
-            ...data,
-            ...this.createFrom(initialData),
-          });
-        }}
-      >
+      <AccordionEdit data={data}>
         <BlocksForm
           metadata={metadata}
           properties={properties}
