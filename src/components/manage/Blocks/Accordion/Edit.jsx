@@ -42,35 +42,37 @@ const Edit = (props) => {
   return (
     <section className="section-block">
       <AccordionEdit data={data}>
-        <BlocksForm
-          metadata={metadata}
-          properties={properties}
-          manage={manage}
-          selectedBlock={selected ? selectedBlock : null}
-          allowedBlocks={data.allowedBlocks}
-          title={data.placeholder}
-          description={data?.instructions?.data}
-          onSelectBlock={(id) => setSelectedBlock(id)}
-          onChangeFormData={(newFormData) => {
-            onChangeBlock(block, {
-              ...data,
-              data: newFormData,
-            });
-          }}
-          onChangeField={(id, value) => {
-            if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
-              blockState[id] = value;
+        <div style={{ margin: '1em' }}>
+          <BlocksForm
+            metadata={metadata}
+            properties={properties}
+            manage={manage}
+            selectedBlock={selected ? selectedBlock : null}
+            allowedBlocks={data.allowedBlocks}
+            title={data.placeholder}
+            description={data?.instructions?.data}
+            onSelectBlock={(id) => setSelectedBlock(id)}
+            onChangeFormData={(newFormData) => {
               onChangeBlock(block, {
                 ...data,
-                data: {
-                  ...data.data,
-                  ...blockState,
-                },
+                data: newFormData,
               });
-            }
-          }}
-          pathname={pathname}
-        />
+            }}
+            onChangeField={(id, value) => {
+              if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
+                blockState[id] = value;
+                onChangeBlock(block, {
+                  ...data,
+                  data: {
+                    ...data.data,
+                    ...blockState,
+                  },
+                });
+              }
+            }}
+            pathname={pathname}
+          />
+        </div>
       </AccordionEdit>
     </section>
   );

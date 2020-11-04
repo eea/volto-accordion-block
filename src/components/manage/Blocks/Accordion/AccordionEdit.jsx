@@ -16,12 +16,13 @@ export default ({ children }) => {
 
   return (
     <div>
-      <Accordion fluid styled className="form">
+      <Accordion fluid>
         <React.Fragment>
           <Accordion.Title
             active={activeIndex === 0}
             index={0}
             onClick={handleClick}
+            className="accordion-title"
           >
             <div className="accordion-tools">
               {activeIndex === 0 ? (
@@ -31,15 +32,17 @@ export default ({ children }) => {
               )}
             </div>
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === 0}>
-            <AnimateHeight
-              animateOpacity
-              duration={500}
-              height={activeIndex === 0 ? 'auto' : 0}
-            >
-              {children}
-            </AnimateHeight>
-          </Accordion.Content>
+          <div>
+            <Accordion.Content active={activeIndex === 0}>
+              <AnimateHeight
+                animateOpacity
+                duration={500}
+                height={activeIndex === 0 ? 'auto' : 0}
+              >
+                {children}
+              </AnimateHeight>
+            </Accordion.Content>
+          </div>
         </React.Fragment>
       </Accordion>
     </div>
