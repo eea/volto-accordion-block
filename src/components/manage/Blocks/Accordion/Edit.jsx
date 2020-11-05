@@ -41,38 +41,36 @@ const Edit = (props) => {
 
   return (
     <section className="section-block">
-      <AccordionEdit data={data}>
-        <div style={{ margin: '1em' }}>
-          <BlocksForm
-            metadata={metadata}
-            properties={properties}
-            manage={manage}
-            selectedBlock={selected ? selectedBlock : null}
-            allowedBlocks={data.allowedBlocks}
-            title={data.placeholder}
-            description={data?.instructions?.data}
-            onSelectBlock={(id) => setSelectedBlock(id)}
-            onChangeFormData={(newFormData) => {
+      <AccordionEdit isEditForm={pathname.includes('edit')}>
+        <BlocksForm
+          metadata={metadata}
+          properties={properties}
+          manage={manage}
+          selectedBlock={selected ? selectedBlock : null}
+          allowedBlocks={data.allowedBlocks}
+          title={data.placeholder}
+          description={data?.instructions?.data}
+          onSelectBlock={(id) => setSelectedBlock(id)}
+          onChangeFormData={(newFormData) => {
+            onChangeBlock(block, {
+              ...data,
+              data: newFormData,
+            });
+          }}
+          onChangeField={(id, value) => {
+            if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
+              blockState[id] = value;
               onChangeBlock(block, {
                 ...data,
-                data: newFormData,
+                data: {
+                  ...data.data,
+                  ...blockState,
+                },
               });
-            }}
-            onChangeField={(id, value) => {
-              if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
-                blockState[id] = value;
-                onChangeBlock(block, {
-                  ...data,
-                  data: {
-                    ...data.data,
-                    ...blockState,
-                  },
-                });
-              }
-            }}
-            pathname={pathname}
-          />
-        </div>
+            }
+          }}
+          pathname={pathname}
+        />
       </AccordionEdit>
     </section>
   );

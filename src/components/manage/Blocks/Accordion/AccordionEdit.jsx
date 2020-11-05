@@ -4,7 +4,7 @@ import { Icon } from '@plone/volto/components';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import AnimateHeight from 'react-animate-height';
-export default ({ children }) => {
+export default ({ children, isEditForm }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   function handleClick(e, titleProps) {
@@ -16,7 +16,7 @@ export default ({ children }) => {
 
   return (
     <div>
-      <Accordion fluid>
+      <Accordion fluid styled={!isEditForm}>
         <React.Fragment>
           <Accordion.Title
             active={activeIndex === 0}
@@ -34,13 +34,15 @@ export default ({ children }) => {
           </Accordion.Title>
           <div>
             <Accordion.Content active={activeIndex === 0}>
-              <AnimateHeight
-                animateOpacity
-                duration={500}
-                height={activeIndex === 0 ? 'auto' : 0}
-              >
-                {children}
-              </AnimateHeight>
+              <div style={{ margin: '1em' }}>
+                <AnimateHeight
+                  animateOpacity
+                  duration={500}
+                  height={activeIndex === 0 ? 'auto' : 0}
+                >
+                  {children}
+                </AnimateHeight>
+              </div>
             </Accordion.Content>
           </div>
         </React.Fragment>
