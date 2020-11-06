@@ -4,6 +4,7 @@ import {
   AccordionBlockView,
   AccordionBlockSchema,
 } from './components';
+import { options } from '@eeacms/volto-accordion-block/components';
 
 const applyConfig = (config) => {
   const choices = Object.keys(config.blocks.blocksConfig)
@@ -40,6 +41,7 @@ const applyConfig = (config) => {
     edit: AccordionBlockEdit,
     schema: schema,
     restricted: false,
+    options,
     mostUsed: false,
     blockHasOwnFocusManagement: true,
     sidebarTab: 0,
