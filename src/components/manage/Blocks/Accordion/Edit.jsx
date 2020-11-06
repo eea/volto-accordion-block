@@ -16,9 +16,7 @@ const Edit = (props) => {
     ? emptyBlocksForm()
     : data.data;
 
-  const [selectedBlock, setSelectedBlock] = useState(
-    properties.blocks_layout.items[0],
-  );
+  const [selectedBlock, setSelectedBlock] = useState({});
 
   const createPanes = (initialData) => {
     const { count } = initialData;
@@ -26,26 +24,6 @@ const Edit = (props) => {
       data: empty(count),
     };
   };
-
-  React.useEffect(() => {
-    if (
-      isEmpty(data?.data?.blocks) &&
-      properties.blocks_layout.items[0] !== selectedBlock
-    ) {
-      setSelectedBlock(properties.blocks_layout.items[0]);
-      onChangeBlock(block, {
-        ...data,
-        data: properties,
-      });
-    }
-  }, [
-    onChangeBlock,
-    properties,
-    selectedBlock,
-    block,
-    data,
-    data?.data?.blocks,
-  ]);
 
   const blockState = {};
   const coldata = properties;
@@ -69,18 +47,27 @@ const Edit = (props) => {
           {columnList.map(([colId, column], index) => (
             <AccordionEdit isEditForm={pathname.includes('edit')}>
               <BlocksForm
+                key={colId}
                 metadata={metadata}
                 properties={isEmpty(column) ? emptyBlocksForm() : column}
                 manage={manage}
-                selectedBlock={selected ? selectedBlock : null}
-                allowedBlocks={data.allowedBlocks}
-                title={data.placeholder}
+                selectedBlock={selected ? selectedBlock[colId] : null}
                 description={data?.instructions?.data}
-                onSelectBlock={(id) => setSelectedBlock(id)}
+                onSelectBlock={(id) =>
+                  setSelectedBlock({
+                    [colId]: id,
+                  })
+                }
                 onChangeFormData={(newFormData) => {
                   onChangeBlock(block, {
                     ...data,
-                    data: newFormData,
+                    data: {
+                      ...coldata,
+                      blocks: {
+                        ...coldata.blocks,
+                        [colId]: newFormData,
+                      },
+                    },
                   });
                 }}
                 onChangeField={(id, value) => {
@@ -89,8 +76,14 @@ const Edit = (props) => {
                     onChangeBlock(block, {
                       ...data,
                       data: {
-                        ...data.data,
-                        ...blockState,
+                        ...coldata,
+                        blocks: {
+                          ...coldata.blocks,
+                          [colId]: {
+                            ...coldata.blocks?.[colId],
+                            ...blockState,
+                          },
+                        },
                       },
                     });
                   }

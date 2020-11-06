@@ -1,18 +1,23 @@
 import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
+import { getColumns } from './util';
 import AccordionEdit from './AccordionEdit';
 const View = (props) => {
-  const { data } = props;
+  const {
+    data: { data = {} },
+  } = props;
+  const columnList = getColumns(data);
   const metadata = props.metadata || props.properties;
   return (
-    <AccordionEdit data={data}>
-      <RenderBlocks
-        {...props}
-        as={data?.as}
-        metadata={metadata}
-        content={data?.data || {}}
-      />
-    </AccordionEdit>
+    <div>
+      {columnList.map(([id, column], index) => {
+        return (
+          <AccordionEdit data={data}>
+            <RenderBlocks {...props} metadata={metadata} content={column} />
+          </AccordionEdit>
+        );
+      })}
+    </div>
   );
 };
 
