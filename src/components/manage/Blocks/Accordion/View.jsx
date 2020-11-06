@@ -1,6 +1,6 @@
 import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
-import { getColumns } from './util';
+import { getColumns, GroupblockHasValue } from './util';
 import AccordionEdit from './AccordionEdit';
 const View = (props) => {
   const {
@@ -11,11 +11,11 @@ const View = (props) => {
   return (
     <div>
       {columnList.map(([id, column], index) => {
-        return (
+        return GroupblockHasValue(column) ? (
           <AccordionEdit data={data}>
             <RenderBlocks {...props} metadata={metadata} content={column} />
           </AccordionEdit>
-        );
+        ) : null;
       })}
     </div>
   );

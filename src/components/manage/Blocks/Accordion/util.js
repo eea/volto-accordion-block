@@ -1,6 +1,12 @@
 import { v4 as uuid } from 'uuid';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
 import { settings } from '~/config';
+import { map } from 'lodash';
+import {
+  getBlocksFieldname,
+  getBlocksLayoutFieldname,
+  blockHasValue,
+} from '@plone/volto/helpers';
 
 export const empty = (count) => {
   const blocks = {};
@@ -24,4 +30,14 @@ export const getColumns = (data) => {
     id,
     data.blocks?.[id],
   ]);
+};
+
+export const GroupblockHasValue = (content) => {
+  const blocksFieldname = getBlocksFieldname(content);
+  const blocksLayoutFieldname = getBlocksLayoutFieldname(content);
+  const blockValue = map(content[blocksLayoutFieldname].items, (block) => {
+    const blockData = content[blocksFieldname]?.[block];
+    return blockHasValue(blockData);
+  });
+  return blockValue.length === 1 ? blockValue[0] : true;
 };
