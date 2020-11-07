@@ -9,7 +9,15 @@ import { options } from './layout';
 import './editor.less';
 
 const Edit = (props) => {
-  const { block, data, onChangeBlock, pathname, selected, manage } = props;
+  const {
+    block,
+    data,
+    onChangeBlock,
+    pathname,
+    selected,
+    manage,
+    data: { display },
+  } = props;
 
   const metadata = props.metadata || props.properties;
   const properties = isEmpty(data?.data?.blocks)
@@ -31,7 +39,18 @@ const Edit = (props) => {
 
   return (
     <section className="section-block">
-      {Object.keys(data).length === 1 ? (
+      {!display && Object.keys(data).length === 1 ? (
+        <Layout
+          variants={options}
+          data={data}
+          onChange={(initialData) => {
+            onChangeBlock(block, {
+              ...data,
+              ...createPanes(initialData),
+            });
+          }}
+        />
+      ) : display && Object.keys(data).length === 2 ? (
         <Layout
           variants={options}
           data={data}
@@ -45,7 +64,7 @@ const Edit = (props) => {
       ) : (
         <div>
           {columnList.map(([colId, column], index) => (
-            <AccordionEdit isEditForm={pathname.includes('edit')}>
+            <AccordionEdit>
               <BlocksForm
                 key={colId}
                 metadata={metadata}
