@@ -75,4 +75,49 @@ const Schema = {
   required: [],
 };
 
+export const AccordionSchema = {
+  title: 'Accordion',
+  fieldsets: [
+    {
+      id: 'default',
+      title: 'Default',
+      fields: ['column_title'],
+    },
+  ],
+  properties: {
+    column_title: {
+      title: 'Accordion title',
+    },
+  },
+  required: [],
+};
+
+export const accordionBlockSchema = () => ({
+  title: 'Accordion block',
+  fieldsets: [
+    {
+      id: 'default',
+      title: 'Default',
+      fields: ['data', 'gridCols'], //  'nrColumns', 'block_title'
+    },
+  ],
+  properties: {
+    block_title: {
+      title: 'Block title',
+      default: 'Columns',
+    },
+    data: {
+      title: 'Accordion',
+      type: 'columns',
+      schema: AccordionSchema,
+    },
+    gridCols: {
+      title: 'Layout',
+      widget: 'layout_select',
+      choices: [],
+    },
+  },
+  required: ['title'],
+});
+
 export default Schema;
