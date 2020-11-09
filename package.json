@@ -20,6 +20,9 @@
   "devDependencies": {
     "release-it": "*"
   },
+  "dependencies": {
+    "@eeacms/volto-blocks-form": "^1.0.0"
+  },
   "scripts": {
     "release": "release-it",
     "bootstrap": "node bootstrap"

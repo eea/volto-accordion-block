@@ -6,7 +6,7 @@ import { SidebarPortal, Icon } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { setSidebarTab } from '@plone/volto/actions';
 import { Button, Segment } from 'semantic-ui-react';
-import { accordionBlockSchema } from './schema';
+import { accordionBlockSchema } from './Schema';
 import AccordionEdit from './AccordionEdit';
 import Layout from './Layout.jsx';
 import { empty, getColumns } from './util';
