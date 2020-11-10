@@ -81,11 +81,11 @@ export const AccordionSchema = {
     {
       id: 'default',
       title: 'Default',
-      fields: ['column_title'],
+      fields: ['panel_title'],
     },
   ],
   properties: {
-    column_title: {
+    panel_title: {
       title: 'Accordion title',
     },
   },
@@ -98,23 +98,18 @@ export const accordionBlockSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['data', 'gridCols'], //  'nrColumns', 'block_title'
+      fields: ['data'], //  'nrColumns', 'block_title'
     },
   ],
   properties: {
     block_title: {
       title: 'Block title',
-      default: 'Columns',
+      default: 'Panels',
     },
     data: {
       title: 'Accordion',
-      type: 'columns',
+      type: 'panels',
       schema: AccordionSchema,
-    },
-    gridCols: {
-      title: 'Layout',
-      widget: 'layout_select',
-      choices: [],
     },
   },
   required: ['title'],
