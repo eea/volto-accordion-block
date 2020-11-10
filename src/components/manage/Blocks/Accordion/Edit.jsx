@@ -67,7 +67,18 @@ const Edit = (props) => {
       ) : (
         <div>
           {columnList.map(([colId, column], index) => (
-            <AccordionEdit>
+            <AccordionEdit
+              data={data}
+              block={block}
+              metadata={metadata}
+              pathname={pathname}
+              manage={manage}
+              selected={selected}
+              selectedBlock={selectedBlock}
+              setSelectedBlock={setSelectedBlock}
+              coldata={coldata}
+              onChangeBlock={onChangeBlock}
+            >
               <BlocksForm
                 key={colId}
                 metadata={metadata}
