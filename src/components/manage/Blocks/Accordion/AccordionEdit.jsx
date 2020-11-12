@@ -1,9 +1,8 @@
 import React from 'react';
-import { Segment, Accordion } from 'semantic-ui-react';
+import { Accordion } from 'semantic-ui-react';
 import { Icon } from '@plone/volto/components';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
-import { TextWidget } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
 export default ({ children }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);

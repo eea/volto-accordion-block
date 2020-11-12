@@ -1,6 +1,5 @@
 import { v4 as uuid } from 'uuid';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
-import { settings } from '~/config';
 import { map } from 'lodash';
 import {
   getBlocksFieldname,
