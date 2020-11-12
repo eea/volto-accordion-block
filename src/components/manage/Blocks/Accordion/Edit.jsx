@@ -40,6 +40,27 @@ const Edit = (props) => {
   const coldata = properties;
   const columnList = getColumns(coldata);
 
+  const handleTitleChange = (e, value) => {
+    const [colId, column] = value;
+    const modifiedBlock = {
+      ...column,
+      blocks: {
+        ...column.blocks,
+        acc_title: e.target.value,
+      },
+    };
+    onChangeBlock(block, {
+      ...data,
+      data: {
+        ...coldata,
+        blocks: {
+          ...coldata.blocks,
+          [colId]: modifiedBlock,
+        },
+      },
+    });
+  };
+
   return (
     <section className="section-block">
       {!display && Object.keys(data).length === 1 ? (
@@ -67,7 +88,13 @@ const Edit = (props) => {
       ) : (
         <div>
           {columnList.map(([colId, column], index) => (
-            <AccordionEdit>
+            <AccordionEdit
+              colId={colId}
+              column={column}
+              coldata={coldata}
+              handleTitleChange={handleTitleChange}
+              data={data}
+            >
               <BlocksForm
                 key={colId}
                 metadata={metadata}
