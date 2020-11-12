@@ -6,7 +6,7 @@ import { Icon } from '@plone/volto/components';
 import upSVG from '@plone/volto/icons/up-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
-import { BlocksForm } from '@eeacms/volto-blocks-form/components';
+import BlocksForm from './TitleBlock/BlocksForm';
 import AnimateHeight from 'react-animate-height';
 export default ({
   children,
