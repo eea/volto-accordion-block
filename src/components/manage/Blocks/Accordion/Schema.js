@@ -98,7 +98,7 @@ export const accordionBlockSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['data'], //  'nrColumns', 'block_title'
+      fields: ['data', 'arrow_select'], //  'nrColumns', 'block_title'
     },
   ],
   properties: {
@@ -110,6 +110,10 @@ export const accordionBlockSchema = () => ({
       title: 'Accordion',
       type: 'panels',
       schema: AccordionSchema,
+    },
+    arrow_select: {
+      title: 'Align arrow to right',
+      type: 'boolean',
     },
   },
   required: ['title'],

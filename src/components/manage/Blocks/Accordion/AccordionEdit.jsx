@@ -1,34 +1,21 @@
 import React from 'react';
-import { Segment, Accordion } from 'semantic-ui-react';
-import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
-import { v4 as uuid } from 'uuid';
+import { Accordion, Input } from 'semantic-ui-react';
+
+import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
-import upSVG from '@plone/volto/icons/up-key.svg';
+import rightSVG from '@plone/volto/icons/right-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
-import BlocksForm from './TitleBlock/BlocksForm';
 import AnimateHeight from 'react-animate-height';
 export default ({
   children,
   coldata,
-  metadata,
-  pathname,
-  manage,
-  selected,
-  block,
-  selectedBlock,
-  setSelectedBlock,
-  onChangeBlock,
+  handleTitleChange,
+  colId,
+  column,
   data,
 }) => {
-  const empty = () => {
-    return [uuid(), emptyBlocksForm()];
-  };
-
-  const [newId, newData] = empty();
-
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const blockState = {};
   function handleClick(e, titleProps) {
     const { index } = titleProps;
     const newIndex = activeIndex === index ? -1 : index;
@@ -46,57 +33,26 @@ export default ({
             onClick={handleClick}
             className="accordion-title"
           >
-            {/* <div className="accordion-tools">
+            <div
+              className={cx('align-arrow-left', {
+                'align-arrow-right': data.arrow_select,
+              })}
+            >
               {activeIndex === 0 ? (
-                <Icon name={upSVG} size="20px" />
-              ) : (
                 <Icon name={downSVG} size="20px" />
+              ) : (
+                <Icon name={rightSVG} size="20px" />
               )}
-            </div> */}
-            <BlocksForm
-              key={newId}
-              metadata={metadata}
-              properties={newData}
-              manage={manage}
-              selectedBlock={selected ? selectedBlock[newId] : null}
-              description={data?.instructions?.data}
-              onSelectBlock={(id) =>
-                setSelectedBlock({
-                  [newId]: id,
-                })
-              }
-              onChangeFormData={(newFormData) => {
-                onChangeBlock(block, {
-                  ...data,
-                  data: {
-                    ...coldata,
-                    blocks: {
-                      ...coldata.blocks,
-                      [newId]: newFormData,
-                    },
-                  },
-                });
-              }}
-              onChangeField={(id, value) => {
-                if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
-                  blockState[id] = value;
-                  onChangeBlock(block, {
-                    ...data,
-                    data: {
-                      ...coldata,
-                      blocks: {
-                        ...coldata.blocks,
-                        [newId]: {
-                          ...coldata.blocks?.[newId],
-                          ...blockState,
-                        },
-                      },
-                    },
-                  });
-                }
-              }}
-              pathname={pathname}
-            />
+              <Input
+                fluid
+                className="input-accordion-title"
+                transparent
+                placeholder="Enter Title"
+                value={column?.blocks?.acc_title}
+                onClick={(e) => e.stopPropagation()}
+                onChange={(e) => handleTitleChange(e, [colId, column])}
+              />
+            </div>
           </Accordion.Title>
           <div>
             <Accordion.Content active={activeIndex === 0}>
