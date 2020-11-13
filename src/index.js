@@ -4,7 +4,7 @@ import {
   AccordionBlockView,
   AccordionBlockSchema,
 } from './components';
-import { LayoutSelectWidget } from './Widgets';
+import { PanelWidget } from './Widgets';
 import { options } from '@eeacms/volto-accordion-block/components';
 
 const applyConfig = (config) => {
@@ -51,7 +51,7 @@ const applyConfig = (config) => {
       view: [],
     },
   };
-  config.widgets.widget.layout_select = LayoutSelectWidget;
+  config.widgets.type.panels = PanelWidget;
   return config;
 };
 

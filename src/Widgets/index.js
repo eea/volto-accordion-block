@@ -1,1 +1,1 @@
-export LayoutSelectWidget from './LayoutSelectWidget';
+export PanelWidget from './PanelWidget.jsx';

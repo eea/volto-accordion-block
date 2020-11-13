@@ -1,12 +1,21 @@
 import React from 'react';
-import { Segment, Accordion } from 'semantic-ui-react';
-import { Icon } from '@plone/volto/components';
-import upSVG from '@plone/volto/icons/up-key.svg';
-import downSVG from '@plone/volto/icons/down-key.svg';
-import AnimateHeight from 'react-animate-height';
-export default ({ children }) => {
-  const [activeIndex, setActiveIndex] = React.useState(0);
+import { Accordion, Input } from 'semantic-ui-react';
 
+import cx from 'classnames';
+import { Icon } from '@plone/volto/components';
+import rightSVG from '@plone/volto/icons/right-key.svg';
+import downSVG from '@plone/volto/icons/down-key.svg';
+
+import AnimateHeight from 'react-animate-height';
+export default ({
+  children,
+  coldata,
+  handleTitleChange,
+  colId,
+  column,
+  data,
+}) => {
+  const [activeIndex, setActiveIndex] = React.useState(0);
   function handleClick(e, titleProps) {
     const { index } = titleProps;
     const newIndex = activeIndex === index ? -1 : index;
@@ -24,12 +33,25 @@ export default ({ children }) => {
             onClick={handleClick}
             className="accordion-title"
           >
-            <div className="accordion-tools">
+            <div
+              className={cx('align-arrow-left', {
+                'align-arrow-right': data.arrow_select,
+              })}
+            >
               {activeIndex === 0 ? (
-                <Icon name={upSVG} size="20px" />
-              ) : (
                 <Icon name={downSVG} size="20px" />
+              ) : (
+                <Icon name={rightSVG} size="20px" />
               )}
+              <Input
+                fluid
+                className="input-accordion-title"
+                transparent
+                placeholder="Enter Title"
+                value={column?.blocks?.acc_title}
+                onClick={(e) => e.stopPropagation()}
+                onChange={(e) => handleTitleChange(e, [colId, column])}
+              />
             </div>
           </Accordion.Title>
           <div>
