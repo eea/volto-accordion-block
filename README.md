@@ -14,7 +14,9 @@
    ```
    $ npm install -g yo @plone/generator-volto
    $ yo @plone/volto my-volto-project --addon @eeacms/volto-accordion-block
+
    $ cd my-volto-project
+   $ yarn add -W @eeacms/volto-accordion-block
    ```
 
 1. If you already have a volto project, just update `package.json`:
@@ -25,7 +27,7 @@
    ],
 
    "dependencies": {
-       "@eeacms/volto-accordion-block": "1.0.0"
+       "@eeacms/volto-accordion-block": "^1.0.0"
    }
    ```
 
@@ -39,6 +41,7 @@
 1. Go to http://localhost:3000
 
 1. Happy editing!
+
 
 ## How to contribute
 
