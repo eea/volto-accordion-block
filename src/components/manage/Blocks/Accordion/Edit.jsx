@@ -8,22 +8,15 @@ import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { accordionBlockSchema } from './Schema';
 import AccordionEdit from './AccordionEdit';
 import EditBlockWrapper from './EditBlockWrapper';
-import Layout from './Layout.jsx';
+import Panels from './Panels.jsx';
 import { empty, getColumns } from './util';
-import { options } from './layout';
+import { options } from './panels';
 import './editor.less';
 import upSVG from '@plone/volto/icons/up.svg';
 import tuneSVG from '@plone/volto/icons/tune.svg';
 
 const Edit = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    pathname,
-    selected,
-    data: { display },
-  } = props;
+  const { block, data, onChangeBlock, pathname, selected } = props;
 
   const metadata = props.metadata || props.properties;
   const properties = isEmpty(data?.data?.blocks)
@@ -67,19 +60,8 @@ const Edit = (props) => {
 
   return (
     <section className="section-block">
-      {!display && Object.keys(data).length === 1 ? (
-        <Layout
-          variants={options}
-          data={data}
-          onChange={(initialData) => {
-            onChangeBlock(block, {
-              ...data,
-              ...createPanes(initialData),
-            });
-          }}
-        />
-      ) : display && Object.keys(data).length === 2 ? (
-        <Layout
+      {Object.keys(data).length === 1 ? (
+        <Panels
           variants={options}
           data={data}
           onChange={(initialData) => {

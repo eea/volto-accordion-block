@@ -1,5 +1,6 @@
-import threeColumnSVG from './icons/three-third-columns.svg';
-import oneColumnSVG from './icons/full-column.svg';
+import threeColumnSVG from './icons/three-circle-bottom.svg';
+import fiveColumnSVG from './icons/five-circle-bottom.svg';
+import oneColumnSVG from './icons/circle-bottom.svg';
 
 export const options = [
   {
@@ -17,7 +18,7 @@ export const options = [
     title: '3 Panels',
   },
   {
-    icon: threeColumnSVG,
+    icon: fiveColumnSVG,
     defaultData: {
       count: 5,
     },
