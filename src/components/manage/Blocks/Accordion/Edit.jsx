@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 import { BlocksForm } from '@eeacms/volto-blocks-form/components';
-import { Segment, Button } from 'semantic-ui-react';
+import { Segment, Button, Grid } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
 import { SidebarPortal, Icon } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
@@ -125,8 +125,22 @@ const Edit = (props) => {
               >
                 {({ draginfo }, editBlock, blockProps) => (
                   <EditBlockWrapper
+                    accordionData={coldata}
+                    colId={colId}
                     draginfo={draginfo}
                     blockProps={blockProps}
+                    onChangeFormData={(newFormData) => {
+                      onChangeBlock(block, {
+                        ...data,
+                        data: {
+                          ...coldata,
+                          blocks: {
+                            ...coldata.blocks,
+                            [colId]: newFormData,
+                          },
+                        },
+                      });
+                    }}
                     extraControls={
                       <>
                         <Button

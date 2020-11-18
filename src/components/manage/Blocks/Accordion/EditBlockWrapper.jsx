@@ -7,6 +7,8 @@ import includes from 'lodash/includes';
 import isBoolean from 'lodash/isBoolean';
 import { defineMessages, injectIntl } from 'react-intl';
 import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
+import { deleteBlock } from './util';
+import { previousBlockId } from '@eeacms/volto-blocks-form/helpers';
 
 import dragSVG from '@plone/volto/icons/drag.svg';
 import addSVG from '@plone/volto/icons/circle-plus.svg';
@@ -58,21 +60,39 @@ class EditBlockWrapper extends React.Component {
   blockNode = React.createRef();
 
   render() {
-    const { intl, blockProps, draginfo, extraControls, children } = this.props;
+    const {
+      intl,
+      blockProps,
+      draginfo,
+      extraControls,
+      children,
+      onChangeFormData,
+      accordionData,
+      colId,
+    } = this.props;
 
     const {
       allowedBlocks,
       block,
       data,
-      onDeleteBlock,
       onMutateBlock,
       selected,
+      onSelectBlock,
     } = blockProps;
     const type = data['@type'];
     const { disableNewBlocks } = data;
 
     // const visible = selected && blockHasValue(block) && !block.fixed;
     // visibility: visible ? 'visible' : 'hidden',
+
+    const onDeleteBlock = (id, selectPrev) => {
+      const previous = previousBlockId(accordionData, id, colId);
+
+      const newFormData = deleteBlock(accordionData, id, colId);
+      onChangeFormData(newFormData);
+
+      onSelectBlock(selectPrev ? previous : null);
+    };
 
     const required = isBoolean(data.required)
       ? data.required
