@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 import { BlocksForm } from '@eeacms/volto-blocks-form/components';
-import { Segment, Button, Grid } from 'semantic-ui-react';
+import { Segment, Button } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
 import { SidebarPortal, Icon } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
@@ -80,6 +80,7 @@ const Edit = (props) => {
               coldata={coldata}
               handleTitleChange={handleTitleChange}
               data={data}
+              key={index}
             >
               <BlocksForm
                 key={colId}
