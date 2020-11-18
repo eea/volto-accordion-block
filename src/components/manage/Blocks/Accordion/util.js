@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
-import { map } from 'lodash';
+import { map, omit, without, keys } from 'lodash';
+
 import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
@@ -39,4 +40,24 @@ export const GroupblockHasValue = (content) => {
     return blockHasValue(blockData);
   });
   return blockValue.length === 1 ? blockValue[0] : true;
+};
+
+export const deleteBlock = (formData, blockId, colId) => {
+  const blocksFieldname = getBlocksFieldname(formData);
+  const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
+  const panelData = formData[blocksFieldname][colId];
+
+  return {
+    ...panelData,
+    [blocksLayoutFieldname]: {
+      items:
+        panelData[blocksLayoutFieldname].items.length > 1
+          ? without(panelData[blocksLayoutFieldname].items, blockId)
+          : panelData[blocksLayoutFieldname].items,
+    },
+    [blocksFieldname]:
+      keys(panelData[blocksFieldname]).length > 2
+        ? omit(panelData[blocksFieldname], [blockId])
+        : panelData[blocksFieldname],
+  };
 };

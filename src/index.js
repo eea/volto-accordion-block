@@ -1,10 +1,10 @@
-import circleBottomSVG from '@plone/volto/icons/circle-bottom.svg';
+import accordionSVG from '@eeacms/volto-accordion-block/icons/accordion.svg';
 import {
   AccordionBlockEdit,
   AccordionBlockView,
   AccordionBlockSchema,
 } from './components';
-import { PanelWidget } from './Widgets';
+import { PanelWidget } from '@eeacms/volto-accordion-block/components';
 import { options } from '@eeacms/volto-accordion-block/components';
 
 const applyConfig = (config) => {
@@ -36,7 +36,7 @@ const applyConfig = (config) => {
   config.blocks.blocksConfig.accordion = {
     id: 'accordion',
     title: 'Accordion',
-    icon: circleBottomSVG,
+    icon: accordionSVG,
     group: 'common',
     view: AccordionBlockView,
     edit: AccordionBlockEdit,

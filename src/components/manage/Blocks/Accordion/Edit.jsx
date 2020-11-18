@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 import { BlocksForm } from '@eeacms/volto-blocks-form/components';
+import { Segment, Button } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
-import { SidebarPortal } from '@plone/volto/components';
+import { SidebarPortal, Icon } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { accordionBlockSchema } from './Schema';
 import AccordionEdit from './AccordionEdit';
-import Layout from './Layout.jsx';
+import EditBlockWrapper from './EditBlockWrapper';
+import Panels from './Panels.jsx';
 import { empty, getColumns } from './util';
-import { options } from './layout';
+import { options } from './panels';
 import './editor.less';
+import upSVG from '@plone/volto/icons/up.svg';
+import tuneSVG from '@plone/volto/icons/tune.svg';
 
 const Edit = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    pathname,
-    selected,
-    manage,
-    data: { display },
-  } = props;
+  const { block, data, onChangeBlock, pathname, selected } = props;
 
   const metadata = props.metadata || props.properties;
   const properties = isEmpty(data?.data?.blocks)
@@ -28,6 +24,7 @@ const Edit = (props) => {
     : data.data;
 
   const [selectedBlock, setSelectedBlock] = useState({});
+  const [activePanel, setactivePanel] = useState(null);
 
   const createPanes = (initialData) => {
     const { count } = initialData;
@@ -63,19 +60,8 @@ const Edit = (props) => {
 
   return (
     <section className="section-block">
-      {!display && Object.keys(data).length === 1 ? (
-        <Layout
-          variants={options}
-          data={data}
-          onChange={(initialData) => {
-            onChangeBlock(block, {
-              ...data,
-              ...createPanes(initialData),
-            });
-          }}
-        />
-      ) : display && Object.keys(data).length === 2 ? (
-        <Layout
+      {Object.keys(data).length === 1 ? (
+        <Panels
           variants={options}
           data={data}
           onChange={(initialData) => {
@@ -94,14 +80,13 @@ const Edit = (props) => {
               coldata={coldata}
               handleTitleChange={handleTitleChange}
               data={data}
+              key={index}
             >
               <BlocksForm
                 key={colId}
                 metadata={metadata}
                 properties={isEmpty(column) ? emptyBlocksForm() : column}
-                manage={manage}
                 selectedBlock={selected ? selectedBlock[colId] : null}
-                description={data?.instructions?.data}
                 onSelectBlock={(id) =>
                   setSelectedBlock({
                     [colId]: id,
@@ -138,24 +123,82 @@ const Edit = (props) => {
                   }
                 }}
                 pathname={pathname}
-              />
+              >
+                {({ draginfo }, editBlock, blockProps) => (
+                  <EditBlockWrapper
+                    accordionData={coldata}
+                    colId={colId}
+                    draginfo={draginfo}
+                    blockProps={blockProps}
+                    onChangeFormData={(newFormData) => {
+                      onChangeBlock(block, {
+                        ...data,
+                        data: {
+                          ...coldata,
+                          blocks: {
+                            ...coldata.blocks,
+                            [colId]: newFormData,
+                          },
+                        },
+                      });
+                    }}
+                    extraControls={
+                      <>
+                        <Button
+                          icon
+                          basic
+                          title="Edit Panel"
+                          onClick={() => {
+                            setSelectedBlock({});
+                            setactivePanel(colId);
+                            //this.props.setSidebarTab(1);
+                          }}
+                        >
+                          <Icon name={tuneSVG} className="" size="19px" />
+                        </Button>
+                      </>
+                    }
+                  >
+                    {editBlock}
+                  </EditBlockWrapper>
+                )}
+              </BlocksForm>
             </AccordionEdit>
           ))}
         </div>
       )}
       {Object.keys(selectedBlock).length === 0 ? (
         <SidebarPortal selected={true}>
-          <InlineForm
-            schema={accordionBlockSchema()}
-            title="Accordion block"
-            onChangeField={(id, value) => {
-              onChangeBlock(block, {
-                ...data,
-                [id]: value,
-              });
-            }}
-            formData={data}
-          />
+          {activePanel ? (
+            <>
+              <Segment>
+                <Button onClick={() => setactivePanel(null)}>
+                  <Icon name={upSVG} size="14px" />
+                  Edit parent Accordion block
+                </Button>
+              </Segment>
+              {/* <InlineForm
+                schema={''}
+                title={`Panel ${
+                  columnList.map(([colId]) => colId).indexOf(activePanel) + 1
+                }`}
+                onChangeField={onChangeColumnSettings}
+                formData={data?.data?.blocks?.[activePanel]?.settings || {}}
+              /> */}
+            </>
+          ) : (
+            <InlineForm
+              schema={accordionBlockSchema()}
+              title="Accordion block"
+              onChangeField={(id, value) => {
+                onChangeBlock(block, {
+                  ...data,
+                  [id]: value,
+                });
+              }}
+              formData={data}
+            />
+          )}
         </SidebarPortal>
       ) : (
         ''

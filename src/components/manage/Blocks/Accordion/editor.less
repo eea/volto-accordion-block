@@ -1,6 +1,16 @@
 .block-editor-accordion {
   margin: 0 -2.2rem;
 
+  .ui.card {
+    .content {
+      color: #68778d;
+
+      svg {
+        fill: #68778d;
+      }
+    }
+  }
+
   .block-editor-accordion {
     margin: 0 0.1rem;
   }
@@ -20,6 +30,16 @@
   .accordion-title {
     background: #f3f4f5;
   }
+
+  .block {
+    .block-add-button {
+      display: none;
+    }
+
+    .block-toolbar {
+      z-index: 2;
+    }
+  }
 }
 
 .align-arrow-left {
@@ -34,5 +54,9 @@
 }
 
 .input-accordion-title {
+  width: 100%;
+}
+
+.panel-icon {
   width: 100%;
 }

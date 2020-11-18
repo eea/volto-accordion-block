@@ -28,7 +28,7 @@ const View = (props) => {
     <div>
       {columnList.map(([id, column], index) => {
         return GroupblockHasValue(column) ? (
-          <Accordion fluid styled>
+          <Accordion fluid styled key={id}>
             <React.Fragment>
               <Accordion.Title
                 active={activeIndex === index}
