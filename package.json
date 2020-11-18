@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-accordion-block",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "volto-accordion-block: Volto group block to add accordions",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -25,6 +25,13 @@
   },
   "scripts": {
     "release": "release-it",
-    "bootstrap": "node bootstrap"
+    "bootstrap": "node bootstrap",
+    "stylelint": "../../../node_modules/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'",
+    "stylelint:overrides": "../../../node_modules/.bin/stylelint --syntax less --allow-empty-input 'theme/**/*.overrides' 'src/**/*.overrides'",
+    "stylelint:fix": "yarn stylelint --fix && yarn stylelint:overrides --fix",
+    "prettier": "../../../node_modules/.bin/prettier --single-quote --check 'src/**/*.{js,jsx,json,css,less,md}'",
+    "prettier:fix": "../../../node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css,less,md}'",
+    "lint": "../../../node_modules/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'",
+    "lint:fix": "../../../node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'"
   }
 }
