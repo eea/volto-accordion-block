@@ -6,7 +6,7 @@ import './editor.less';
 export default ({ data, onChange, children, variants }) => {
   return (
     <Segment>
-      <h4>Select Panels:</h4>
+      <h4>Accordion Panels:</h4>
       <Card.Group centered itemsPerRow={3}>
         {variants.map(({ icon, defaultData, title }, index) => (
           <Card key={index} onClick={() => onChange(defaultData)}>
