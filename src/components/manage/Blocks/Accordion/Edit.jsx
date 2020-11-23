@@ -12,7 +12,7 @@ import Panels from './Panels.jsx';
 import { empty, getColumns } from './util';
 import { options } from './panels';
 import { blocks } from '~/config';
-import { makeStyleSchema } from '@eeacms/volto-accordion-block/components/manage/Styles';
+import { StyleSchema } from '@eeacms/volto-accordion-block/components/manage/Styles/schema';
 import './editor.less';
 import upSVG from '@plone/volto/icons/up.svg';
 import tuneSVG from '@plone/volto/icons/tune.svg';
@@ -78,8 +78,6 @@ const Edit = (props) => {
       },
     });
   };
-  const { available_colors } = blocks.blocksConfig['accordion'];
-  const AccodionStyleSchema = makeStyleSchema({ available_colors });
 
   return (
     <section className="section-block">
@@ -201,7 +199,7 @@ const Edit = (props) => {
                 </Button>
               </Segment>
               <InlineForm
-                schema={AccodionStyleSchema}
+                schema={StyleSchema()}
                 title="Panels"
                 onChangeField={onChangeColumnSettings}
                 formData={data?.data?.blocks?.settings || {}}

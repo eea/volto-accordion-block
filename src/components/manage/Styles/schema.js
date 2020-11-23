@@ -4,15 +4,10 @@ export const StyleSchema = () => ({
     {
       id: 'default',
       title: 'Style',
-      fields: ['backgroundColor', 'title_size', 'arrow_select'],
+      fields: ['title_size', 'arrow_select'],
     },
   ],
   properties: {
-    backgroundColor: {
-      title: 'Background color',
-      type: 'color',
-      widget: 'color_picker',
-    },
     title_size: {
       title: 'Title size',
       description: 'Size of accordion Title in a Panel',
