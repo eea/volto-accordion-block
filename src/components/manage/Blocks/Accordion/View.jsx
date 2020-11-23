@@ -2,6 +2,7 @@ import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
 import { getColumns, GroupblockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
+import Heading from './Heading';
 
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
@@ -13,7 +14,6 @@ import './editor.less';
 
 const View = (props) => {
   const { data } = props;
-  const CustomTag = `${data.as || 'div'}`;
   const columnList = getColumns(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -34,7 +34,8 @@ const View = (props) => {
                 onClick={handleClick}
                 className="accordion-title"
               >
-                <CustomTag
+                <Heading
+                  as={data.as}
                   className={cx('align-arrow-left', {
                     'align-arrow-right': props?.data?.arrow_select,
                   })}
@@ -50,7 +51,7 @@ const View = (props) => {
                     />
                   )}
                   {column?.blocks_layout?.title}
-                </CustomTag>
+                </Heading>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === index}>
                 <AnimateHeight

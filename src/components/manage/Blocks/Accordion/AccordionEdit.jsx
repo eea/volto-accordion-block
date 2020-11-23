@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
 import rightSVG from '@plone/volto/icons/right-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
+import Heading from './Heading';
 
 import AnimateHeight from 'react-animate-height';
 export default (props) => {
@@ -17,7 +18,6 @@ export default (props) => {
     setActiveIndex(newIndex);
   }
 
-  const CustomTag = `${data.as || 'div'}`;
   return (
     <div className="block-accordion">
       <Accordion fluid styled>
@@ -28,7 +28,8 @@ export default (props) => {
             onClick={handleClick}
             className="accordion-title"
           >
-            <CustomTag
+            <Heading
+              as={data.as}
               className={cx('align-arrow-left', {
                 'align-arrow-right': data?.arrow_select,
               })}
@@ -50,7 +51,7 @@ export default (props) => {
                 onClick={(e) => e.stopPropagation()}
                 onChange={(e) => handleTitleChange(e, [colId, column])}
               />
-            </CustomTag>
+            </Heading>
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
             <AnimateHeight
