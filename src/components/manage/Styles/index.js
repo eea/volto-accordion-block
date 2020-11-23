@@ -6,10 +6,18 @@ export function makeStyleSchema({ available_colors }) {
   return schema;
 }
 
-export function getStyle(props) {
+export function applyBgColor(props) {
   return {
     style: {
       backgroundColor: props.backgroundColor,
+    },
+  };
+}
+
+export function applyTitleSize(props) {
+  return {
+    style: {
+      fontSize: props.title_size,
     },
   };
 }

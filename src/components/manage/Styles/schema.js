@@ -4,7 +4,7 @@ export const StyleSchema = () => ({
     {
       id: 'default',
       title: 'Style',
-      fields: ['backgroundColor'],
+      fields: ['backgroundColor', 'title_size'],
     },
   ],
   properties: {
@@ -13,14 +13,20 @@ export const StyleSchema = () => ({
       type: 'color',
       widget: 'color_picker',
     },
-    // grid_vertical_align: {
-    //   title: 'Vertical align',
-    //   choices: [
-    //     ['bottom', 'Bottom'],
-    //     ['middle', 'Middle'],
-    //     ['top', 'Top'],
-    //   ],
-    // },
+    title_size: {
+      title: 'Title size',
+      description: 'Size of accordion Title in a Panel',
+      choices: [
+        ['xx-small', 'xx-small'],
+        ['x-small', 'x-small'],
+        ['small', 'small'],
+        ['medium', 'medium'],
+        ['large', 'large'],
+        ['x-large', 'x-large'],
+        ['xx-large', 'xx-large'],
+        ['xxx-large', 'xxx-large'],
+      ],
+    },
   },
   required: [],
 });

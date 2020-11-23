@@ -1,7 +1,10 @@
 import React from 'react';
 import { Accordion, Input } from 'semantic-ui-react';
 
-import { getStyle } from '@eeacms/volto-accordion-block/components/manage/Styles';
+import {
+  applyBgColor,
+  applyTitleSize,
+} from '@eeacms/volto-accordion-block/components/manage/Styles';
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
 import rightSVG from '@plone/volto/icons/right-key.svg';
@@ -45,6 +48,7 @@ export default ({
                 <Icon name={rightSVG} size="20px" />
               )}
               <Input
+                {...applyTitleSize(data?.data?.blocks?.settings || {})}
                 fluid
                 className="input-accordion-title"
                 transparent
@@ -59,7 +63,7 @@ export default ({
             <Accordion.Content active={activeIndex === 0}>
               <div
                 style={{ margin: '1em' }}
-                {...getStyle(data?.data?.blocks?.settings || {})}
+                {...applyBgColor(data?.data?.blocks?.settings || {})}
               >
                 <AnimateHeight
                   animateOpacity
