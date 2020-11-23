@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
 import { BlocksForm } from '@eeacms/volto-blocks-form/components';
-import { Segment, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
 import { SidebarPortal, Icon } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
@@ -11,10 +11,9 @@ import EditBlockWrapper from './EditBlockWrapper';
 import Panels from './Panels.jsx';
 import { empty, getColumns } from './util';
 import { options } from './panels';
-import { blocks } from '~/config';
-import { StyleSchema } from '@eeacms/volto-accordion-block/components/manage/Styles/schema';
+
 import './editor.less';
-import upSVG from '@plone/volto/icons/up.svg';
+
 import tuneSVG from '@plone/volto/icons/tune.svg';
 
 const Edit = (props) => {
@@ -26,32 +25,12 @@ const Edit = (props) => {
     : data.data;
 
   const [selectedBlock, setSelectedBlock] = useState({});
-  const [activePanel, setactivePanel] = useState(null);
 
   const createPanes = (initialData) => {
     const { count } = initialData;
     return {
       data: empty(count),
     };
-  };
-
-  const onChangeColumnSettings = (id, value) => {
-    const { data, onChangeBlock, block } = props;
-    const coldata = data.data;
-    const formData = {
-      ...data,
-      data: {
-        ...coldata,
-        blocks: {
-          ...coldata.blocks,
-          settings: {
-            ...coldata.blocks?.settings,
-            [id]: value,
-          },
-        },
-      },
-    };
-    onChangeBlock(block, formData);
   };
 
   const blockState = {};
@@ -171,8 +150,6 @@ const Edit = (props) => {
                           title="Edit Panel"
                           onClick={() => {
                             setSelectedBlock({});
-                            setactivePanel(colId);
-                            //this.props.setSidebarTab(1);
                           }}
                         >
                           <Icon name={tuneSVG} className="" size="19px" />
@@ -190,22 +167,7 @@ const Edit = (props) => {
       )}
       {Object.keys(selectedBlock).length === 0 ? (
         <SidebarPortal selected={true}>
-          {activePanel ? (
-            <>
-              <Segment>
-                <Button onClick={() => setactivePanel(null)}>
-                  <Icon name={upSVG} size="14px" />
-                  Edit parent Accordion block
-                </Button>
-              </Segment>
-              <InlineForm
-                schema={StyleSchema()}
-                title="Panels"
-                onChangeField={onChangeColumnSettings}
-                formData={data?.data?.blocks?.settings || {}}
-              />
-            </>
-          ) : (
+          <>
             <InlineForm
               schema={accordionBlockSchema()}
               title="Accordion block"
@@ -217,7 +179,7 @@ const Edit = (props) => {
               }}
               formData={data}
             />
-          )}
+          </>
         </SidebarPortal>
       ) : (
         ''

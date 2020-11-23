@@ -1,7 +1,7 @@
-export function applyTitleSize(props) {
+export function applyTitleSize(size) {
   return {
     style: {
-      fontSize: props.title_size,
+      fontSize: size,
     },
   };
 }

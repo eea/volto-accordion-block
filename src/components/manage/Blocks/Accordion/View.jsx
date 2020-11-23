@@ -39,7 +39,7 @@ const View = (props) => {
               >
                 <div
                   className={cx('align-arrow-left', {
-                    'align-arrow-right': data?.blocks?.settings?.arrow_select,
+                    'align-arrow-right': props?.data?.arrow_select,
                   })}
                 >
                   {activeIndex === index ? (
@@ -47,7 +47,7 @@ const View = (props) => {
                   ) : (
                     <Icon name={rightSVG} size="20px" />
                   )}
-                  <p {...applyTitleSize(data?.blocks?.settings || {})}>
+                  <p {...applyTitleSize(props?.data?.title_size || {})}>
                     {column?.blocks?.acc_title}
                   </p>
                 </div>

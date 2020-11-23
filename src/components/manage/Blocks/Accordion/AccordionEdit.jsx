@@ -36,7 +36,7 @@ export default ({
           >
             <div
               className={cx('align-arrow-left', {
-                'align-arrow-right': data?.data?.blocks?.settings?.arrow_select,
+                'align-arrow-right': data?.arrow_select,
               })}
             >
               {activeIndex === 0 ? (
@@ -45,7 +45,7 @@ export default ({
                 <Icon name={rightSVG} size="20px" />
               )}
               <Input
-                {...applyTitleSize(data?.data?.blocks?.settings || {})}
+                {...applyTitleSize(data?.title_size || {})}
                 fluid
                 className="input-accordion-title"
                 transparent
