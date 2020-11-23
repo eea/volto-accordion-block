@@ -1,6 +1,10 @@
 .block-editor-accordion {
   margin: 0 -2.2rem;
 
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0 !important;
+  }
+
   .ui.card {
     .content {
       color: #68778d;
@@ -42,15 +46,24 @@
   }
 }
 
+.block-accordion {
+  .content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
 .align-arrow-left {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .align-arrow-right {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
+  align-items: center;
 }
 
 .input-accordion-title {

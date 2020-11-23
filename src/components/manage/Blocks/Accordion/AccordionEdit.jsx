@@ -1,21 +1,14 @@
 import React from 'react';
 import { Accordion, Input } from 'semantic-ui-react';
 
-import { applyTitleSize } from '@eeacms/volto-accordion-block/components/manage/Styles';
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
 import rightSVG from '@plone/volto/icons/right-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 
 import AnimateHeight from 'react-animate-height';
-export default ({
-  children,
-  coldata,
-  handleTitleChange,
-  colId,
-  column,
-  data,
-}) => {
+export default (props) => {
+  const { children, handleTitleChange, colId, column, data } = props;
   const [activeIndex, setActiveIndex] = React.useState(0);
   function handleClick(e, titleProps) {
     const { index } = titleProps;
@@ -24,8 +17,9 @@ export default ({
     setActiveIndex(newIndex);
   }
 
+  const CustomTag = `${data.as || 'div'}`;
   return (
-    <div>
+    <div className="block-accordion">
       <Accordion fluid styled>
         <React.Fragment>
           <Accordion.Title
@@ -34,22 +28,20 @@ export default ({
             onClick={handleClick}
             className="accordion-title"
           >
-            <div
+            <CustomTag
               className={cx('align-arrow-left', {
                 'align-arrow-right': data?.arrow_select,
               })}
             >
               {activeIndex === 0 ? (
-                <Icon name={downSVG} size="20px" />
+                <Icon name={downSVG} />
               ) : (
                 <Icon
                   name={rightSVG}
                   className={cx({ 'rotate-arrow': data?.arrow_select })}
-                  size="20px"
                 />
               )}
               <Input
-                {...applyTitleSize(data?.title_size || {})}
                 fluid
                 className="input-accordion-title"
                 transparent
@@ -58,21 +50,17 @@ export default ({
                 onClick={(e) => e.stopPropagation()}
                 onChange={(e) => handleTitleChange(e, [colId, column])}
               />
-            </div>
+            </CustomTag>
           </Accordion.Title>
-          <div>
-            <Accordion.Content active={activeIndex === 0}>
-              <div style={{ margin: '1em' }}>
-                <AnimateHeight
-                  animateOpacity
-                  duration={500}
-                  height={activeIndex === 0 ? 'auto' : 0}
-                >
-                  {children}
-                </AnimateHeight>
-              </div>
-            </Accordion.Content>
-          </div>
+          <Accordion.Content active={activeIndex === 0}>
+            <AnimateHeight
+              animateOpacity
+              duration={500}
+              height={activeIndex === 0 ? 'auto' : 0}
+            >
+              {children}
+            </AnimateHeight>
+          </Accordion.Content>
         </React.Fragment>
       </Accordion>
     </div>

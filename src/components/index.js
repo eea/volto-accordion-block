@@ -1,6 +1,5 @@
-export AccordionBlockEdit from './manage/Blocks/Accordion/Edit';
-export AccordionBlockView from './manage/Blocks/Accordion/View';
-export AccordionBlockSchema from './manage/Blocks/Accordion/Schema';
-export PanelWidget from './manage/Widgets/PanelWidget';
+export AccordionBlockEdit from '@eeacms/volto-accordion-block/components/manage/Blocks/Accordion/Edit';
+export AccordionBlockView from '@eeacms/volto-accordion-block/components/manage/Blocks/Accordion/View';
+export PanelWidget from '@eeacms/volto-accordion-block/components/manage/Widgets/PanelWidget';
 
-export { options } from './manage/Blocks/Accordion/panels';
+export { options } from '@eeacms/volto-accordion-block/components/manage/Blocks/Accordion/panels';
