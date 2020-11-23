@@ -4,7 +4,7 @@ export const StyleSchema = () => ({
     {
       id: 'default',
       title: 'Style',
-      fields: ['backgroundColor', 'title_size'],
+      fields: ['backgroundColor', 'title_size', 'arrow_select'],
     },
   ],
   properties: {
@@ -27,28 +27,11 @@ export const StyleSchema = () => ({
         ['xxx-large', 'xxx-large'],
       ],
     },
+    arrow_select: {
+      title: 'Toggle arrows',
+      type: 'boolean',
+      default: false,
+    },
   },
   required: [],
 });
-
-export const TextSettingsSchema = {
-  title: 'Text settings',
-  fieldsets: [
-    {
-      id: 'text_settings',
-      title: 'Text settings',
-      fields: ['grid_column_align_text', 'grid_column_text_color'],
-    },
-  ],
-  properties: {
-    grid_column_align_text: {
-      title: 'Text align',
-      widget: 'align',
-    },
-    grid_column_text_color: {
-      title: 'Text color',
-      widget: 'color_picker',
-    },
-  },
-  required: [],
-};

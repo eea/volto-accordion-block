@@ -39,7 +39,7 @@ export default ({
           >
             <div
               className={cx('align-arrow-left', {
-                'align-arrow-right': data.arrow_select,
+                'align-arrow-right': data?.data?.blocks?.settings?.arrow_select,
               })}
             >
               {activeIndex === 0 ? (

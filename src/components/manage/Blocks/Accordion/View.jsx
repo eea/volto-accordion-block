@@ -2,7 +2,10 @@ import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
 import { getColumns, GroupblockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
-import { applyBgColor } from '@eeacms/volto-accordion-block/components/manage/Styles';
+import {
+  applyBgColor,
+  applyTitleSize,
+} from '@eeacms/volto-accordion-block/components/manage/Styles';
 
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
@@ -39,7 +42,7 @@ const View = (props) => {
               >
                 <div
                   className={cx('align-arrow-left', {
-                    'align-arrow-right': props.data.arrow_select,
+                    'align-arrow-right': data?.blocks?.settings?.arrow_select,
                   })}
                 >
                   {activeIndex === index ? (
@@ -47,7 +50,9 @@ const View = (props) => {
                   ) : (
                     <Icon name={rightSVG} size="20px" />
                   )}
-                  <p>{column?.blocks?.acc_title}</p>
+                  <p {...applyTitleSize(data?.blocks?.settings || {})}>
+                    {column?.blocks?.acc_title}
+                  </p>
                 </div>
               </Accordion.Title>
               <div>
