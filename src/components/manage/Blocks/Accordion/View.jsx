@@ -45,7 +45,13 @@ const View = (props) => {
                   {activeIndex === index ? (
                     <Icon name={downSVG} size="20px" />
                   ) : (
-                    <Icon name={rightSVG} size="20px" />
+                    <Icon
+                      name={rightSVG}
+                      size="20px"
+                      className={cx({
+                        'rotate-arrow': props?.data?.arrow_select,
+                      })}
+                    />
                   )}
                   <p {...applyTitleSize(props?.data?.title_size || {})}>
                     {column?.blocks_layout?.title}

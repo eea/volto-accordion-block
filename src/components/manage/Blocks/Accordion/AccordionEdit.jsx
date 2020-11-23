@@ -42,7 +42,11 @@ export default ({
               {activeIndex === 0 ? (
                 <Icon name={downSVG} size="20px" />
               ) : (
-                <Icon name={rightSVG} size="20px" />
+                <Icon
+                  name={rightSVG}
+                  className={cx({ 'rotate-arrow': data?.arrow_select })}
+                  size="20px"
+                />
               )}
               <Input
                 {...applyTitleSize(data?.title_size || {})}
