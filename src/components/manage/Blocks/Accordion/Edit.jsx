@@ -11,6 +11,8 @@ import EditBlockWrapper from './EditBlockWrapper';
 import Panels from './Panels.jsx';
 import { empty, getColumns } from './util';
 import { options } from './panels';
+import { blocks } from '~/config';
+import { makeStyleSchema } from '@eeacms/volto-accordion-block/components/manage/Styles';
 import './editor.less';
 import upSVG from '@plone/volto/icons/up.svg';
 import tuneSVG from '@plone/volto/icons/tune.svg';
@@ -31,6 +33,25 @@ const Edit = (props) => {
     return {
       data: empty(count),
     };
+  };
+
+  const onChangeColumnSettings = (id, value) => {
+    const { data, onChangeBlock, block } = props;
+    const coldata = data.data;
+    const formData = {
+      ...data,
+      data: {
+        ...coldata,
+        blocks: {
+          ...coldata.blocks,
+          settings: {
+            ...coldata.blocks?.settings,
+            [id]: value,
+          },
+        },
+      },
+    };
+    onChangeBlock(block, formData);
   };
 
   const blockState = {};
@@ -57,6 +78,8 @@ const Edit = (props) => {
       },
     });
   };
+  const { available_colors } = blocks.blocksConfig['accordion'];
+  const AccodionStyleSchema = makeStyleSchema({ available_colors });
 
   return (
     <section className="section-block">
@@ -177,14 +200,12 @@ const Edit = (props) => {
                   Edit parent Accordion block
                 </Button>
               </Segment>
-              {/* <InlineForm
-                schema={''}
-                title={`Panel ${
-                  columnList.map(([colId]) => colId).indexOf(activePanel) + 1
-                }`}
+              <InlineForm
+                schema={AccodionStyleSchema}
+                title="Panels"
                 onChangeField={onChangeColumnSettings}
-                formData={data?.data?.blocks?.[activePanel]?.settings || {}}
-              /> */}
+                formData={data?.data?.blocks?.settings || {}}
+              />
             </>
           ) : (
             <InlineForm

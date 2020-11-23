@@ -1,6 +1,7 @@
 import React from 'react';
 import { Accordion, Input } from 'semantic-ui-react';
 
+import { getStyle } from '@eeacms/volto-accordion-block/components/manage/Styles';
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
 import rightSVG from '@plone/volto/icons/right-key.svg';
@@ -56,7 +57,10 @@ export default ({
           </Accordion.Title>
           <div>
             <Accordion.Content active={activeIndex === 0}>
-              <div style={{ margin: '1em' }}>
+              <div
+                style={{ margin: '1em' }}
+                {...getStyle(data?.data?.blocks?.settings || {})}
+              >
                 <AnimateHeight
                   animateOpacity
                   duration={500}

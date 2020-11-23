@@ -4,7 +4,10 @@ import {
   AccordionBlockView,
   AccordionBlockSchema,
 } from './components';
-import { PanelWidget } from '@eeacms/volto-accordion-block/components';
+import {
+  PanelWidget,
+  ColorPickerWidget,
+} from '@eeacms/volto-accordion-block/components';
 import { options } from '@eeacms/volto-accordion-block/components';
 
 const applyConfig = (config) => {
@@ -50,8 +53,28 @@ const applyConfig = (config) => {
       addPermission: [],
       view: [],
     },
+    available_colors: [
+      // '#B80000',
+      // '#DB3E00',
+      // '#FCCB00',
+      // '#008B02',
+      // '#006B76',
+      // '#1273DE',
+      // '#004DCF',
+      // '#5300EB',
+      '#EFEFEF',
+      '#EB9694',
+      '#FAD0C3',
+      '#FEF3BD',
+      '#C1E1C5',
+      '#BEDADC',
+      '#C4DEF6',
+      '#BED3F3',
+      '#D4C4FB',
+    ],
   };
   config.widgets.type.panels = PanelWidget;
+  config.widgets.widget.color_picker = ColorPickerWidget;
   return config;
 };
 

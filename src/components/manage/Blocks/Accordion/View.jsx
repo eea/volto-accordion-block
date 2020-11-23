@@ -2,6 +2,7 @@ import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
 import { getColumns, GroupblockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
+import { getStyle } from '@eeacms/volto-accordion-block/components/manage/Styles';
 
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
@@ -51,7 +52,7 @@ const View = (props) => {
               </Accordion.Title>
               <div>
                 <Accordion.Content active={activeIndex === index}>
-                  <div>
+                  <div {...getStyle(data?.blocks?.settings || {})}>
                     <AnimateHeight
                       animateOpacity
                       duration={500}
