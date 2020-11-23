@@ -50,7 +50,7 @@ export default ({
                 className="input-accordion-title"
                 transparent
                 placeholder="Enter Title"
-                value={column?.blocks?.acc_title}
+                value={column?.blocks_layout?.title}
                 onClick={(e) => e.stopPropagation()}
                 onChange={(e) => handleTitleChange(e, [colId, column])}
               />

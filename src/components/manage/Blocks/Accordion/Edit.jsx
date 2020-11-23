@@ -41,9 +41,9 @@ const Edit = (props) => {
     const [colId, column] = value;
     const modifiedBlock = {
       ...column,
-      blocks: {
-        ...column.blocks,
-        acc_title: e.target.value,
+      blocks_layout: {
+        ...column.blocks_layout,
+        title: e.target.value,
       },
     };
     onChangeBlock(block, {

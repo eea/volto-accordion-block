@@ -48,7 +48,7 @@ const View = (props) => {
                     <Icon name={rightSVG} size="20px" />
                   )}
                   <p {...applyTitleSize(props?.data?.title_size || {})}>
-                    {column?.blocks?.acc_title}
+                    {column?.blocks_layout?.title}
                   </p>
                 </div>
               </Accordion.Title>
