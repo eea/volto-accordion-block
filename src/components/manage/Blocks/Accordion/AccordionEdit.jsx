@@ -12,8 +12,8 @@ export default (props) => {
     children,
     handleTitleChange,
     handleTitleClick,
-    colId,
-    column,
+    uid,
+    panel,
     data,
   } = props;
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -51,12 +51,12 @@ export default (props) => {
             className="input-accordion-title"
             transparent
             placeholder="Enter Title"
-            value={column?.title}
+            value={panel?.title}
             onClick={(e) => {
               handleTitleClick();
               e.stopPropagation();
             }}
-            onChange={(e) => handleTitleChange(e, [colId, column])}
+            onChange={(e) => handleTitleChange(e, [uid, panel])}
           />
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>

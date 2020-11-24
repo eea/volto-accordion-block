@@ -6,7 +6,7 @@ import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { accordionBlockSchema } from './Schema';
 import AccordionEdit from './AccordionEdit';
-import { empty, getColumns } from './util';
+import { emptyAccordion, getPanels } from './util';
 
 import './editor.less';
 
@@ -14,26 +14,28 @@ const Edit = (props) => {
   const { block, data, onChangeBlock, pathname, selected } = props;
 
   const metadata = props.metadata || props.properties;
-  const properties = isEmpty(data?.data?.blocks) ? empty(3) : data.data;
+  const properties = isEmpty(data?.data?.blocks)
+    ? emptyAccordion(3)
+    : data.data;
   const [selectedBlock, setSelectedBlock] = useState({});
 
   const blockState = {};
-  const coldata = properties;
-  const columnList = getColumns(coldata);
+  const panelData = properties;
+  const panels = getPanels(panelData);
 
   const handleTitleChange = (e, value) => {
-    const [colId, column] = value;
+    const [uid, panel] = value;
     const modifiedBlock = {
-      ...column,
+      ...panel,
       title: e.target.value,
     };
     onChangeBlock(block, {
       ...data,
       data: {
-        ...coldata,
+        ...panelData,
         blocks: {
-          ...coldata.blocks,
-          [colId]: modifiedBlock,
+          ...panelData.blocks,
+          [uid]: modifiedBlock,
         },
       },
     });
@@ -41,34 +43,34 @@ const Edit = (props) => {
 
   return (
     <div className="accordion-block">
-      {columnList.map(([colId, column], index) => (
+      {panels.map(([uid, panel], index) => (
         <AccordionEdit
-          colId={colId}
-          column={column}
-          coldata={coldata}
+          uid={uid}
+          panel={panel}
+          panelData={panelData}
           handleTitleChange={handleTitleChange}
           handleTitleClick={() => setSelectedBlock({})}
           data={data}
           key={index}
         >
           <BlocksForm
-            key={colId}
+            key={uid}
             metadata={metadata}
-            properties={isEmpty(column) ? emptyBlocksForm() : column}
-            selectedBlock={selected ? selectedBlock[colId] : null}
+            properties={isEmpty(panel) ? emptyBlocksForm() : panel}
+            selectedBlock={selected ? selectedBlock[uid] : null}
             onSelectBlock={(id) =>
               setSelectedBlock({
-                [colId]: id,
+                [uid]: id,
               })
             }
             onChangeFormData={(newFormData) => {
               onChangeBlock(block, {
                 ...data,
                 data: {
-                  ...coldata,
+                  ...panelData,
                   blocks: {
-                    ...coldata.blocks,
-                    [colId]: newFormData,
+                    ...panelData.blocks,
+                    [uid]: newFormData,
                   },
                 },
               });
@@ -79,11 +81,11 @@ const Edit = (props) => {
                 onChangeBlock(block, {
                   ...data,
                   data: {
-                    ...coldata,
+                    ...panelData,
                     blocks: {
-                      ...coldata.blocks,
-                      [colId]: {
-                        ...coldata.blocks?.[colId],
+                      ...panelData.blocks,
+                      [uid]: {
+                        ...panelData.blocks?.[uid],
                         ...blockState,
                       },
                     },

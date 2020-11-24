@@ -1,6 +1,6 @@
 import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
-import { getColumns, AccordionblockHasValue } from './util';
+import { getPanels, accordionBlockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
 
 import cx from 'classnames';
@@ -13,7 +13,7 @@ import './editor.less';
 
 const View = (props) => {
   const { data } = props;
-  const columnList = getColumns(data.data);
+  const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState(0);
   function handleClick(e, titleProps) {
@@ -23,8 +23,8 @@ const View = (props) => {
   }
   return (
     <div className="accordion-block">
-      {columnList.map(([id, column], index) => {
-        return AccordionblockHasValue(column) ? (
+      {panels.map(([id, panel], index) => {
+        return accordionBlockHasValue(panel) ? (
           <Accordion fluid styled key={id}>
             <React.Fragment>
               <Accordion.Title
@@ -48,7 +48,7 @@ const View = (props) => {
                     })}
                   />
                 )}
-                <label>{column?.title}</label>
+                <label>{panel?.title}</label>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === index}>
                 <AnimateHeight
@@ -59,7 +59,7 @@ const View = (props) => {
                   <RenderBlocks
                     {...props}
                     metadata={metadata}
-                    content={column}
+                    content={panel}
                   />
                 </AnimateHeight>
               </Accordion.Content>

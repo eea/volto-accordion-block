@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
-import { map, omit, without, keys } from 'lodash';
+import { map } from 'lodash';
 
 import {
   getBlocksFieldname,
@@ -8,7 +8,7 @@ import {
   blockHasValue,
 } from '@plone/volto/helpers';
 
-export const empty = (count) => {
+export const emptyAccordion = (count) => {
   const blocks = {};
   const items = [];
   for (let x = 0; x < count; x++) {
@@ -25,14 +25,14 @@ export const empty = (count) => {
   };
 };
 
-export const getColumns = (data) => {
+export const getPanels = (data) => {
   return (data?.blocks_layout?.items || []).map((id) => [
     id,
     data.blocks?.[id],
   ]);
 };
 
-export const AccordionblockHasValue = (content) => {
+export const accordionBlockHasValue = (content) => {
   const blocksFieldname = getBlocksFieldname(content);
   const blocksLayoutFieldname = getBlocksLayoutFieldname(content);
   const blockValue = map(content[blocksLayoutFieldname].items, (block) => {
@@ -41,24 +41,4 @@ export const AccordionblockHasValue = (content) => {
   });
   if (content.hasOwnProperty('title') && content?.title.length > 0) return true;
   return blockValue.some((item) => item === true);
-};
-
-export const deleteBlock = (formData, blockId, colId) => {
-  const blocksFieldname = getBlocksFieldname(formData);
-  const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
-  const panelData = formData[blocksFieldname][colId];
-
-  return {
-    ...panelData,
-    [blocksLayoutFieldname]: {
-      items:
-        panelData[blocksLayoutFieldname].items.length > 1
-          ? without(panelData[blocksLayoutFieldname].items, blockId)
-          : panelData[blocksLayoutFieldname].items,
-    },
-    [blocksFieldname]:
-      keys(panelData[blocksFieldname]).length > 2
-        ? omit(panelData[blocksFieldname], [blockId])
-        : panelData[blocksFieldname],
-  };
 };
