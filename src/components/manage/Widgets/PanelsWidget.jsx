@@ -10,7 +10,9 @@ import dragSVG from '@plone/volto/icons/drag.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
 import plusSVG from '@plone/volto/icons/circle-plus.svg';
 
-export function moveColumn(formData, source, destination) {
+import './editor.less';
+
+export function moveItem(formData, source, destination) {
   return {
     ...formData,
     blocks_layout: {
@@ -23,29 +25,25 @@ const empty = () => {
   return [uuid(), emptyBlocksForm()];
 };
 
-const PanelWidget = (props) => {
+const PanelsWidget = (props) => {
   const { value = {}, id, onChange } = props;
   const { blocks = {} } = value;
-  const columnsList = (value.blocks_layout?.items || []).map((id) => [
+  const itemsList = (value.blocks_layout?.items || []).map((id) => [
     id,
     blocks[id],
   ]);
 
   return (
-    <FormFieldWrapper
-      {...props}
-      draggable={false}
-      className="drag-drop-list-widget"
-    >
-      <div className="columns-area">
+    <FormFieldWrapper {...props} draggable={false} className="panels-widget">
+      <div className="items-area">
         <DragDropList
-          childList={columnsList}
+          childList={itemsList}
           onMoveItem={(result) => {
             const { source, destination } = result;
             if (!destination) {
               return;
             }
-            const newFormData = moveColumn(
+            const newFormData = moveItem(
               value,
               source.index,
               destination.index,
@@ -69,7 +67,7 @@ const PanelWidget = (props) => {
                   >
                     <Icon name={dragSVG} size="18px" />
                   </div>
-                  <div className="column-area">
+                  <div className="item-area">
                     <div className="label">Panel {index + 1}</div>
                     {value.blocks_layout?.items?.length > 1 ? (
                       <button
@@ -122,4 +120,4 @@ const PanelWidget = (props) => {
   );
 };
 
-export default PanelWidget;
+export default PanelsWidget;

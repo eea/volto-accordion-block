@@ -1,7 +1,6 @@
 import accordionSVG from '@plone/volto/icons/list-arrows.svg';
 import { AccordionBlockEdit, AccordionBlockView } from './components';
-import { PanelWidget } from '@eeacms/volto-accordion-block/components';
-import { options } from '@eeacms/volto-accordion-block/components';
+import { PanelsWidget } from '@eeacms/volto-accordion-block/components';
 
 const applyConfig = (config) => {
   config.blocks.blocksConfig.accordion = {
@@ -12,7 +11,6 @@ const applyConfig = (config) => {
     view: AccordionBlockView,
     edit: AccordionBlockEdit,
     restricted: false,
-    options,
     mostUsed: false,
     blockHasOwnFocusManagement: true,
     sidebarTab: 1,
@@ -21,7 +19,7 @@ const applyConfig = (config) => {
       view: [],
     },
   };
-  config.widgets.type.panels = PanelWidget;
+  config.widgets.type.panels = PanelsWidget;
   return config;
 };
 
