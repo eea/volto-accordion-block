@@ -1,6 +1,6 @@
 import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
-import { getColumns, GroupblockHasValue } from './util';
+import { getColumns, AccordionblockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
 import { applyTitleSize } from '@eeacms/volto-accordion-block/components/manage/Styles';
 
@@ -16,6 +16,7 @@ const View = (props) => {
   const {
     data: { data = {} },
   } = props;
+
   const columnList = getColumns(data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -28,7 +29,7 @@ const View = (props) => {
   return (
     <div>
       {columnList.map(([id, column], index) => {
-        return GroupblockHasValue(column) ? (
+        return AccordionblockHasValue(column) ? (
           <Accordion fluid styled key={id}>
             <React.Fragment>
               <Accordion.Title

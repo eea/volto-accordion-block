@@ -32,14 +32,19 @@ export const getColumns = (data) => {
   ]);
 };
 
-export const GroupblockHasValue = (content) => {
+export const AccordionblockHasValue = (content) => {
   const blocksFieldname = getBlocksFieldname(content);
   const blocksLayoutFieldname = getBlocksLayoutFieldname(content);
   const blockValue = map(content[blocksLayoutFieldname].items, (block) => {
     const blockData = content[blocksFieldname]?.[block];
     return blockHasValue(blockData);
   });
-  return blockValue.length === 1 ? blockValue[0] : true;
+  if (
+    content[blocksLayoutFieldname].hasOwnProperty('title') &&
+    content[blocksLayoutFieldname]?.title.length > 0
+  )
+    return true;
+  return blockValue.some((item) => item === true);
 };
 
 export const deleteBlock = (formData, blockId, colId) => {
