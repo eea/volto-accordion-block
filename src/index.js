@@ -1,6 +1,38 @@
 import accordionSVG from '@plone/volto/icons/list-arrows.svg';
-import { AccordionBlockEdit, AccordionBlockView } from './components';
+import {
+  AccordionBlockEdit,
+  AccordionBlockView,
+  AccordionLayoutSchema,
+} from './components';
 import { PanelsWidget } from '@eeacms/volto-accordion-block/components';
+
+const extendedSchema = (config) => {
+  const choices = Object.keys(config.blocks.blocksConfig)
+    .map((key) => {
+      if (config.blocks.blocksConfig[key]?.restricted) {
+        return false;
+      } else {
+        const title = config.blocks.blocksConfig[key]?.title || key;
+        return [key, title];
+      }
+    })
+    .filter((val) => !!val);
+
+  choices.push(['accordion', 'Accordion']);
+
+  return {
+    ...AccordionLayoutSchema,
+    properties: {
+      ...AccordionLayoutSchema.properties,
+      allowedBlocks: {
+        ...AccordionLayoutSchema.properties.allowedBlocks,
+        items: {
+          choices: choices,
+        },
+      },
+    },
+  };
+};
 
 const applyConfig = (config) => {
   config.blocks.blocksConfig.accordion = {
@@ -14,6 +46,7 @@ const applyConfig = (config) => {
     mostUsed: false,
     blockHasOwnFocusManagement: true,
     sidebarTab: 1,
+    schema: extendedSchema(config),
     security: {
       addPermission: [],
       view: [],

@@ -11,7 +11,7 @@ import { emptyAccordion, getPanels } from './util';
 import './editor.less';
 
 const Edit = (props) => {
-  const { block, data, onChangeBlock, pathname, selected } = props;
+  const { block, data, onChangeBlock, pathname, selected, manage } = props;
 
   const metadata = props.metadata || props.properties;
   const properties = isEmpty(data?.data?.blocks)
@@ -55,6 +55,10 @@ const Edit = (props) => {
         >
           <BlocksForm
             key={uid}
+            title={data.placeholder}
+            description={data?.instructions?.data}
+            manage={manage}
+            allowedBlocks={data.allowedBlocks}
             metadata={metadata}
             properties={isEmpty(panel) ? emptyBlocksForm() : panel}
             selectedBlock={selected ? selectedBlock[uid] : null}
@@ -97,7 +101,7 @@ const Edit = (props) => {
           />
         </AccordionEdit>
       ))}
-      {Object.keys(selectedBlock).length === 0 ? (
+      {Object.keys(selectedBlock).length === 0 && !data.readOnlySettings ? (
         <SidebarPortal selected={true}>
           <>
             <InlineForm

@@ -46,18 +46,22 @@ export default (props) => {
               className={cx({ 'rotate-arrow': data?.right_arrows })}
             />
           )}
-          <Input
-            fluid
-            className="input-accordion-title"
-            transparent
-            placeholder="Enter Title"
-            value={panel?.title}
-            onClick={(e) => {
-              handleTitleClick();
-              e.stopPropagation();
-            }}
-            onChange={(e) => handleTitleChange(e, [uid, panel])}
-          />
+          {!data.readOnlyTitles ? (
+            <Input
+              fluid
+              className="input-accordion-title"
+              transparent
+              placeholder="Enter Title"
+              value={panel?.title}
+              onClick={(e) => {
+                handleTitleClick();
+                e.stopPropagation();
+              }}
+              onChange={(e) => handleTitleChange(e, [uid, panel])}
+            />
+          ) : (
+            <span>{panel?.title}</span>
+          )}
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 0}>
           <AnimateHeight

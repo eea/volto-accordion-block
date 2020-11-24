@@ -48,7 +48,7 @@ const View = (props) => {
                     })}
                   />
                 )}
-                <label>{panel?.title}</label>
+                <span>{panel?.title}</span>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === index}>
                 <AnimateHeight
