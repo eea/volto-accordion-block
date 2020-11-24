@@ -1,16 +1,6 @@
 .block-editor-accordion {
   margin: 0 -2.2rem;
 
-  .ui.card {
-    .content {
-      color: #68778d;
-
-      svg {
-        fill: #68778d;
-      }
-    }
-  }
-
   .block-editor-accordion {
     margin: 0 0.1rem;
   }
@@ -21,46 +11,53 @@
     border-radius: 1rem;
   }
 
-  .section-block {
+  .accordion-block {
     padding-top: 1rem;
     padding-bottom: 0.1rem;
     margin: 0 2rem;
   }
+}
 
-  .accordion-title {
-    background: #f3f4f5;
+.accordion-block {
+  .accordion {
+    margin-top: 0 !important;
   }
 
-  .block {
-    .block-add-button {
-      display: none;
-    }
-
-    .block-toolbar {
-      z-index: 2;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 !important;
   }
-}
 
-.align-arrow-left {
-  display: flex;
-  flex-direction: row;
-}
+  .align-arrow-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 
-.align-arrow-right {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-}
+  .align-arrow-right {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.input-accordion-title {
-  width: 100%;
-}
+  .input-accordion-title {
+    width: 100%;
+  }
 
-.panel-icon {
-  width: 100%;
-}
+  .block.selected {
+    z-index: 2;
+  }
 
-.rotate-arrow {
-  transform: rotate(180deg);
+  .content.active {
+    padding: 9px !important;
+  }
+
+  .rotate-arrow {
+    transform: rotate(180deg);
+  }
 }
