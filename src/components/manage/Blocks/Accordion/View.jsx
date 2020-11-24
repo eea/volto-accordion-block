@@ -2,7 +2,6 @@ import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
 import { getColumns, GroupblockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
-import Heading from './Heading';
 
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
@@ -23,35 +22,33 @@ const View = (props) => {
     setActiveIndex(newIndex);
   }
   return (
-    <div className="block-accordion">
+    <div className="accordion-block">
       {columnList.map(([id, column], index) => {
         return GroupblockHasValue(column) ? (
           <Accordion fluid styled key={id}>
             <React.Fragment>
               <Accordion.Title
+                as={data.title_size}
                 active={activeIndex === index}
                 index={index}
                 onClick={handleClick}
-                className="accordion-title"
+                className={cx('accordion-title', {
+                  'align-arrow-left': !props?.data?.right_arrows,
+                  'align-arrow-right': props?.data?.right_arrows,
+                })}
               >
-                <Heading
-                  as={data.as}
-                  className={cx('align-arrow-left', {
-                    'align-arrow-right': props?.data?.arrow_select,
-                  })}
-                >
-                  {activeIndex === index ? (
-                    <Icon name={downSVG} />
-                  ) : (
-                    <Icon
-                      name={rightSVG}
-                      className={cx({
-                        'rotate-arrow': props?.data?.arrow_select,
-                      })}
-                    />
-                  )}
-                  {column?.blocks_layout?.title}
-                </Heading>
+                {activeIndex === index ? (
+                  <Icon name={downSVG} size="24px" />
+                ) : (
+                  <Icon
+                    name={rightSVG}
+                    size="24px"
+                    className={cx({
+                      'rotate-arrow': props?.data?.right_arrows,
+                    })}
+                  />
+                )}
+                <label>{column?.blocks_layout?.title}</label>
               </Accordion.Title>
               <Accordion.Content active={activeIndex === index}>
                 <AnimateHeight

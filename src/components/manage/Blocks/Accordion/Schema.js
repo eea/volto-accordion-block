@@ -21,40 +21,35 @@ export const accordionBlockSchema = () => ({
     {
       id: 'default',
       title: 'Default',
-      fields: ['data'], //  'nrColumns', 'block_title'
+      fields: ['data'],
     },
     {
       id: 'style',
       title: 'Style',
-      fields: ['as', 'arrow_select'],
+      fields: ['title_size', 'right_arrows'],
     },
   ],
   properties: {
-    block_title: {
-      title: 'Block title',
-      default: 'Panels',
-    },
     data: {
       title: 'Accordion',
       type: 'panels',
       schema: AccordionSchema,
     },
-    as: {
+    title_size: {
       title: 'Title size',
       description: 'Accordion Title size',
       type: 'string',
       factory: 'Choice',
-      default: 'h6',
       choices: [
-        ['h2', 'h2'],
-        ['h3', 'h3'],
-        ['h4', 'h4'],
-        ['h5', 'h5'],
-        ['h6', 'h6'],
+        ['h2', 'Heading 2'],
+        ['h3', 'Heading 3'],
+        ['h4', 'Heading 4'],
+        ['h5', 'Heading 5'],
+        ['h6', 'Heading 6'],
       ],
     },
-    arrow_select: {
-      title: 'Toggle arrows',
+    right_arrows: {
+      title: 'Arrows on the right',
       type: 'boolean',
       default: false,
     },

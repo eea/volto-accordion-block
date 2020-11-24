@@ -1,4 +1,4 @@
-import accordionSVG from '@eeacms/volto-accordion-block/icons/accordion.svg';
+import accordionSVG from '@plone/volto/icons/list-arrows.svg';
 import { AccordionBlockEdit, AccordionBlockView } from './components';
 import { PanelWidget } from '@eeacms/volto-accordion-block/components';
 import { options } from '@eeacms/volto-accordion-block/components';
