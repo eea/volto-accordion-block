@@ -6,161 +6,121 @@ import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { accordionBlockSchema } from './Schema';
 import AccordionEdit from './AccordionEdit';
-import Layout from './Layout.jsx';
-import { empty, getColumns } from './util';
-import { options } from './layout';
+import { emptyAccordion, getPanels } from './util';
+
 import './editor.less';
 
 const Edit = (props) => {
-  const {
-    block,
-    data,
-    onChangeBlock,
-    pathname,
-    selected,
-    manage,
-    data: { display },
-  } = props;
+  const { block, data, onChangeBlock, pathname, selected, manage } = props;
 
   const metadata = props.metadata || props.properties;
   const properties = isEmpty(data?.data?.blocks)
-    ? emptyBlocksForm()
+    ? emptyAccordion(3)
     : data.data;
-
   const [selectedBlock, setSelectedBlock] = useState({});
 
-  const createPanes = (initialData) => {
-    const { count } = initialData;
-    return {
-      data: empty(count),
-    };
-  };
-
   const blockState = {};
-  const coldata = properties;
-  const columnList = getColumns(coldata);
+  const panelData = properties;
+  const panels = getPanels(panelData);
 
   const handleTitleChange = (e, value) => {
-    const [colId, column] = value;
+    const [uid, panel] = value;
     const modifiedBlock = {
-      ...column,
-      blocks: {
-        ...column.blocks,
-        acc_title: e.target.value,
-      },
+      ...panel,
+      title: e.target.value,
     };
     onChangeBlock(block, {
       ...data,
       data: {
-        ...coldata,
+        ...panelData,
         blocks: {
-          ...coldata.blocks,
-          [colId]: modifiedBlock,
+          ...panelData.blocks,
+          [uid]: modifiedBlock,
         },
       },
     });
   };
 
   return (
-    <section className="section-block">
-      {!display && Object.keys(data).length === 1 ? (
-        <Layout
-          variants={options}
+    <div className="accordion-block">
+      {panels.map(([uid, panel], index) => (
+        <AccordionEdit
+          uid={uid}
+          panel={panel}
+          panelData={panelData}
+          handleTitleChange={handleTitleChange}
+          handleTitleClick={() => setSelectedBlock({})}
           data={data}
-          onChange={(initialData) => {
-            onChangeBlock(block, {
-              ...data,
-              ...createPanes(initialData),
-            });
-          }}
-        />
-      ) : display && Object.keys(data).length === 2 ? (
-        <Layout
-          variants={options}
-          data={data}
-          onChange={(initialData) => {
-            onChangeBlock(block, {
-              ...data,
-              ...createPanes(initialData),
-            });
-          }}
-        />
-      ) : (
-        <div>
-          {columnList.map(([colId, column], index) => (
-            <AccordionEdit
-              colId={colId}
-              column={column}
-              coldata={coldata}
-              handleTitleChange={handleTitleChange}
-              data={data}
-            >
-              <BlocksForm
-                key={colId}
-                metadata={metadata}
-                properties={isEmpty(column) ? emptyBlocksForm() : column}
-                manage={manage}
-                selectedBlock={selected ? selectedBlock[colId] : null}
-                description={data?.instructions?.data}
-                onSelectBlock={(id) =>
-                  setSelectedBlock({
-                    [colId]: id,
-                  })
-                }
-                onChangeFormData={(newFormData) => {
-                  onChangeBlock(block, {
-                    ...data,
-                    data: {
-                      ...coldata,
-                      blocks: {
-                        ...coldata.blocks,
-                        [colId]: newFormData,
-                      },
-                    },
-                  });
-                }}
-                onChangeField={(id, value) => {
-                  if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
-                    blockState[id] = value;
-                    onChangeBlock(block, {
-                      ...data,
-                      data: {
-                        ...coldata,
-                        blocks: {
-                          ...coldata.blocks,
-                          [colId]: {
-                            ...coldata.blocks?.[colId],
-                            ...blockState,
-                          },
-                        },
-                      },
-                    });
-                  }
-                }}
-                pathname={pathname}
-              />
-            </AccordionEdit>
-          ))}
-        </div>
-      )}
-      {Object.keys(selectedBlock).length === 0 ? (
-        <SidebarPortal selected={true}>
-          <InlineForm
-            schema={accordionBlockSchema()}
-            title="Accordion block"
-            onChangeField={(id, value) => {
+          key={index}
+        >
+          <BlocksForm
+            key={uid}
+            title={data.placeholder}
+            description={data?.instructions?.data}
+            manage={manage}
+            allowedBlocks={data.allowedBlocks}
+            metadata={metadata}
+            properties={isEmpty(panel) ? emptyBlocksForm() : panel}
+            selectedBlock={selected ? selectedBlock[uid] : null}
+            onSelectBlock={(id) =>
+              setSelectedBlock({
+                [uid]: id,
+              })
+            }
+            onChangeFormData={(newFormData) => {
               onChangeBlock(block, {
                 ...data,
-                [id]: value,
+                data: {
+                  ...panelData,
+                  blocks: {
+                    ...panelData.blocks,
+                    [uid]: newFormData,
+                  },
+                },
               });
             }}
-            formData={data}
+            onChangeField={(id, value) => {
+              if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
+                blockState[id] = value;
+                onChangeBlock(block, {
+                  ...data,
+                  data: {
+                    ...panelData,
+                    blocks: {
+                      ...panelData.blocks,
+                      [uid]: {
+                        ...panelData.blocks?.[uid],
+                        ...blockState,
+                      },
+                    },
+                  },
+                });
+              }
+            }}
+            pathname={pathname}
           />
+        </AccordionEdit>
+      ))}
+      {Object.keys(selectedBlock).length === 0 && !data.readOnlySettings ? (
+        <SidebarPortal selected={true}>
+          <>
+            <InlineForm
+              schema={accordionBlockSchema()}
+              title="Accordion block"
+              onChangeField={(id, value) => {
+                onChangeBlock(block, {
+                  ...data,
+                  [id]: value,
+                });
+              }}
+              formData={data}
+            />
+          </>
         </SidebarPortal>
       ) : (
         ''
       )}
-    </section>
+    </div>
   );
 };
 

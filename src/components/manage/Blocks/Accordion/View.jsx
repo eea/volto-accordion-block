@@ -1,6 +1,6 @@
 import React from 'react';
 import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
-import { getColumns, GroupblockHasValue } from './util';
+import { getPanels, accordionBlockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
 
 import cx from 'classnames';
@@ -12,60 +12,57 @@ import AnimateHeight from 'react-animate-height';
 import './editor.less';
 
 const View = (props) => {
-  const {
-    data: { data = {} },
-  } = props;
-  const columnList = getColumns(data);
+  const { data } = props;
+  const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState(0);
   function handleClick(e, titleProps) {
     const { index } = titleProps;
     const newIndex = activeIndex === index ? -1 : index;
-
     setActiveIndex(newIndex);
   }
   return (
-    <div>
-      {columnList.map(([id, column], index) => {
-        return GroupblockHasValue(column) ? (
-          <Accordion fluid styled>
+    <div className="accordion-block">
+      {panels.map(([id, panel], index) => {
+        return accordionBlockHasValue(panel) ? (
+          <Accordion fluid styled key={id}>
             <React.Fragment>
               <Accordion.Title
+                as={data.title_size}
                 active={activeIndex === index}
                 index={index}
                 onClick={handleClick}
-                className="accordion-title"
+                className={cx('accordion-title', {
+                  'align-arrow-left': !props?.data?.right_arrows,
+                  'align-arrow-right': props?.data?.right_arrows,
+                })}
               >
-                <div
-                  className={cx('align-arrow-left', {
-                    'align-arrow-right': props.data.arrow_select,
-                  })}
-                >
-                  {activeIndex === index ? (
-                    <Icon name={downSVG} size="20px" />
-                  ) : (
-                    <Icon name={rightSVG} size="20px" />
-                  )}
-                  <p>{column?.blocks?.acc_title}</p>
-                </div>
+                {activeIndex === index ? (
+                  <Icon name={downSVG} size="24px" />
+                ) : (
+                  <Icon
+                    name={rightSVG}
+                    size="24px"
+                    className={cx({
+                      'rotate-arrow': props?.data?.right_arrows,
+                    })}
+                  />
+                )}
+                <span>{panel?.title}</span>
               </Accordion.Title>
-              <div>
-                <Accordion.Content active={activeIndex === index}>
-                  <div>
-                    <AnimateHeight
-                      animateOpacity
-                      duration={500}
-                      height={activeIndex === index ? 'auto' : 0}
-                    >
-                      <RenderBlocks
-                        {...props}
-                        metadata={metadata}
-                        content={column}
-                      />
-                    </AnimateHeight>
-                  </div>
-                </Accordion.Content>
-              </div>
+              <Accordion.Content active={activeIndex === index}>
+                <AnimateHeight
+                  animateOpacity
+                  duration={500}
+                  height={activeIndex === index ? 'auto' : 0}
+                >
+                  <RenderBlocks
+                    {...props}
+                    metadata={metadata}
+                    content={panel}
+                  />
+                </AnimateHeight>
+              </Accordion.Content>
             </React.Fragment>
           </Accordion>
         ) : null;

@@ -1,13 +1,12 @@
-import circleBottomSVG from '@plone/volto/icons/circle-bottom.svg';
+import accordionSVG from '@plone/volto/icons/list-arrows.svg';
 import {
   AccordionBlockEdit,
   AccordionBlockView,
-  AccordionBlockSchema,
+  AccordionLayoutSchema,
 } from './components';
-import { PanelWidget } from './Widgets';
-import { options } from '@eeacms/volto-accordion-block/components';
+import { PanelsWidget } from '@eeacms/volto-accordion-block/components';
 
-const applyConfig = (config) => {
+const extendedSchema = (config) => {
   const choices = Object.keys(config.blocks.blocksConfig)
     .map((key) => {
       if (config.blocks.blocksConfig[key]?.restricted) {
@@ -21,37 +20,39 @@ const applyConfig = (config) => {
 
   choices.push(['accordion', 'Accordion']);
 
-  const schema = {
-    ...AccordionBlockSchema,
+  return {
+    ...AccordionLayoutSchema,
     properties: {
-      ...AccordionBlockSchema.properties,
+      ...AccordionLayoutSchema.properties,
       allowedBlocks: {
-        ...AccordionBlockSchema.properties.allowedBlocks,
+        ...AccordionLayoutSchema.properties.allowedBlocks,
         items: {
           choices: choices,
         },
       },
     },
   };
+};
+
+const applyConfig = (config) => {
   config.blocks.blocksConfig.accordion = {
     id: 'accordion',
     title: 'Accordion',
-    icon: circleBottomSVG,
+    icon: accordionSVG,
     group: 'common',
     view: AccordionBlockView,
     edit: AccordionBlockEdit,
-    schema: schema,
     restricted: false,
-    options,
     mostUsed: false,
     blockHasOwnFocusManagement: true,
     sidebarTab: 1,
+    schema: extendedSchema(config),
     security: {
       addPermission: [],
       view: [],
     },
   };
-  config.widgets.type.panels = PanelWidget;
+  config.widgets.type.panels = PanelsWidget;
   return config;
 };
 

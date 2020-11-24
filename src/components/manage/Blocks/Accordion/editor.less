@@ -11,28 +11,61 @@
     border-radius: 1rem;
   }
 
-  .section-block {
+  .accordion-block {
     padding-top: 1rem;
     padding-bottom: 0.1rem;
     margin: 0 2rem;
   }
+}
+
+.accordion-block {
+  .accordion {
+    margin-top: 0 !important;
+  }
 
   .accordion-title {
-    background: #f3f4f5;
+    text-transform: none !important;
+
+    &.align-arrow-left {
+      padding-left: 0 !important;
+    }
   }
-}
 
-.align-arrow-left {
-  display: flex;
-  flex-direction: row;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 !important;
+  }
 
-.align-arrow-right {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-}
+  .align-arrow-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 
-.input-accordion-title {
-  width: 100%;
+  .align-arrow-right {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .input-accordion-title {
+    width: 100%;
+  }
+
+  .block.selected {
+    z-index: 2;
+  }
+
+  .content.active {
+    padding: 9px !important;
+  }
+
+  .rotate-arrow {
+    transform: rotate(180deg);
+  }
 }

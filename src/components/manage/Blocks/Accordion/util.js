@@ -1,13 +1,14 @@
 import { v4 as uuid } from 'uuid';
 import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
 import { map } from 'lodash';
+
 import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
   blockHasValue,
 } from '@plone/volto/helpers';
 
-export const empty = (count) => {
+export const emptyAccordion = (count) => {
   const blocks = {};
   const items = [];
   for (let x = 0; x < count; x++) {
@@ -24,19 +25,20 @@ export const empty = (count) => {
   };
 };
 
-export const getColumns = (data) => {
+export const getPanels = (data) => {
   return (data?.blocks_layout?.items || []).map((id) => [
     id,
     data.blocks?.[id],
   ]);
 };
 
-export const GroupblockHasValue = (content) => {
+export const accordionBlockHasValue = (content) => {
   const blocksFieldname = getBlocksFieldname(content);
   const blocksLayoutFieldname = getBlocksLayoutFieldname(content);
   const blockValue = map(content[blocksLayoutFieldname].items, (block) => {
     const blockData = content[blocksFieldname]?.[block];
     return blockHasValue(blockData);
   });
-  return blockValue.length === 1 ? blockValue[0] : true;
+  if (content.hasOwnProperty('title') && content?.title.length > 0) return true;
+  return blockValue.some((item) => item === true);
 };
