@@ -39,11 +39,7 @@ export const AccordionblockHasValue = (content) => {
     const blockData = content[blocksFieldname]?.[block];
     return blockHasValue(blockData);
   });
-  if (
-    content[blocksLayoutFieldname].hasOwnProperty('title') &&
-    content[blocksLayoutFieldname]?.title.length > 0
-  )
-    return true;
+  if (content.hasOwnProperty('title') && content?.title.length > 0) return true;
   return blockValue.some((item) => item === true);
 };
 

@@ -55,7 +55,7 @@ const View = (props) => {
                     />
                   )}
                   <p {...applyTitleSize(props?.data?.title_size || {})}>
-                    {column?.blocks_layout?.title}
+                    {column?.title}
                   </p>
                 </div>
               </Accordion.Title>
