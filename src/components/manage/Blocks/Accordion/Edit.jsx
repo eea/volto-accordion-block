@@ -32,6 +32,7 @@ const Edit = (props) => {
           },
         });
       }
+      return undefined;
     });
   }, [onChangeBlock, properties, selectedBlock, block, data]);
 
