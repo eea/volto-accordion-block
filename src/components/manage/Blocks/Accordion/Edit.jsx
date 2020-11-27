@@ -24,9 +24,9 @@ const Edit = (props) => {
         return onChangeBlock(block, {
           ...data,
           data: {
-            ...data?.data,
+            ...data.data,
             blocks: {
-              ...data?.data?.blocks,
+              ...data.data.blocks,
               [item]: emptyBlocksForm(),
             },
           },
