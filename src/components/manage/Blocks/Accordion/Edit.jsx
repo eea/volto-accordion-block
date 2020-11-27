@@ -20,7 +20,7 @@ const Edit = (props) => {
   const [selectedBlock, setSelectedBlock] = useState({});
   React.useEffect(() => {
     properties.blocks_layout.items.map((item) => {
-      if (isEmpty(properties?.blocks[item].blocks)) {
+      if (isEmpty(properties.blocks[item].blocks)) {
         return onChangeBlock(block, {
           ...data,
           data: {
