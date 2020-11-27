@@ -34,7 +34,14 @@ const Edit = (props) => {
       }
       return undefined;
     });
-  }, [onChangeBlock, properties, selectedBlock, block, data]);
+  }, [
+    onChangeBlock,
+    properties,
+    selectedBlock,
+    block,
+    data,
+    properties.blocks,
+  ]);
 
   const blockState = {};
   const panelData = properties;
