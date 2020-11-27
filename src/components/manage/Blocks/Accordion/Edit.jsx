@@ -24,9 +24,9 @@ const Edit = (props) => {
         return onChangeBlock(block, {
           ...data,
           data: {
-            ...data.data,
+            ...properties,
             blocks: {
-              ...data.data.blocks,
+              ...properties.blocks,
               [item]: emptyBlocksForm(),
             },
           },
@@ -34,14 +34,7 @@ const Edit = (props) => {
       }
       return undefined;
     });
-  }, [
-    onChangeBlock,
-    properties,
-    selectedBlock,
-    block,
-    data,
-    properties.blocks,
-  ]);
+  }, [onChangeBlock, properties, selectedBlock, block, data]);
 
   const blockState = {};
   const panelData = properties;
