@@ -18,6 +18,30 @@ const Edit = (props) => {
     ? emptyAccordion(3)
     : data.data;
   const [selectedBlock, setSelectedBlock] = useState({});
+  React.useEffect(() => {
+    properties.blocks_layout.items.map((item) => {
+      if (isEmpty(properties.blocks[item].blocks)) {
+        return onChangeBlock(block, {
+          ...data,
+          data: {
+            ...properties,
+            blocks: {
+              ...properties.blocks,
+              [item]: emptyBlocksForm(),
+            },
+          },
+        });
+      }
+      return undefined;
+    });
+  }, [
+    onChangeBlock,
+    properties,
+    selectedBlock,
+    block,
+    data,
+    properties.blocks,
+  ]);
 
   const blockState = {};
   const panelData = properties;
