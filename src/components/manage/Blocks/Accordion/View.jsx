@@ -21,11 +21,16 @@ const View = (props) => {
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   }
+
+  React.useEffect(() => {
+    data.collapsed ? setActiveIndex(-1) : setActiveIndex(0);
+  }, [data.collapsed]);
+
   return (
     <div className="accordion-block">
       {panels.map(([id, panel], index) => {
         return accordionBlockHasValue(panel) ? (
-          <Accordion fluid styled key={id}>
+          <Accordion fluid styled key={id} exclusive={false}>
             <React.Fragment>
               <Accordion.Title
                 as={data.title_size}

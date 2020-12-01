@@ -23,6 +23,10 @@ export default (props) => {
 
     setActiveIndex(newIndex);
   }
+  //handle accordion collapse behavior
+  React.useEffect(() => {
+    data.collapsed ? setActiveIndex(-1) : setActiveIndex(0);
+  }, [data.collapsed]);
 
   return (
     <Accordion fluid styled>

@@ -26,7 +26,7 @@ export const accordionBlockSchema = () => ({
     {
       id: 'style',
       title: 'Style',
-      fields: ['title_size', 'right_arrows'],
+      fields: ['title_size', 'right_arrows', 'collapsed'],
     },
   ],
   properties: {
@@ -52,6 +52,11 @@ export const accordionBlockSchema = () => ({
       title: 'Arrows on the right',
       type: 'boolean',
       default: false,
+    },
+    collapsed: {
+      title: 'Collapsed',
+      type: 'boolean',
+      default: true,
     },
   },
   required: ['title'],
