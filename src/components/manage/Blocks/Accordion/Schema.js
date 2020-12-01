@@ -54,7 +54,7 @@ export const accordionBlockSchema = () => ({
       default: false,
     },
     collapsed: {
-      title: 'Collapsed',
+      title: 'Collapsed by default',
       type: 'boolean',
       default: true,
     },
