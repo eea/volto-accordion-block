@@ -15,6 +15,7 @@ export default (props) => {
     uid,
     panel,
     data,
+    index,
   } = props;
   const [activeIndex, setActiveIndex] = React.useState(0);
   function handleClick(e, titleProps) {
@@ -34,14 +35,14 @@ export default (props) => {
         <Accordion.Title
           as={data.title_size}
           active={activeIndex === 0}
-          index={0}
+          index={index}
           onClick={handleClick}
           className={cx('accordion-title', {
             'align-arrow-left': !props?.data?.right_arrows,
             'align-arrow-right': props?.data?.right_arrows,
           })}
         >
-          {activeIndex === 0 ? (
+          {activeIndex === index ? (
             <Icon name={downSVG} size="24px" />
           ) : (
             <Icon
@@ -67,11 +68,11 @@ export default (props) => {
             <span>{panel?.title}</span>
           )}
         </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
+        <Accordion.Content active={activeIndex === index}>
           <AnimateHeight
             animateOpacity
             duration={500}
-            height={activeIndex === 0 ? 'auto' : 0}
+            height={activeIndex === index ? 'auto' : 0}
           >
             {children}
           </AnimateHeight>
