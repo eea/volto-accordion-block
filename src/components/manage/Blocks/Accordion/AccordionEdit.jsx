@@ -17,16 +17,33 @@ export default (props) => {
     data,
     index,
   } = props;
-  const [activeIndex, setActiveIndex] = React.useState(0);
-  function handleClick(e, titleProps) {
-    const { index } = titleProps;
-    const newIndex = activeIndex === index ? -1 : index;
+  const [activeIndex, setActiveIndex] = React.useState([0]);
 
-    setActiveIndex(newIndex);
-  }
-  //handle accordion collapse behavior
+  const handleClick = (e, itemProps) => {
+    const { index } = itemProps;
+    if (data.non_exclusive) {
+      const newIndex =
+        activeIndex.indexOf(index) === -1
+          ? [...activeIndex, index]
+          : activeIndex.filter((item) => item !== index);
+
+      setActiveIndex(newIndex);
+    } else {
+      const newIndex =
+        activeIndex.indexOf(index) === -1
+          ? [index]
+          : activeIndex.filter((item) => item !== index);
+
+      setActiveIndex(newIndex);
+    }
+  };
+
+  const isExclusive = (index) => {
+    return activeIndex.includes(index);
+  };
+
   React.useEffect(() => {
-    data.collapsed ? setActiveIndex(-1) : setActiveIndex(0);
+    return data.collapsed ? setActiveIndex([]) : setActiveIndex([0]);
   }, [data.collapsed]);
 
   return (
@@ -34,7 +51,7 @@ export default (props) => {
       <React.Fragment>
         <Accordion.Title
           as={data.title_size}
-          active={activeIndex === 0}
+          active={isExclusive(index)}
           index={index}
           onClick={handleClick}
           className={cx('accordion-title', {
@@ -42,7 +59,7 @@ export default (props) => {
             'align-arrow-right': props?.data?.right_arrows,
           })}
         >
-          {activeIndex === index ? (
+          {isExclusive(index) ? (
             <Icon name={downSVG} size="24px" />
           ) : (
             <Icon
@@ -68,11 +85,11 @@ export default (props) => {
             <span>{panel?.title}</span>
           )}
         </Accordion.Title>
-        <Accordion.Content active={activeIndex === index}>
+        <Accordion.Content active={isExclusive(index)}>
           <AnimateHeight
             animateOpacity
             duration={500}
-            height={activeIndex === index ? 'auto' : 0}
+            height={isExclusive(index) ? 'auto' : 0}
           >
             {children}
           </AnimateHeight>
