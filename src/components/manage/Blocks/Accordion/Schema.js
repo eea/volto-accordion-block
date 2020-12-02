@@ -26,7 +26,7 @@ export const accordionBlockSchema = () => ({
     {
       id: 'style',
       title: 'Style',
-      fields: ['title_size', 'right_arrows'],
+      fields: ['title_size', 'right_arrows', 'collapsed', 'non_exclusive'],
     },
   ],
   properties: {
@@ -52,6 +52,17 @@ export const accordionBlockSchema = () => ({
       title: 'Arrows on the right',
       type: 'boolean',
       default: false,
+    },
+    collapsed: {
+      title: 'Collapsed by default',
+      type: 'boolean',
+      default: true,
+    },
+    non_exclusive: {
+      title: 'Non exclusive',
+      description: 'Allow multiple panels open at a time',
+      type: 'boolean',
+      default: true,
     },
   },
   required: ['title'],
