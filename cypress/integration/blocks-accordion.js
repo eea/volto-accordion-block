@@ -108,13 +108,15 @@ describe('Block Tests', () => {
       .click()
       .type('panel 1')
       .should('have.value', 'panel 1');
-    cy.get(
-      '.accordion:nth-child(1) > .content:nth-child(2) p[data-slate-node= "element"]',
-    )
-      .should('have.value', '')
-      .invoke('attr', 'tabindex', 1)
-      .wait(1000)
-      .type('children', { delay: 50 });
+    cy.get('div.slate-editor')
+      .first()
+      .within(() => {
+        cy.get('p[data-slate-node="element"]')
+          .should('have.value', '')
+          .invoke('attr', 'tabindex', 1)
+          .wait(1000)
+          .type('children', { delay: 50 });
+      });
     cy.get('.accordion:nth-child(2) > .title input').click();
     cy.get('.accordion:nth-child(2) > .title input').type('panel 2');
     cy.get('.accordion:nth-child(2) > .title > .icon').click();
