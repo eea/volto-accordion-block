@@ -26,7 +26,43 @@ describe('Block Tests', () => {
     cy.autologin();
     cy.removeContent('cypress');
   });
+  it('Accordion Block: add accordion content', () => {
+    // Change page title
+    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
+      .clear()
+      .type('My Add-on Page')
+      .get('.documentFirstHeading span[data-text]')
+      .contains('My Add-on Page');
 
+    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block').type(
+      '{enter}',
+    );
+
+    // Add accordion block
+    cy.get('.ui.basic.icon.button.block-add-button').first().click();
+    cy.get('.blocks-chooser .title').contains('Common').click();
+    cy.get('.ui.basic.icon.button.accordion').contains('Accordion').click();
+
+    //
+    cy.get('.accordion:nth-child(1) > .active input')
+      .click()
+      .type('panel 1')
+      .should('have.value', 'panel 1');
+    cy.get(
+      '.accordion:nth-child(1) > .content:nth-child(2) p:nth-child(1)',
+    ).click({ force: true });
+    cy.get('.selected > div > p > span > span > span')
+      .first()
+      .click({ force: true })
+      .type('ghmng');
+    cy.get('.accordion:nth-child(2) > .title input').click();
+    cy.get('.accordion:nth-child(2) > .title input').type('panel 2');
+    cy.get('.accordion:nth-child(2) > .title > .icon').click();
+    cy.get(
+      '.accordion:nth-child(2) > .content:nth-child(2) p:nth-child(1)',
+    ).click();
+    cy.get('#toolbar-save path').click();
+  });
   it('Accordion Block: Empty', () => {
     // Change page title
     cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
@@ -64,7 +100,7 @@ describe('Block Tests', () => {
       '{enter}',
     );
 
-    // Add metadata block
+    // Add accordion block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
     cy.get('.blocks-chooser .title').contains('Common').click();
     cy.get('.ui.basic.icon.button.accordion').contains('Accordion').click();
