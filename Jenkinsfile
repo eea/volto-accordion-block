@@ -5,7 +5,7 @@ pipeline {
         GIT_NAME = "volto-accordion-block"
         NAMESPACE = "@eeacms"
         SONARQUBE_TAGS = "volto.eea.europa.eu"
-        DEPENDENCIES = "@eeacms/volto-blocks-form"
+        DEPENDENCIES = "@eeacms/volto-blocks-form volto-slate:asDefault"
     }
 
   stages {
@@ -80,7 +80,7 @@ pipeline {
               script {
                 try {
                   sh '''docker pull plone; docker run -d --name="$BUILD_TAG-plone" -e SITE="Plone" -e PROFILES="profile-plone.restapi:blocks" plone fg'''
-                  sh '''docker pull eeacms/volto-test; docker run -i --name="$BUILD_TAG-cypress" --link $BUILD_TAG-plone:plone -e NAMESPACE="$NAMESPACE" -e DEPENDENCIES="$DEPENDENCIES volto-slate:asDefault" -e GIT_NAME=$GIT_NAME -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/volto-test cypress'''
+                  sh '''docker pull eeacms/volto-test; docker run -i --name="$BUILD_TAG-cypress" --link $BUILD_TAG-plone:plone -e NAMESPACE="$NAMESPACE" -e DEPENDENCIES="$DEPENDENCIES" -e GIT_NAME=$GIT_NAME -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/volto-test cypress'''
                 } finally {
                   sh '''mkdir -p cypress-reports'''
                   sh '''docker cp $BUILD_TAG-cypress:/opt/frontend/my-volto-project/src/addons/$GIT_NAME/cypress/videos cypress-reports/'''
