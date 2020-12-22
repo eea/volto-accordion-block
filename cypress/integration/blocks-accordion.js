@@ -72,7 +72,7 @@ describe('Block Tests', () => {
     cy.get('.accordion:nth-child(2) > .content:nth-child(2)')
       .first()
       .within(() => {
-        if (cy.get('div.slate-editor').find('p[data-slate-node="element"]')) {
+        if (cy.get('div.slate-editor')) {
           cy.get('p[data-slate-node="element"]')
             .should('have.value', '')
             .invoke('attr', 'tabindex', 1)
@@ -85,7 +85,6 @@ describe('Block Tests', () => {
             .type('children', { delay: 50 });
         }
       });
-
     cy.get('#toolbar-save path').click({ force: true });
 
     //after saving
