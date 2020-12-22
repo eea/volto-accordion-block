@@ -21,8 +21,7 @@
     "release-it": "*"
   },
   "dependencies": {
-    "@eeacms/volto-blocks-form": "^1.0.0",
-    "volto-slate": "^1.0.0"
+    "@eeacms/volto-blocks-form": "^1.0.0"
   },
   "scripts": {
     "release": "release-it",

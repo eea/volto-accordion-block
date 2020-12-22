@@ -109,14 +109,25 @@ describe('Block Tests', () => {
       .type('panel 1')
       .should('have.value', 'panel 1');
     cy.wait(1000);
-    cy.get('div.slate-editor')
-      .first()
-      .within(() => {
-        cy.get('p[data-slate-node="element"]')
-          .should('have.value', '')
-          .invoke('attr', 'tabindex', 1)
-          .type('children', { delay: 50 });
-      });
+    if (cy.find('div.slate-editor').length) {
+      cy.get('div.slate-editor')
+        .first()
+        .within(() => {
+          cy.get('p[data-slate-node="element"]')
+            .should('have.value', '')
+            .invoke('attr', 'tabindex', 1)
+            .type('children', { delay: 50 });
+        });
+    } else {
+      cy.get('div.DraftEditor-editorContainer')
+        .first()
+        .within(() => {
+          cy.get('span[data-text=true]')
+            .should('have.value', '')
+            .invoke('attr', 'tabindex', 1)
+            .type('children', { delay: 50 });
+        });
+    }
     cy.get('.accordion:nth-child(2) > .title input').click();
     cy.get('.accordion:nth-child(2) > .title input').type('panel 2');
     cy.get('.accordion:nth-child(2) > .title > .icon').click();
