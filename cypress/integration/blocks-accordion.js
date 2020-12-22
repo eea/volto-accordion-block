@@ -59,7 +59,7 @@ describe('Block Tests', () => {
         //     .first()
         //     .type('children', { delay: 50 });
         // } else {
-        cy.get('span[data-text=true]')
+        cy.get('.public-DraftStyleDefault-block:nth-child(1)')
           .should('have.value', '')
           .invoke('attr', 'tabindex', 1)
           .type('children', { delay: 50 });
@@ -71,7 +71,7 @@ describe('Block Tests', () => {
     cy.get('.accordion:nth-child(2) > .content:nth-child(2)')
       .first()
       .within(() => {
-        cy.get('span[data-text=true]')
+        cy.get('.public-DraftStyleDefault-block:nth-child(1)')
           .should('have.value', '')
           .invoke('attr', 'tabindex', 1)
           .type('children', { delay: 50 });
@@ -84,13 +84,13 @@ describe('Block Tests', () => {
       .should('have.class', 'active')
       .within(() => {
         //using regex here,as there's a delay in typing letters in slate which do not uses input
-        cy.get('p').contains(/[a-z]/);
+        cy.get('p').contains('children');
       });
     cy.get('.accordion:nth-child(2) > .title > .icon').click();
     cy.get('div.content')
       .should('have.class', 'active')
       .within(() => {
-        cy.get('p').contains(/[a-z]/);
+        cy.get('p').contains('children');
       });
   });
   it('Accordion Block: Empty', () => {
