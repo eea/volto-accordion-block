@@ -52,31 +52,40 @@ describe('Block Tests', () => {
     cy.get('.accordion:nth-child(1) > .content:nth-child(2)')
       .first()
       .within(() => {
-        cy.get('p[data-slate-node="element"]')
-          .should('have.value', '')
-          .invoke('attr', 'tabindex', 1)
-          .first()
-          .type('children', { delay: 50 });
+        if (cy.get('div.slate-editor').find('p[data-slate-node="element"]')) {
+          cy.get('p[data-slate-node="element"]')
+            .should('have.value', '')
+            .invoke('attr', 'tabindex', 1)
+            .first()
+            .type('children', { delay: 50 });
+        } else {
+          cy.get('span[data-text=true]')
+            .should('have.value', '')
+            .invoke('attr', 'tabindex', 1)
+            .type('children', { delay: 50 });
+        }
       });
-
-    // cy.get('div.DraftEditor-editorContainer')
-    //   .first()
-    //   .within(() => {
-    //     cy.get('span[data-text=true]')
-    //       .should('have.value', '')
-    //       .invoke('attr', 'tabindex', 1)
-    //       .type('children', { delay: 50 });
-    //   });
 
     cy.get('.accordion:nth-child(2) > .title input').click();
     cy.get('.accordion:nth-child(2) > .title input').type('panel 2');
     cy.get('.accordion:nth-child(2) > .title > .icon').click();
-    cy.get(
-      '.accordion:nth-child(2) > .content:nth-child(2) p[data-slate-node= "element"]',
-    )
-      .should('have.value', '')
-      .invoke('attr', 'tabindex', 1)
-      .type('children', { delay: 100 });
+    cy.get('.accordion:nth-child(2) > .content:nth-child(2)')
+      .first()
+      .within(() => {
+        if (cy.get('div.slate-editor').find('p[data-slate-node="element"]')) {
+          cy.get('p[data-slate-node="element"]')
+            .should('have.value', '')
+            .invoke('attr', 'tabindex', 1)
+            .first()
+            .type('children', { delay: 50 });
+        } else {
+          cy.get('span[data-text=true]')
+            .should('have.value', '')
+            .invoke('attr', 'tabindex', 1)
+            .type('children', { delay: 50 });
+        }
+      });
+
     cy.get('#toolbar-save path').click({ force: true });
 
     //after saving
