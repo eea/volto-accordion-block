@@ -29,7 +29,7 @@
    ],
 
    "dependencies": {
-       "@eeacms/volto-accordion-block": "^1.0.0"
+       "@eeacms/volto-accordion-block": "^2.0.0"
    }
    ```
 
