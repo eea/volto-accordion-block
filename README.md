@@ -7,6 +7,8 @@
 
 ## Features
 
+![Volto Block Accordion](https://github.com/eea/volto-accordion-block/raw/docs/docs/volto-accordion-block.gif)
+
 ## Getting started
 
 1. Create new volto project if you don't already have one:
@@ -27,7 +29,7 @@
    ],
 
    "dependencies": {
-       "@eeacms/volto-accordion-block": "^1.0.0"
+       "@eeacms/volto-accordion-block": "^2.0.0"
    }
    ```
 
