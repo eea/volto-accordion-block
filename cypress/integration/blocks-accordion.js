@@ -141,7 +141,7 @@ describe('Block Tests', () => {
       .type('Accordion panel 1')
       .should('have.value', 'Accordion panel 1');
 
-    cy.get('[id="field-title_size"] .react-select-container')
+    cy.get('[id="field-title_size"] .react-select__value-container')
       .click()
       .type('h2{enter}');
 
