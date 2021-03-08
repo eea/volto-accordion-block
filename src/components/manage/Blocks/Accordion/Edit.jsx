@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { isEmpty } from 'lodash';
-import { BlocksForm } from '@eeacms/volto-blocks-form/components';
-import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
+import { BlocksForm } from '@plone/volto/components';
+import { emptyBlocksForm } from '@plone/volto/helpers';
 import { SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { accordionBlockSchema } from './Schema';

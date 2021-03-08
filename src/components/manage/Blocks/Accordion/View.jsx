@@ -1,5 +1,5 @@
 import React from 'react';
-import { RenderBlocks } from '@eeacms/volto-blocks-form/components';
+import { RenderBlocks } from '@plone/volto/components';
 import { getPanels, accordionBlockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
 
