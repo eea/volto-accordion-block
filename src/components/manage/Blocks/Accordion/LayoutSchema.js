@@ -10,6 +10,7 @@ const Schema = {
         'allowedBlocks',
         'required',
         'fixed',
+        'fixedLayout',
         'disableNewBlocks',
         'readOnly',
         'readOnlyTitles',
@@ -46,6 +47,12 @@ const Schema = {
     fixed: {
       title: 'Fixed position',
       description: 'Disable drag & drop on this block',
+      type: 'boolean',
+    },
+    fixedLayout: {
+      title: 'Fixed layout',
+      description:
+        'Fixed layout, New panes (tabs) created by Editor within this block will be ignored',
       type: 'boolean',
     },
     disableNewBlocks: {
