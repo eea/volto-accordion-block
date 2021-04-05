@@ -26,10 +26,21 @@ export const accordionBlockSchema = () => ({
     {
       id: 'style',
       title: 'Style',
-      fields: ['title_size', 'right_arrows', 'collapsed', 'non_exclusive'],
+      fields: [
+        'title',
+        'title_size',
+        'right_arrows',
+        'collapsed',
+        'non_exclusive',
+      ],
     },
   ],
   properties: {
+    title: {
+      title: 'Title',
+      description: 'Friendly name',
+      type: 'string',
+    },
     data: {
       title: 'Accordion',
       type: 'panels',

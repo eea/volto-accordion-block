@@ -5,6 +5,7 @@ const Schema = {
       id: 'default',
       title: 'Default',
       fields: [
+        'title',
         'placeholder',
         'instructions',
         'allowedBlocks',
@@ -12,13 +13,19 @@ const Schema = {
         'fixed',
         'fixedLayout',
         'disableNewBlocks',
-        'readOnly',
+        'disableInnerButtons',
         'readOnlyTitles',
         'readOnlySettings',
+        'readOnly',
       ],
     },
   ],
   properties: {
+    title: {
+      title: 'Title',
+      description: 'Section friendly name',
+      type: 'string',
+    },
     allowedBlocks: {
       title: 'Allowed blocks',
       description: 'Allow only the following blocks types',
@@ -73,6 +80,11 @@ const Schema = {
     readOnlySettings: {
       title: 'Read-only settings',
       description: 'Disable editing on accordion block settings',
+      type: 'boolean',
+    },
+    disableInnerButtons: {
+      title: 'Disable inner buttons',
+      description: 'Hide all block related buttons within this block',
       type: 'boolean',
     },
   },

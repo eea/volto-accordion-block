@@ -3,24 +3,78 @@
 
 @import (multiple) '../../theme.config';
 
+@borderColor: rgba(120, 192, 215, 0.75);
+
 // Edit
 .block-editor-accordion {
-  margin: 0 -2.2rem;
+  [data-rbd-draggable-context-id] {
+    margin-bottom: 1rem;
+  }
 
-  .block-editor-accordion {
-    margin: 0 0.1rem;
+  .block-add-button {
+    display: none !important;
   }
 
   .block.accordion.selected::before,
   .block.accordion:hover::before {
     border-style: dashed;
-    border-radius: 1rem;
+  }
+
+  fieldset {
+    border: none;
+
+    legend {
+      position: absolute;
+      z-index: 3;
+      top: -1.3em;
+      left: 0;
+      width: fit-content;
+      padding: 0 1rem;
+      margin-right: auto;
+      margin-left: auto;
+      background-color: @pageBackground;
+      color: @borderColor;
+      cursor: pointer;
+      text-align: center;
+    }
   }
 
   .accordion-block {
     padding-top: 1rem;
     padding-bottom: 0.1rem;
-    margin: 0 2rem;
+    margin: 0;
+  }
+
+  .blocks-form {
+    margin-top: 0.5rem;
+  }
+
+  .blocks-chooser {
+    right: 0;
+    left: auto;
+    margin-top: 3rem;
+  }
+
+  .block-toolbar {
+    position: absolute;
+    z-index: 3;
+    right: -9px;
+    display: flex;
+    border: none;
+    border: 1px solid @borderColor;
+    border-bottom: 1px solid @pageBackground;
+    margin-top: -45px;
+    background-color: @pageBackground;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
+    .ui.basic.button {
+      padding: 8px 5px;
+    }
+
+    .ui.basic.button:hover {
+      background: transparent !important;
+    }
   }
 }
 
