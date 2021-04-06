@@ -14,6 +14,7 @@ import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
 
 const Edit = (props) => {
+  const [selectedBlock, setSelectedBlock] = useState({});
   const {
     block,
     data,
@@ -23,12 +24,23 @@ const Edit = (props) => {
     manage,
     formDescription,
   } = props;
-
-  const metadata = props.metadata || props.properties;
   const properties = isEmpty(data?.data?.blocks)
     ? emptyAccordion(3)
     : data.data;
-  const [selectedBlock, setSelectedBlock] = useState({});
+  const metadata = props.metadata || props.properties;
+
+  React.useEffect(() => {
+    if (isEmpty(data?.data)) {
+      onChangeBlock(block, {
+        ...data,
+        data: {
+          ...properties,
+        },
+      });
+    }
+    /* eslint-disable-next-line */
+  }, []);
+
   React.useEffect(() => {
     properties.blocks_layout.items.map((item) => {
       if (isEmpty(properties.blocks[item].blocks)) {
