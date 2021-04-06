@@ -74,7 +74,7 @@ export default (props) => {
               className="input-accordion-title"
               transparent
               placeholder="Enter Title"
-              value={panel?.title}
+              value={panel?.title || ""}
               onClick={(e) => {
                 handleTitleClick();
                 e.stopPropagation();

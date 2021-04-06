@@ -112,7 +112,7 @@ class EditBlockWrapper extends React.Component {
                       display: dragVisible ? 'inline-block' : 'none',
                     }}
                     {...draginfo.dragHandleProps}
-                    className="drag handle wrapper-group-block"
+                    className="drag handle wrapper-accordion-block"
                   >
                     <Button icon basic title="Drag and drop">
                       <Icon name={dragSVG} size="19px" />
@@ -129,7 +129,7 @@ class EditBlockWrapper extends React.Component {
                           addNewBlockOpened: !this.state.addNewBlockOpened,
                         });
                       }}
-                      className="group-block-add-button"
+                      className="accordion-block-add-button"
                     >
                       <Icon name={addSVG} className="" size="19px" />
                     </Button>
@@ -140,7 +140,7 @@ class EditBlockWrapper extends React.Component {
                       basic
                       title="Remove block"
                       onClick={() => onDeleteBlock(block)}
-                      className="delete-button-group-block"
+                      className="delete-button-accordion-block"
                       aria-label={intl.formatMessage(messages.delete)}
                     >
                       <Icon name={trashSVG} size="19px" />

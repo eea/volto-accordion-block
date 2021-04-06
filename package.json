@@ -1,7 +1,7 @@
 {
   "name": "@eeacms/volto-accordion-block",
   "version": "3.1.0",
-  "description": "volto-accordion-block: Volto group block to add accordions",
+  "description": "volto-accordion-block: Volto accordion block",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
   "license": "MIT",
