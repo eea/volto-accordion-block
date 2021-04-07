@@ -41,30 +41,30 @@ const Edit = (props) => {
     /* eslint-disable-next-line */
   }, []);
 
-  React.useEffect(() => {
-    properties.blocks_layout.items.map((item) => {
-      if (isEmpty(properties.blocks[item].blocks)) {
-        return onChangeBlock(block, {
-          ...data,
-          data: {
-            ...properties,
-            blocks: {
-              ...properties.blocks,
-              [item]: emptyBlocksForm(),
-            },
-          },
-        });
-      }
-      return undefined;
-    });
-  }, [
-    onChangeBlock,
-    properties,
-    selectedBlock,
-    block,
-    data,
-    properties.blocks,
-  ]);
+  // React.useEffect(() => {
+  //   properties.blocks_layout.items.map((item) => {
+  //     if (isEmpty(properties.blocks[item].blocks)) {
+  //       return onChangeBlock(block, {
+  //         ...data,
+  //         data: {
+  //           ...properties,
+  //           blocks: {
+  //             ...properties.blocks,
+  //             [item]: emptyBlocksForm(),
+  //           },
+  //         },
+  //       });
+  //     }
+  //     return undefined;
+  //   });
+  // }, [
+  //   onChangeBlock,
+  //   properties,
+  //   selectedBlock,
+  //   block,
+  //   data,
+  //   properties.blocks,
+  // ]);
 
   const blockState = {};
   const panelData = properties;
