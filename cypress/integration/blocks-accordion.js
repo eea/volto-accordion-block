@@ -44,31 +44,24 @@ describe('Block Tests', () => {
     cy.get('.ui.basic.icon.button.accordion').contains('Accordion').click();
 
     //
-    cy.get('.accordion:nth-child(1) > .active input')
+    cy.get('.accordion:nth-child(2) > .active input')
       .click()
       .type('panel 1')
       .should('have.value', 'panel 1');
     cy.wait(1000);
-    cy.get('.accordion:nth-child(1) > .content:nth-child(2)')
+    cy.get('.accordion:nth-child(2) > .content:nth-child(2)')
       .first()
       .within(() => {
-        // if (cy.get('div.slate-editor').find('p[data-slate-node="element"]')) {
-        //   cy.get('p[data-slate-node="element"]')
-        //     .should('have.value', '')
-        //     .invoke('attr', 'tabindex', 1)
-        //     .first()
-        //     .type('children', { delay: 50 });
-        // } else {
         cy.get('.public-DraftStyleDefault-block:nth-child(1)')
           .should('have.value', '')
           .invoke('attr', 'tabindex', 1)
           .type('children', { delay: 50 });
       });
 
-    cy.get('.accordion:nth-child(2) > .title input').click();
-    cy.get('.accordion:nth-child(2) > .title input').type('panel 2');
-    cy.get('.accordion:nth-child(2) > .title > .icon').click();
-    cy.get('.accordion:nth-child(2) > .content:nth-child(2)')
+    cy.get('.accordion:nth-child(3) > .title input').click();
+    cy.get('.accordion:nth-child(3) > .title input').type('panel 2');
+    cy.get('.accordion:nth-child(3) > .title > .icon').click();
+    cy.get('.accordion:nth-child(3) > .content:nth-child(2)')
       .first()
       .within(() => {
         cy.get('.public-DraftStyleDefault-block:nth-child(1)')
@@ -136,7 +129,7 @@ describe('Block Tests', () => {
     cy.get('.ui.basic.icon.button.accordion').contains('Accordion').click();
 
     //
-    cy.get('.accordion:nth-child(1) > .active input')
+    cy.get('.accordion:nth-child(2) > .active input')
       .click()
       .type('Accordion panel 1')
       .should('have.value', 'Accordion panel 1');
