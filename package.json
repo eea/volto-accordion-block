@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-accordion-block",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "volto-accordion-block: Volto accordion block",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -17,10 +17,12 @@
     "type": "git",
     "url": "git@github.com:eea/volto-accordion-block.git"
   },
-  "devDependencies": {
-    "release-it": "*"
-  },
   "dependencies": {},
+  "devDependencies": {
+    "release-it": "*",
+    "@cypress/code-coverage": "^3.9.5",
+    "babel-plugin-transform-class-properties": "^6.24.1"
+  },
   "scripts": {
     "release": "release-it",
     "bootstrap": "npm install -g ejs; npm link ejs; node bootstrap",

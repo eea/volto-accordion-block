@@ -1,31 +1,9 @@
-describe('Block Tests', () => {
-  beforeEach(() => {
-    cy.autologin();
-    cy.createContent({
-      contentType: 'Folder',
-      contentId: 'cypress',
-      contentTitle: 'Cypress',
-    });
-    cy.createContent({
-      contentType: 'Document',
-      contentId: 'my-page',
-      contentTitle: 'My Page',
-      path: 'cypress',
-    });
-    cy.visit('/cypress/my-page');
-    cy.waitForResourceToLoad('@navigation');
-    cy.waitForResourceToLoad('@breadcrumbs');
-    cy.waitForResourceToLoad('@actions');
-    cy.waitForResourceToLoad('@types');
-    cy.waitForResourceToLoad('my-page');
-    cy.navigate('/cypress/my-page/edit');
-    cy.get(`.block.title [data-contents]`);
-  });
+import { setupBeforeEach, tearDownAfterEach } from '../support';
 
-  afterEach(() => {
-    cy.autologin();
-    cy.removeContent('cypress');
-  });
+describe('Blocks Tests', () => {
+  beforeEach(setupBeforeEach);
+  afterEach(tearDownAfterEach);
+
   it('Accordion Block: add accordion content', () => {
     // Change page title
     cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
