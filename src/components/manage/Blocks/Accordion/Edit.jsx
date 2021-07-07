@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import { isEmpty } from 'lodash';
-import { Button, Segment } from 'semantic-ui-react';
-import { BlocksForm, Icon } from '@plone/volto/components';
-import { emptyBlocksForm } from '@plone/volto/helpers';
-import { SidebarPortal } from '@plone/volto/components';
+import { BlocksForm, Icon, SidebarPortal } from '@plone/volto/components';
 import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
-import { accordionBlockSchema } from './Schema';
-import AccordionEdit from './AccordionEdit';
-import { emptyAccordion, getPanels } from './util';
-
+import { emptyBlocksForm } from '@plone/volto/helpers';
 import helpSVG from '@plone/volto/icons/help.svg';
+import { isEmpty } from 'lodash';
+import React, { useState } from 'react';
+import { Button, Segment } from 'semantic-ui-react';
+import AccordionEdit from './AccordionEdit';
 import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
+import { accordionBlockSchema } from './Schema';
+import { emptyAccordion, getPanels } from './util';
 
 const Edit = (props) => {
   const [selectedBlock, setSelectedBlock] = useState({});
@@ -24,19 +22,42 @@ const Edit = (props) => {
     manage,
     formDescription,
   } = props;
+
   const properties = isEmpty(data?.data?.blocks)
     ? emptyAccordion(3)
     : data.data;
   const metadata = props.metadata || props.properties;
 
+  /**
+   * Will set field values from schema, by matching the default values
+   * @returns {Object} defaultValues
+   */
+  const setInitialData = () => {
+    const accordionSchema = accordionBlockSchema();
+    const defaultValues = Object.keys(accordionSchema.properties).reduce(
+      (accumulator, currentVal) => {
+        return accordionSchema.properties[currentVal].default
+          ? {
+              ...accumulator,
+              [currentVal]: accordionSchema.properties[currentVal].default,
+            }
+          : accumulator;
+      },
+      {},
+    );
+
+    return {
+      ...defaultValues,
+      ...data,
+      data: {
+        ...properties,
+      },
+    };
+  };
+
   React.useEffect(() => {
     if (isEmpty(data?.data)) {
-      onChangeBlock(block, {
-        ...data,
-        data: {
-          ...properties,
-        },
-      });
+      onChangeBlock(block, setInitialData());
     }
     /* eslint-disable-next-line */
   }, []);
