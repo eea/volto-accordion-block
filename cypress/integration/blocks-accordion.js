@@ -35,11 +35,7 @@ describe('Blocks Tests', () => {
     cy.wait(500);
 
     cy.get('.accordion:nth-child(3) > .content:nth-child(2)').within(() => {
-      cy.get('.slate-editor [contenteditable=true]')
-        .focus()
-        .click()
-        .wait(1000)
-        .type('children', { delay: 50 });
+      cy.get('.slate-editor').click().type('children', { delay: 50 });
     });
     cy.get('#toolbar-save path').click({ force: true });
     cy.wait(1000);
