@@ -32,6 +32,8 @@ describe('Blocks Tests', () => {
     cy.get('.accordion:nth-child(3) > .title input').click();
     cy.get('.accordion:nth-child(3) > .title input').type('panel 2');
     cy.get('.accordion:nth-child(3) > .title > .icon').click();
+    cy.wait(500);
+
     cy.get('.accordion:nth-child(3) > .content:nth-child(2)')
       .first()
       .within(() => {
