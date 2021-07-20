@@ -21,24 +21,20 @@ describe('Blocks Tests', () => {
     cy.get('.blocks-chooser .title').contains('Common').click();
     cy.get('.ui.basic.icon.button.accordion').contains('Accordion').click();
 
-    //
-    cy.get('.accordion:nth-child(2) > .active input')
+    // enter title for first item in accordion (it is first of the accordion but second as child)
+    cy.get('.accordion:nth-child(2) > .title input')
       .click()
       .type('panel 1')
       .should('have.value', 'panel 1');
-    cy.wait(1000);
-    cy.get('.accordion:nth-child(2) > .content:nth-child(2)')
-      .first()
-      .within(() => {
-        cy.get('.public-DraftStyleDefault-block:nth-child(1)')
-          .should('have.value', '')
-          .invoke('attr', 'tabindex', 1)
-          .type('children', { delay: 50 });
-      });
 
+    // enter title for third item in accordion
+    // enter content
     cy.get('.accordion:nth-child(3) > .title input').click();
     cy.get('.accordion:nth-child(3) > .title input').type('panel 2');
     cy.get('.accordion:nth-child(3) > .title > .icon').click();
+    cy.wait(500);
+
+    // the cypress test is run without slate, but with draftjs
     cy.get('.accordion:nth-child(3) > .content:nth-child(2)')
       .first()
       .within(() => {
@@ -47,16 +43,13 @@ describe('Blocks Tests', () => {
           .invoke('attr', 'tabindex', 1)
           .type('children', { delay: 50 });
       });
+
     cy.get('#toolbar-save path').click({ force: true });
+    cy.wait(1000);
 
     //after saving
-    cy.get('div.accordion-title > span').contains('panel 1');
-    cy.get('div.content')
-      .should('have.class', 'active')
-      .within(() => {
-        //using regex here,as there's a delay in typing letters in slate which do not uses input
-        cy.get('p').contains('children');
-      });
+    cy.get('div.accordion-title > span').contains('panel 2');
+    // after save, the 3 child becomes second
     cy.get('.accordion:nth-child(2) > .title > .icon').click();
     cy.get('div.content')
       .should('have.class', 'active')
@@ -64,6 +57,7 @@ describe('Blocks Tests', () => {
         cy.get('p').contains('children');
       });
   });
+
   it('Accordion Block: Empty', () => {
     // Change page title
     cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
@@ -106,8 +100,10 @@ describe('Blocks Tests', () => {
     cy.get('.blocks-chooser .title').contains('Common').click();
     cy.get('.ui.basic.icon.button.accordion').contains('Accordion').click();
 
-    //
-    cy.get('.accordion:nth-child(2) > .active input')
+    // By default all should be collapsed (no active class on first)
+    cy.get('.accordion:nth-child(2)').should('not.have.class', 'active');
+
+    cy.get('.accordion:nth-child(2) > .title input')
       .click()
       .type('Accordion panel 1')
       .should('have.value', 'Accordion panel 1');

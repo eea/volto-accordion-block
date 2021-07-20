@@ -1,12 +1,11 @@
+import { Icon } from '@plone/volto/components';
+import downSVG from '@plone/volto/icons/down-key.svg';
+import rightSVG from '@plone/volto/icons/right-key.svg';
+import cx from 'classnames';
 import React from 'react';
+import AnimateHeight from 'react-animate-height';
 import { Accordion, Input } from 'semantic-ui-react';
 
-import cx from 'classnames';
-import { Icon } from '@plone/volto/components';
-import rightSVG from '@plone/volto/icons/right-key.svg';
-import downSVG from '@plone/volto/icons/down-key.svg';
-
-import AnimateHeight from 'react-animate-height';
 export default (props) => {
   const {
     children,
