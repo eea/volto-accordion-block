@@ -5,6 +5,8 @@ import {
   AccordionLayoutSchema,
 } from './components';
 import { PanelsWidget } from '@eeacms/volto-accordion-block/components';
+import rightSVG from '@plone/volto/icons/right-key.svg';
+import downSVG from '@plone/volto/icons/down-key.svg';
 
 const extendedSchema = (config) => {
   const choices = Object.keys(config.blocks.blocksConfig)
@@ -40,6 +42,10 @@ const applyConfig = (config) => {
     title: 'Accordion',
     icon: accordionSVG,
     group: 'common',
+    titleIcons: {
+      right_icon: rightSVG,
+      down_icon: downSVG,
+    },
     view: AccordionBlockView,
     edit: AccordionBlockEdit,
     restricted: false,
