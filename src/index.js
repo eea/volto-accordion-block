@@ -43,8 +43,8 @@ const applyConfig = (config) => {
     icon: accordionSVG,
     group: 'common',
     titleIcons: {
-      right_icon: rightSVG,
-      down_icon: downSVG,
+      right: rightSVG,
+      down: downSVG,
     },
     view: AccordionBlockView,
     edit: AccordionBlockEdit,

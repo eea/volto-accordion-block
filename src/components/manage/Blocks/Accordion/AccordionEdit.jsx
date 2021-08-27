@@ -59,11 +59,11 @@ export default (props) => {
           })}
         >
           {isExclusive(index) ? (
-            <Icon name={titleIcons.down_icon} size="24px" />
+            <Icon name={titleIcons.down} size="24px" />
           ) : (
             <Icon
               size="24px"
-              name={titleIcons.right_icon}
+              name={titleIcons.right}
               className={cx({ 'rotate-arrow': data?.right_arrows })}
             />
           )}
