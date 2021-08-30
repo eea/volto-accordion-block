@@ -60,7 +60,7 @@ export const accordionBlockSchema = () => ({
       ],
     },
     right_arrows: {
-      title: 'Arrows on the right',
+      title: 'Title Icon on the right',
       type: 'boolean',
       default: false,
     },
