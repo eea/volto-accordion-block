@@ -1,10 +1,9 @@
 import { Icon } from '@plone/volto/components';
-import downSVG from '@plone/volto/icons/down-key.svg';
-import rightSVG from '@plone/volto/icons/right-key.svg';
 import cx from 'classnames';
 import React from 'react';
 import AnimateHeight from 'react-animate-height';
 import { Accordion, Input } from 'semantic-ui-react';
+import config from '@plone/volto/registry';
 
 export default (props) => {
   const {
@@ -17,6 +16,7 @@ export default (props) => {
     index,
   } = props;
   const [activeIndex, setActiveIndex] = React.useState([0]);
+  const { titleIcons } = config.blocks.blocksConfig.accordion;
 
   const handleClick = (e, itemProps) => {
     const { index } = itemProps;
@@ -59,11 +59,11 @@ export default (props) => {
           })}
         >
           {isExclusive(index) ? (
-            <Icon name={downSVG} size="24px" />
+            <Icon name={titleIcons.down} size="24px" />
           ) : (
             <Icon
               size="24px"
-              name={rightSVG}
+              name={titleIcons.right}
               className={cx({ 'rotate-arrow': data?.right_arrows })}
             />
           )}
