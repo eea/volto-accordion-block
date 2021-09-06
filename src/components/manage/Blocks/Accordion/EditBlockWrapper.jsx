@@ -86,6 +86,9 @@ class EditBlockWrapper extends React.Component {
       ? data.required
       : includes(config.blocks.requiredBlocks, type);
 
+    const allowedBlocksFromConfig =
+      blockProps.blocksConfig.accordion?.allowedBlocks;
+
     return (
       <div ref={this.blockNode}>
         <div
@@ -144,7 +147,7 @@ class EditBlockWrapper extends React.Component {
                       className="delete-button-accordion-block"
                       aria-label={intl.formatMessage(messages.delete)}
                     >
-                      <Icon name={trashSVG} size="19px" />
+                      <Icon name={trashSVG} size="19px" color="#e40166" />
                     </Button>
                   )}
                   {this.state.addNewBlockOpened && (
@@ -158,7 +161,7 @@ class EditBlockWrapper extends React.Component {
                         this.setState({ addNewBlockOpened: false });
                       }}
                       currentBlock={block}
-                      allowedBlocks={allowedBlocks}
+                      allowedBlocks={allowedBlocks || allowedBlocksFromConfig}
                     />
                   )}
                 </>
