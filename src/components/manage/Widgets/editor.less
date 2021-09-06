@@ -1,6 +1,17 @@
 .panels-widget {
   .items-area {
     padding: 1em 0em;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    .panel-item {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      padding: 12px 9px;
+      border: 1px solid #ddd;
+      background: #f3f4f5;
+    }
 
     [data-rbd-draggable-context-id] {
       margin-bottom: 0.3em;
@@ -8,19 +19,6 @@
 
     .drag.handle.wrapper {
       min-height: auto;
-    }
-
-    .item-area {
-      display: flex;
-
-      .label {
-        flex-grow: 2;
-        padding-left: 1em;
-      }
-
-      button {
-        flex-grow: 0;
-      }
     }
   }
 }
