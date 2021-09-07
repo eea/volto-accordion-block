@@ -1,3 +1,48 @@
+import { defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  Accordion: {
+    id: 'Accordion',
+    defaultMessage: 'Accordion',
+  },
+  Style: {
+    id: 'Style',
+    defaultMessage: 'Style',
+  },
+  Title: {
+    id: 'Title',
+    defaultMessage: 'Title',
+  },
+  friendly_name: {
+    id: 'Friendly name',
+    defaultMessage: 'Friendly name',
+  },
+  title_size: {
+    id: 'Title size',
+    defaultMessage: 'Title size',
+  },
+  title_size_description: {
+    id: 'Accordion Title size',
+    defaultMessage: 'Accordion Title size',
+  },
+  right_arrows: {
+    id: 'Title Icon on the right',
+    defaultMessage: 'Title Icon on the right',
+  },
+  collapsed: {
+    id: 'Collapsed by default',
+    defaultMessage: 'Collapsed by default',
+  },
+  non_exclusive: {
+    id: 'Non exclusive',
+    defaultMessage: 'Non exclusive',
+  },
+  non_exclusive_description: {
+    id: 'Allow multiple panels open at a time',
+    defaultMessage: 'Allow multiple panels open at a time',
+  },
+});
+
 export const AccordionSchema = {
   title: 'Accordion',
   fieldsets: [
@@ -15,7 +60,7 @@ export const AccordionSchema = {
   required: [],
 };
 
-export const accordionBlockSchema = () => ({
+export const accordionBlockSchema = ({ intl }) => ({
   title: 'Accordion block',
   fieldsets: [
     {
@@ -25,7 +70,7 @@ export const accordionBlockSchema = () => ({
     },
     {
       id: 'style',
-      title: 'Style',
+      title: intl.formatMessage(messages.Style),
       fields: [
         'title',
         'title_size',
@@ -37,18 +82,18 @@ export const accordionBlockSchema = () => ({
   ],
   properties: {
     title: {
-      title: 'Title',
-      description: 'Friendly name',
+      title: intl.formatMessage(messages.Title),
+      description: intl.formatMessage(messages.friendly_name),
       type: 'string',
     },
     data: {
-      title: 'Accordion',
+      title: intl.formatMessage(messages.Accordion),
       type: 'panels',
       schema: AccordionSchema,
     },
     title_size: {
-      title: 'Title size',
-      description: 'Accordion Title size',
+      title: intl.formatMessage(messages.title_size),
+      description: intl.formatMessage(messages.title_size_description),
       type: 'string',
       factory: 'Choice',
       choices: [
@@ -60,18 +105,18 @@ export const accordionBlockSchema = () => ({
       ],
     },
     right_arrows: {
-      title: 'Title Icon on the right',
+      title: intl.formatMessage(messages.right_arrows),
       type: 'boolean',
       default: false,
     },
     collapsed: {
-      title: 'Collapsed by default',
+      title: intl.formatMessage(messages.collapsed),
       type: 'boolean',
       default: true,
     },
     non_exclusive: {
-      title: 'Non exclusive',
-      description: 'Allow multiple panels open at a time',
+      title: intl.formatMessage(messages.non_exclusive),
+      description: intl.formatMessage(messages.non_exclusive_description),
       type: 'boolean',
       default: true,
     },

@@ -2,6 +2,7 @@ import React from 'react';
 import { RenderBlocks } from '@plone/volto/components';
 import { getPanels, accordionBlockHasValue } from './util';
 import { Accordion } from 'semantic-ui-react';
+import { withBlockExtensions } from '@plone/volto/helpers';
 
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
@@ -93,4 +94,4 @@ const View = (props) => {
   );
 };
 
-export default View;
+export default withBlockExtensions(View);
