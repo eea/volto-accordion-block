@@ -1,10 +1,11 @@
 import { BlocksForm, Icon, SidebarPortal } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import helpSVG from '@plone/volto/icons/help.svg';
 import { isEmpty } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
+import { withBlockExtensions } from '@plone/volto/helpers';
+import { BlockDataForm } from '@plone/volto/components';
 import AccordionEdit from './AccordionEdit';
 import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
@@ -222,7 +223,7 @@ const Edit = (props) => {
           </Segment>
         )}
         {!data?.readOnlySettings && (
-          <InlineForm
+          <BlockDataForm
             schema={accordionBlockSchema()}
             title="Accordion block"
             onChangeField={(id, value) => {
@@ -232,6 +233,7 @@ const Edit = (props) => {
               });
             }}
             formData={data}
+            block={block}
           />
         )}
       </SidebarPortal>
@@ -239,4 +241,4 @@ const Edit = (props) => {
   );
 };
 
-export default Edit;
+export default withBlockExtensions(Edit);
