@@ -1,10 +1,12 @@
 import { BlocksForm, Icon, SidebarPortal } from '@plone/volto/components';
-import InlineForm from '@plone/volto/components/manage/Form/InlineForm';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import helpSVG from '@plone/volto/icons/help.svg';
 import { isEmpty } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
+import { withBlockExtensions } from '@plone/volto/helpers';
+import { BlockDataForm } from '@plone/volto/components';
+import { useIntl } from 'react-intl';
 import AccordionEdit from './AccordionEdit';
 import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
@@ -22,7 +24,7 @@ const Edit = (props) => {
     manage,
     formDescription,
   } = props;
-
+  const intl = useIntl();
   const properties = isEmpty(data?.data?.blocks)
     ? emptyAccordion(3)
     : data.data;
@@ -33,7 +35,7 @@ const Edit = (props) => {
    * @returns {Object} defaultValues
    */
   const setInitialData = () => {
-    const accordionSchema = accordionBlockSchema();
+    const accordionSchema = accordionBlockSchema({ intl });
     const defaultValues = Object.keys(accordionSchema.properties).reduce(
       (accumulator, currentVal) => {
         return accordionSchema.properties[currentVal].default
@@ -222,8 +224,8 @@ const Edit = (props) => {
           </Segment>
         )}
         {!data?.readOnlySettings && (
-          <InlineForm
-            schema={accordionBlockSchema()}
+          <BlockDataForm
+            schema={accordionBlockSchema({ intl })}
             title="Accordion block"
             onChangeField={(id, value) => {
               onChangeBlock(block, {
@@ -232,6 +234,7 @@ const Edit = (props) => {
               });
             }}
             formData={data}
+            block={block}
           />
         )}
       </SidebarPortal>
@@ -239,4 +242,4 @@ const Edit = (props) => {
   );
 };
 
-export default Edit;
+export default withBlockExtensions(Edit);
