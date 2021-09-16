@@ -18,48 +18,48 @@ msgstr ""
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Accordion"
-msgstr ""
+msgstr "Akkordeon"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Accordion Title size"
-msgstr ""
+msgstr "Akkordeon Schriftgröße Titel"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Allow multiple panels open at a time"
-msgstr ""
+msgstr "Erlaube mehrere Panele zur gleichen Zeit geöffnet zu haben"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Collapsed by default"
-msgstr ""
+msgstr "Eingeklappt ist der Standard"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Friendly name"
-msgstr ""
+msgstr "Kurzname"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Non exclusive"
-msgstr ""
+msgstr "Nicht ausschließend"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Style"
-msgstr ""
+msgstr "Aussehen"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Title Icon on the right"
-msgstr ""
+msgstr "Titel-Icon auf der rechten Seite anzeigen"
 
 #: components/manage/Blocks/Accordion/Schema
 msgid "Title size"
-msgstr ""
+msgstr "Schriftgröße Titel"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 msgid "Unknown Block"
-msgstr ""
+msgstr "Unbekannter Block"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 msgid "delete"
-msgstr ""
+msgstr "löschen"
