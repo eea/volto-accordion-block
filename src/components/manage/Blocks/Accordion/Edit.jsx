@@ -12,6 +12,8 @@ import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
 import { accordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
+import { cloneDeep } from 'lodash';
+import config from '@plone/volto/registry';
 
 const Edit = (props) => {
   const [selectedBlock, setSelectedBlock] = useState({});
@@ -19,7 +21,6 @@ const Edit = (props) => {
     block,
     data,
     onChangeBlock,
-    onChangeField,
     pathname,
     selected,
     manage,
@@ -31,12 +32,41 @@ const Edit = (props) => {
     : data.data;
   const metadata = props.metadata || props.properties;
 
+  const applySchemaEnhancer = (originalSchema) => {
+    let schema, schemaEnhancer;
+    const formData = data;
+    const { blocks } = config;
+
+    const blockType = formData['@type'];
+    const variations = blocks?.blocksConfig[blockType]?.variations || [];
+
+    if (variations.length === 0) {
+      // No variations present but anyways
+      // finalize the schema with a schemaEnhancer in the block config is present
+      schemaEnhancer = blocks.blocksConfig?.[blockType]?.schemaEnhancer;
+      if (schemaEnhancer)
+        schema = schemaEnhancer({ schema: originalSchema, formData, intl });
+    }
+
+    const activeItemName = formData?.variation;
+    let activeItem = variations.find((item) => item.id === activeItemName);
+    if (!activeItem) activeItem = variations.find((item) => item.isDefault);
+
+    schemaEnhancer = activeItem?.['schemaEnhancer'];
+
+    schema = schemaEnhancer
+      ? schemaEnhancer({ schema: cloneDeep(originalSchema), formData, intl })
+      : cloneDeep(originalSchema);
+
+    return schema;
+  };
+
   /**
    * Will set field values from schema, by matching the default values
    * @returns {Object} defaultValues
    */
   const setInitialData = () => {
-    const accordionSchema = accordionBlockSchema({ intl });
+    const accordionSchema = applySchemaEnhancer(accordionBlockSchema({ intl }));
     const defaultValues = Object.keys(accordionSchema.properties).reduce(
       (accumulator, currentVal) => {
         return accordionSchema.properties[currentVal].default
@@ -182,8 +212,6 @@ const Edit = (props) => {
                     },
                   },
                 });
-              } else {
-                onChangeField(id, value);
               }
             }}
             pathname={pathname}
@@ -229,7 +257,7 @@ const Edit = (props) => {
         {!data?.readOnlySettings && (
           <BlockDataForm
             schema={accordionBlockSchema({ intl })}
-            title="Accordion block"
+            title="Accordion block 2"
             onChangeField={(id, value) => {
               onChangeBlock(block, {
                 ...data,
