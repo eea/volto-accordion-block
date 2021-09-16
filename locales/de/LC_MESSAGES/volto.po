@@ -1,0 +1,65 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-27T19:30:59.079Z\n"
+"PO-Revision-Date: 2016-10-22 16:41-0500\n"
+"Last-Translator: German <plone-i18n@lists.sf.net>\n"
+"Language: de\n"
+"Language-Team: German <plone-i18n@lists.sf.net>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Accordion"
+msgstr "Akkordeon"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Accordion Title size"
+msgstr "Akkordeon Schriftgröße Titel"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Allow multiple panels open at a time"
+msgstr "Erlaube mehrere Panele zur gleichen Zeit geöffnet zu haben"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Collapsed by default"
+msgstr "Eingeklappt ist der Standard"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Friendly name"
+msgstr "Kurzname"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Non exclusive"
+msgstr "Nicht ausschließend"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Style"
+msgstr "Aussehen"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Title"
+msgstr "Titel"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Title Icon on the right"
+msgstr "Titel-Icon auf der rechten Seite anzeigen"
+
+#: components/manage/Blocks/Accordion/Schema
+msgid "Title size"
+msgstr "Schriftgröße Titel"
+
+#: components/manage/Blocks/Accordion/EditBlockWrapper
+msgid "Unknown Block"
+msgstr "Unbekannter Block"
+
+#: components/manage/Blocks/Accordion/EditBlockWrapper
+msgid "delete"
+msgstr "löschen"
