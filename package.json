@@ -26,6 +26,7 @@
   "scripts": {
     "release": "release-it",
     "bootstrap": "npm install -g ejs; npm link ejs; node bootstrap",
+    "i18n": "rm -rf build/messages && NODE_ENV=production node src/i18n.js",
     "test": "make test",
     "test:fix": "make test-update",
     "stylelint": "../../../node_modules/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'",
