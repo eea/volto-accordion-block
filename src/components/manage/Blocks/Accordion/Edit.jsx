@@ -21,6 +21,7 @@ const Edit = (props) => {
     block,
     data,
     onChangeBlock,
+    onChangeField,
     pathname,
     selected,
     manage,
@@ -212,6 +213,8 @@ const Edit = (props) => {
                     },
                   },
                 });
+              } else {
+                onChangeField(id, value);
               }
             }}
             pathname={pathname}
@@ -257,7 +260,7 @@ const Edit = (props) => {
         {!data?.readOnlySettings && (
           <BlockDataForm
             schema={accordionBlockSchema({ intl })}
-            title="Accordion block 2"
+            title="Accordion block"
             onChangeField={(id, value) => {
               onChangeBlock(block, {
                 ...data,
