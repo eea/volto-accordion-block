@@ -59,12 +59,22 @@ export default (props) => {
           })}
         >
           {isExclusive(index) ? (
-            <Icon name={titleIcons.down} size="24px" />
+            <Icon
+              name={
+                props?.data?.right_arrows
+                  ? titleIcons.closed.rightPosition
+                  : titleIcons.closed.leftPosition
+              }
+              size="24px"
+            />
           ) : (
             <Icon
               size="24px"
-              name={titleIcons.right}
-              className={cx({ 'rotate-arrow': data?.right_arrows })}
+              name={
+                props?.data?.right_arrows
+                  ? titleIcons.opened.rightPosition
+                  : titleIcons.opened.leftPosition
+              }
             />
           )}
           {!data.readOnlyTitles ? (

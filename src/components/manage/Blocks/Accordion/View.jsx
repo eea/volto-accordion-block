@@ -6,10 +6,8 @@ import { withBlockExtensions } from '@plone/volto/helpers';
 
 import cx from 'classnames';
 import { Icon } from '@plone/volto/components';
-import rightSVG from '@plone/volto/icons/right-key.svg';
-import downSVG from '@plone/volto/icons/down-key.svg';
 import AnimateHeight from 'react-animate-height';
-
+import config from '@plone/volto/registry';
 import './editor.less';
 
 const View = (props) => {
@@ -17,6 +15,7 @@ const View = (props) => {
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState([0]);
+  const { titleIcons } = config.blocks.blocksConfig.accordion;
   const handleClick = (e, itemProps) => {
     const { index } = itemProps;
     if (data.non_exclusive) {
@@ -61,14 +60,22 @@ const View = (props) => {
                 })}
               >
                 {isExclusive(index) ? (
-                  <Icon name={downSVG} size="24px" />
+                  <Icon
+                    name={
+                      props?.data?.right_arrows
+                        ? titleIcons.closed.rightPosition
+                        : titleIcons.closed.leftPosition
+                    }
+                    size="24px"
+                  />
                 ) : (
                   <Icon
-                    name={rightSVG}
+                    name={
+                      props?.data?.right_arrows
+                        ? titleIcons.opened.rightPosition
+                        : titleIcons.opened.leftPosition
+                    }
                     size="24px"
-                    className={cx({
-                      'rotate-arrow': props?.data?.right_arrows,
-                    })}
                   />
                 )}
                 <span>{panel?.title}</span>
