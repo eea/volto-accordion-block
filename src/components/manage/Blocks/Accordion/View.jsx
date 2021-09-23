@@ -63,8 +63,8 @@ const View = (props) => {
                   <Icon
                     name={
                       props?.data?.right_arrows
-                        ? titleIcons.closed.rightPosition
-                        : titleIcons.closed.leftPosition
+                        ? titleIcons.opened.rightPosition
+                        : titleIcons.opened.leftPosition
                     }
                     size="24px"
                   />
@@ -72,8 +72,8 @@ const View = (props) => {
                   <Icon
                     name={
                       props?.data?.right_arrows
-                        ? titleIcons.opened.rightPosition
-                        : titleIcons.opened.leftPosition
+                        ? titleIcons.closed.rightPosition
+                        : titleIcons.closed.leftPosition
                     }
                     size="24px"
                   />
