@@ -80,19 +80,19 @@ const View = (props) => {
                 )}
                 <span>{panel?.title}</span>
               </Accordion.Title>
-              <Accordion.Content active={isExclusive(index)}>
-                <AnimateHeight
-                  animateOpacity
-                  duration={500}
-                  height={isExclusive(index) ? 'auto' : 0}
-                >
+              <AnimateHeight
+                animateOpacity
+                duration={500}
+                height={isExclusive(index) ? 'auto' : 0}
+              >
+                <Accordion.Content active={isExclusive(index)}>
                   <RenderBlocks
                     {...props}
                     metadata={metadata}
                     content={panel}
                   />
-                </AnimateHeight>
-              </Accordion.Content>
+                </Accordion.Content>
+              </AnimateHeight>
             </React.Fragment>
           </Accordion>
         ) : null;
