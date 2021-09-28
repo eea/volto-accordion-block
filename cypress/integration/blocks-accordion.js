@@ -35,7 +35,7 @@ describe('Blocks Tests', () => {
     cy.wait(500);
 
     // the cypress test is run without slate, but with draftjs
-    cy.get('.accordion:nth-child(3) > .content')
+    cy.get('.accordion:nth-child(3) .content')
       .first()
       .within(() => {
         cy.get('.public-DraftStyleDefault-block:nth-child(1)')
