@@ -94,15 +94,15 @@ export default (props) => {
             <span>{panel?.title}</span>
           )}
         </Accordion.Title>
-        <Accordion.Content active={isExclusive(index)}>
-          <AnimateHeight
-            animateOpacity
-            duration={500}
-            height={isExclusive(index) ? 'auto' : 0}
-          >
+        <AnimateHeight
+          animateOpacity
+          duration={500}
+          height={isExclusive(index) ? 'auto' : 0}
+        >
+          <Accordion.Content active={isExclusive(index)}>
             {children}
-          </AnimateHeight>
-        </Accordion.Content>
+          </Accordion.Content>
+        </AnimateHeight>
       </React.Fragment>
     </Accordion>
   );
