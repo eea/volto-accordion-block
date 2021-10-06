@@ -1,79 +1,69 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2021-10-06T09:57:51.150Z\n"
-"Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
-"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-27T19:30:59.079Z\n"
+"PO-Revision-Date: 2016-10-22 16:41-0500\n"
+"Last-Translator: Italiano <plone-i18n@lists.sf.net>\n"
+"Language: it\n"
+"Language-Team: Italiano <plone-i18n@lists.sf.net>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
-"Preferred-Encodings: utf-8\n"
-"Domain: volto\n"
+"MIME-Version: 1.0\n"
+"Language-Code: de\n"
+"Language-Name: Italiano\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"X-Is-Fallback-For: it it-CH it-IT\n"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Accordion
 msgid "Accordion"
-msgstr ""
+msgstr "Accordion"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Accordion Title size
 msgid "Accordion Title size"
-msgstr ""
+msgstr "Dimensione del titolo"
 
 #: components/manage/Widgets/PanelsWidget
-# defaultMessage: Add
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Allow multiple panels open at a time
 msgid "Allow multiple panels open at a time"
-msgstr ""
+msgstr "Consente di avere più pannelli aperti contemporaneamente"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Collapsed by default
 msgid "Collapsed by default"
-msgstr ""
+msgstr "Collassati di default"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Friendly name
 msgid "Friendly name"
-msgstr ""
+msgstr "Titolo dell'elemento"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Non exclusive
 msgid "Non exclusive"
-msgstr ""
+msgstr "Non esclusivo"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Style
 msgid "Style"
-msgstr ""
+msgstr "Stile"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Title
 msgid "Title"
-msgstr ""
+msgstr "Titolo"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Title Icon on the right
 msgid "Title Icon on the right"
-msgstr ""
+msgstr "Mostra l'icona sulla destra"
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Title size
 msgid "Title size"
-msgstr ""
+msgstr "Dimensione del titolo"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
-# defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
-msgstr ""
+msgstr "Blocco sconosciuto"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
-# defaultMessage: delete
 msgid "delete"
-msgstr ""
+msgstr "Rimuovi"

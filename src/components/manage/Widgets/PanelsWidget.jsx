@@ -2,6 +2,7 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { omit, without } from 'lodash';
 import move from 'lodash-move';
+import { useIntl, defineMessages } from 'react-intl';
 import { Button } from 'semantic-ui-react';
 import { Icon, FormFieldWrapper } from '@plone/volto/components';
 import { DragDropList } from '@plone/volto/components';
@@ -12,6 +13,10 @@ import dragSVG from '@plone/volto/icons/drag.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
 
 import './editor.less';
+
+const messages = defineMessages({
+  add: { id: 'Add', defaultMessage: 'Add' },
+});
 
 export function moveItem(formData, source, destination) {
   return {
@@ -27,6 +32,7 @@ const empty = () => {
 };
 
 const PanelsWidget = (props) => {
+  const intl = useIntl();
   const { fieldSet, value = {}, id, onChange, schema } = props;
   const { blocks = {} } = value;
   const itemsList = (value.blocks_layout?.items || []).map((id) => [
@@ -43,7 +49,10 @@ const PanelsWidget = (props) => {
           <Button
             compact
             icon
-            aria-label={objectSchema.addMessage || `Add ${objectSchema.title}`}
+            aria-label={
+              objectSchema.addMessage ||
+              `${intl.formatMessage(messages.add)} ${objectSchema.title}`
+            }
             onClick={() => {
               const [newId, newData] = empty();
               onChange(id, {
