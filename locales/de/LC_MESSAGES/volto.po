@@ -24,6 +24,10 @@ msgstr "Akkordeon"
 msgid "Accordion Title size"
 msgstr "Akkordeon Schriftgröße Titel"
 
+#: components/manage/Widgets/PanelsWidget
+msgid "Add"
+msgstr ""
+
 #: components/manage/Blocks/Accordion/Schema
 msgid "Allow multiple panels open at a time"
 msgstr "Erlaube mehrere Panele zur gleichen Zeit geöffnet zu haben"
