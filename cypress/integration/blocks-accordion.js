@@ -34,14 +34,26 @@ describe('Blocks Tests', () => {
     cy.get('.accordion:nth-child(3) > .title > .icon').click();
     cy.wait(500);
 
-    // the cypress test is run without slate, but with draftjs
+    // the cypress test runs with both slate and draftjs.
     cy.get('.accordion:nth-child(3) .content')
       .first()
       .within(() => {
-        cy.get('.public-DraftStyleDefault-block:nth-child(1)')
-          .should('have.value', '')
-          .invoke('attr', 'tabindex', 1)
-          .type('children', { delay: 50 });
+        cy.getIfExists(
+          '.public-DraftStyleDefault-block:nth-child(1)',
+          () => {
+            cy.get('.public-DraftStyleDefault-block:nth-child(1)')
+              .should('have.value', '')
+              .invoke('attr', 'tabindex', 1)
+              .type('children', { delay: 50 });
+          },
+          () => {
+            cy.get('div.text-slate-editor-inner')
+              .should('have.value', '')
+              .invoke('attr', 'tabindex', 1)
+              .click()
+              .type('children', { delay: 50 });
+          },
+        );
       });
 
     cy.get('#toolbar-save path').click({ force: true });
