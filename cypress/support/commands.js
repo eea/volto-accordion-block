@@ -295,6 +295,19 @@ function getTextNode(el, match) {
     }
   }
 }
+function getIfExists(
+  selector,
+  successAction = () => {},
+  failAction = () => {},
+) {
+  cy.get('div.blocks-form').then((body) => {
+    if (body.find(selector).length > 0 && successAction) {
+      successAction();
+    } else if (failAction) {
+      failAction();
+    }
+  });
+}
 
 function setBaseAndExtent(...args) {
   const document = args[0].ownerDocument;
@@ -313,3 +326,4 @@ Cypress.Commands.add('store', () => {
 Cypress.Commands.add('settings', (key, value) => {
   return cy.window().its('settings');
 });
+Cypress.Commands.add('getIfExists', getIfExists);
