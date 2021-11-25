@@ -155,3 +155,15 @@
     padding: 9px !important;
   }
 }
+
+@media print {
+  div.rah-static.rah-static--height-zero {
+    overflow: visible;
+    height: auto !important;
+  }
+
+  div.rah-static.rah-static--height-zero > div {
+    display: block !important;
+    opacity: 1 !important;
+  }
+}
