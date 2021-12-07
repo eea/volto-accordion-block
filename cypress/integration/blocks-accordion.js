@@ -5,7 +5,7 @@ describe('Blocks Tests', () => {
   afterEach(tearDownAfterEach);
 
   it('Accordion Block: add accordion content', () => {
-    // without this the clear command below does nothing
+    // without this the clear command below does nothing sometimes
     cy.wait(500);
 
     // Change page title
@@ -72,7 +72,7 @@ describe('Blocks Tests', () => {
   });
 
   it('Accordion Block: Empty', () => {
-    // without this the clear command below does nothing
+    // without this the clear command below does nothing sometimes
     cy.wait(500);
 
     // Change page title
@@ -98,7 +98,7 @@ describe('Blocks Tests', () => {
   });
 
   it('Accordion Block: Change Title', () => {
-    // without this the clear command below does nothing
+    // without this the clear command below does nothing sometimes
     cy.wait(500);
 
     // Change page title
