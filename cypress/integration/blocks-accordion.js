@@ -5,16 +5,17 @@ describe('Blocks Tests', () => {
   afterEach(tearDownAfterEach);
 
   it('Accordion Block: add accordion content', () => {
-    // Change page title
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
-      .clear()
-      .type('My Add-on Page')
-      .get('.documentFirstHeading span[data-text]')
-      .contains('My Add-on Page');
+    // without this the clear command below does nothing sometimes
+    cy.wait(500);
 
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block').type(
-      '{enter}',
-    );
+    // Change page title
+    cy.get('[contenteditable=true]').first().clear();
+
+    cy.get('[contenteditable=true]').first().type('My Add-on Page');
+
+    cy.get('.documentFirstHeading').contains('My Add-on Page');
+
+    cy.get('[contenteditable=true]').first().type('{enter}');
 
     // Add accordion block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
@@ -71,16 +72,17 @@ describe('Blocks Tests', () => {
   });
 
   it('Accordion Block: Empty', () => {
-    // Change page title
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
-      .clear()
-      .type('My Add-on Page')
-      .get('.documentFirstHeading span[data-text]')
-      .contains('My Add-on Page');
+    // without this the clear command below does nothing sometimes
+    cy.wait(500);
 
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block').type(
-      '{enter}',
-    );
+    // Change page title
+    cy.get('[contenteditable=true]').first().clear();
+
+    cy.get('[contenteditable=true]').first().type('My Add-on Page');
+
+    cy.get('.documentFirstHeading').contains('My Add-on Page');
+
+    cy.get('[contenteditable=true]').first().type('{enter}');
 
     // Add metadata block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
@@ -96,16 +98,17 @@ describe('Blocks Tests', () => {
   });
 
   it('Accordion Block: Change Title', () => {
-    // Change page title
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block')
-      .clear()
-      .type('My Add-on Page')
-      .get('.documentFirstHeading span[data-text]')
-      .contains('My Add-on Page');
+    // without this the clear command below does nothing sometimes
+    cy.wait(500);
 
-    cy.get('.documentFirstHeading > .public-DraftStyleDefault-block').type(
-      '{enter}',
-    );
+    // Change page title
+    cy.get('[contenteditable=true]').first().clear();
+
+    cy.get('[contenteditable=true]').first().type('My Add-on Page');
+
+    cy.get('.documentFirstHeading').contains('My Add-on Page');
+
+    cy.get('[contenteditable=true]').first().type('{enter}');
 
     // Add accordion block
     cy.get('.ui.basic.icon.button.block-add-button').first().click();
