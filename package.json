@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-accordion-block",
-  "version": "3.4.10",
+  "version": "3.4.11",
   "description": "volto-accordion-block: Volto accordion block",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -25,6 +25,8 @@
   },
   "scripts": {
     "release": "release-it",
+    "release-major-beta": "release-it major --preRelease=beta",
+    "release-beta": "release-it --preRelease=beta",
     "bootstrap": "npm install -g ejs; npm link ejs; node bootstrap",
     "i18n": "rm -rf build/messages && NODE_ENV=production node src/i18n.js",
     "test": "make test",
