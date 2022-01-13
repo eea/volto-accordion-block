@@ -14,7 +14,7 @@ const View = (props) => {
   const { data } = props;
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
-  const [activeIndex, setActiveIndex] = React.useState([0]);
+  const [activeIndex, setActiveIndex] = React.useState([]);
   const { titleIcons } = config.blocks.blocksConfig.accordion;
   const handleClick = (e, itemProps) => {
     const { index } = itemProps;
