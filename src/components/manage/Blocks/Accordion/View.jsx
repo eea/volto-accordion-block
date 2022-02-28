@@ -1,11 +1,11 @@
 import React from 'react';
 import { RenderBlocks } from '@plone/volto/components';
 import { getPanels, accordionBlockHasValue } from './util';
-import { Accordion } from 'semantic-ui-react';
+import { Accordion, Icon } from 'semantic-ui-react';
 import { withBlockExtensions } from '@plone/volto/helpers';
 
 import cx from 'classnames';
-import { Icon } from '@plone/volto/components';
+import { Icon as VoltoIcon } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
 import config from '@plone/volto/registry';
 import './editor.less';
@@ -15,7 +15,8 @@ const View = (props) => {
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState([]);
-  const { titleIcons } = config.blocks.blocksConfig.accordion;
+  const accordionConfig = config.blocks.blocksConfig.accordion;
+  const { titleIcons } = accordionConfig;
   const handleClick = (e, itemProps) => {
     const { index } = itemProps;
     if (data.non_exclusive) {
@@ -59,8 +60,10 @@ const View = (props) => {
                   'align-arrow-right': props?.data?.right_arrows,
                 })}
               >
-                {isExclusive(index) ? (
-                  <Icon
+                {accordionConfig.semanticIcon ? (
+                  <Icon name={accordionConfig.semanticIcon} />
+                ) : isExclusive(index) ? (
+                  <VoltoIcon
                     name={
                       props?.data?.right_arrows
                         ? titleIcons.opened.rightPosition
@@ -69,7 +72,7 @@ const View = (props) => {
                     size={titleIcons.size}
                   />
                 ) : (
-                  <Icon
+                  <VoltoIcon
                     name={
                       props?.data?.right_arrows
                         ? titleIcons.closed.rightPosition
