@@ -66,7 +66,7 @@ const View = (props) => {
                         ? titleIcons.opened.rightPosition
                         : titleIcons.opened.leftPosition
                     }
-                    size="24px"
+                    size={titleIcons.size}
                   />
                 ) : (
                   <Icon
@@ -75,7 +75,7 @@ const View = (props) => {
                         ? titleIcons.closed.rightPosition
                         : titleIcons.closed.leftPosition
                     }
-                    size="24px"
+                    size={titleIcons.size}
                   />
                 )}
                 <span>{panel?.title}</span>
