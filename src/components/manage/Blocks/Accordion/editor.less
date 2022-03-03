@@ -84,7 +84,7 @@
 
 // View
 .accordion-block {
-  .accordion {
+  .ui.accordion {
     margin-top: 0 !important;
     clear: both; /* ensure floated images from content area don't spill over next accordion title */
   }
@@ -92,8 +92,8 @@
   .accordion-title {
     text-transform: none !important;
 
-    &.align-arrow-left {
-      padding-left: 0 !important;
+    i.icon {
+      order: unset !important;
     }
   }
 
@@ -149,10 +149,6 @@
 
   .block.selected {
     z-index: 2;
-  }
-
-  .content.active {
-    padding: 9px !important;
   }
 }
 

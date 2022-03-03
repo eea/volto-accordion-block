@@ -46,6 +46,7 @@ const applyConfig = (config) => {
     titleIcons: {
       closed: { leftPosition: rightSVG, rightPosition: leftSVG },
       opened: { leftPosition: downSVG, rightPosition: downSVG },
+      size: '24px',
     },
     view: AccordionBlockView,
     edit: AccordionBlockEdit,
