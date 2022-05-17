@@ -60,7 +60,7 @@ export default (props) => {
           })}
         >
           {accordionConfig.semanticIcon ? (
-            <Icon name={accordionConfig.semanticIcon} />
+            <Icon className={accordionConfig.semanticIcon} />
           ) : isExclusive(index) ? (
             <VoltoIcon
               name={
