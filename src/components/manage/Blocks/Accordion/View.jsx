@@ -1,17 +1,19 @@
-import React from 'react';
-import { RenderBlocks } from '@plone/volto/components';
-import { getPanels, accordionBlockHasValue } from './util';
-import { Accordion, Icon } from 'semantic-ui-react';
-import { withBlockExtensions } from '@plone/volto/helpers';
+import React from "react";
+import { RenderBlocks } from "@plone/volto/components";
+import { getPanels, accordionBlockHasValue } from "./util";
+import { Accordion, Icon } from "semantic-ui-react";
+import { withBlockExtensions } from "@plone/volto/helpers";
+import { useLocation } from "react-router-dom";
 
-import cx from 'classnames';
-import { Icon as VoltoIcon } from '@plone/volto/components';
-import AnimateHeight from 'react-animate-height';
-import config from '@plone/volto/registry';
-import './editor.less';
+import cx from "classnames";
+import { Icon as VoltoIcon } from "@plone/volto/components";
+import AnimateHeight from "react-animate-height";
+import config from "@plone/volto/registry";
+import "./editor.less";
 
 const View = (props) => {
   const { data } = props;
+  const location = useLocation();
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState([]);
@@ -55,9 +57,9 @@ const View = (props) => {
                 active={isExclusive(index)}
                 index={index}
                 onClick={handleClick}
-                className={cx('accordion-title', {
-                  'align-arrow-left': !props?.data?.right_arrows,
-                  'align-arrow-right': props?.data?.right_arrows,
+                className={cx("accordion-title", {
+                  "align-arrow-left": !props?.data?.right_arrows,
+                  "align-arrow-right": props?.data?.right_arrows,
                 })}
               >
                 {accordionConfig.semanticIcon ? (
@@ -86,11 +88,12 @@ const View = (props) => {
               <AnimateHeight
                 animateOpacity
                 duration={500}
-                height={isExclusive(index) ? 'auto' : 0}
+                height={isExclusive(index) ? "auto" : 0}
               >
                 <Accordion.Content active={isExclusive(index)}>
                   <RenderBlocks
                     {...props}
+                    location={location}
                     metadata={metadata}
                     content={panel}
                   />
