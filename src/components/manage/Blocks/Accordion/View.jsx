@@ -3,6 +3,7 @@ import { RenderBlocks } from '@plone/volto/components';
 import { getPanels, accordionBlockHasValue } from './util';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { withBlockExtensions } from '@plone/volto/helpers';
+import { useLocation } from 'react-router-dom';
 
 import cx from 'classnames';
 import { Icon as VoltoIcon } from '@plone/volto/components';
@@ -12,6 +13,7 @@ import './editor.less';
 
 const View = (props) => {
   const { data } = props;
+  const location = useLocation();
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState([]);
@@ -91,6 +93,7 @@ const View = (props) => {
                 <Accordion.Content active={isExclusive(index)}>
                   <RenderBlocks
                     {...props}
+                    location={location}
                     metadata={metadata}
                     content={panel}
                   />
