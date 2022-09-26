@@ -25,6 +25,10 @@ const messages = defineMessages({
     id: 'Accordion Title size',
     defaultMessage: 'Accordion Title size',
   },
+  theme: {
+    id: 'Theme',
+    defaultMessage: 'Theme',
+  },
   right_arrows: {
     id: 'Title Icon on the right',
     defaultMessage: 'Title Icon on the right',
@@ -74,6 +78,7 @@ export const accordionBlockSchema = ({ intl }) => ({
       fields: [
         'title',
         'title_size',
+        'theme',
         'right_arrows',
         'collapsed',
         'non_exclusive',
@@ -103,6 +108,18 @@ export const accordionBlockSchema = ({ intl }) => ({
         ['h5', 'Heading 5'],
         ['h6', 'Heading 6'],
       ],
+    },
+    theme: {
+      title: intl.formatMessage(messages.theme),
+      type: 'string',
+      factory: 'Choice',
+      choices: [
+        ['default', 'Default'],
+        ['primary', 'Primary'],
+        ['secondary', 'Secondary'],
+        ['tertiary', 'Tertiary'],
+      ],
+      default: 'default',
     },
     right_arrows: {
       title: intl.formatMessage(messages.right_arrows),
