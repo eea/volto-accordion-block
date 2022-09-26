@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-accordion-block",
-  "version": "3.5.1",
+  "version": "3.6.0",
   "description": "volto-accordion-block: Volto accordion block",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
