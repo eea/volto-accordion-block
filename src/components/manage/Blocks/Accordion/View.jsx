@@ -50,7 +50,13 @@ const View = (props) => {
     <div className="accordion-block">
       {panels.map(([id, panel], index) => {
         return accordionBlockHasValue(panel) ? (
-          <Accordion fluid styled key={id} exclusive={!data.exclusive}>
+          <Accordion
+            fluid
+            styled
+            key={id}
+            exclusive={!data.exclusive}
+            className={data.styles?.theme}
+          >
             <React.Fragment>
               <Accordion.Title
                 as={data.title_size}

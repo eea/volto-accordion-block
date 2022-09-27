@@ -47,6 +47,17 @@
     padding-top: 1rem;
     padding-bottom: 0.1rem;
     margin: 0;
+
+    .ui.accordion {
+      &.primary,
+      &.secondary,
+      &.tertiary {
+        .active.title input,
+        .active.title i {
+          color: #fff;
+        }
+      }
+    }
   }
 
   .blocks-form {

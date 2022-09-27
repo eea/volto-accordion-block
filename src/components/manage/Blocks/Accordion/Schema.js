@@ -5,9 +5,9 @@ const messages = defineMessages({
     id: 'Accordion',
     defaultMessage: 'Accordion',
   },
-  Style: {
-    id: 'Style',
-    defaultMessage: 'Style',
+  Options: {
+    id: 'Options',
+    defaultMessage: 'Options',
   },
   Title: {
     id: 'Title',
@@ -41,6 +41,26 @@ const messages = defineMessages({
     id: 'Allow multiple panels open at a time',
     defaultMessage: 'Allow multiple panels open at a time',
   },
+  Theme: {
+    id: 'Theme',
+    defaultMessage: 'Theme',
+  },
+  ThemeHelp: {
+    id: 'Accordion theme',
+    defaultMessage: 'Accordion theme',
+  },
+  ThemePrimary: {
+    id: 'Primary',
+    defaultMessage: 'Primary',
+  },
+  ThemeSecondary: {
+    id: 'Secondary',
+    defaultMessage: 'Secondary',
+  },
+  ThemeTertiary: {
+    id: 'Tertiary',
+    defaultMessage: 'Tertiary',
+  },
 });
 
 export const AccordionSchema = {
@@ -60,7 +80,7 @@ export const AccordionSchema = {
   required: [],
 };
 
-export const accordionBlockSchema = ({ intl }) => ({
+export const AccordionBlockSchema = ({ intl }) => ({
   title: 'Accordion block',
   fieldsets: [
     {
@@ -69,8 +89,8 @@ export const accordionBlockSchema = ({ intl }) => ({
       fields: ['data'],
     },
     {
-      id: 'style',
-      title: intl.formatMessage(messages.Style),
+      id: 'options',
+      title: intl.formatMessage(messages.Options),
       fields: [
         'title',
         'title_size',
@@ -122,4 +142,28 @@ export const accordionBlockSchema = ({ intl }) => ({
     },
   },
   required: ['title'],
+});
+
+export const AccordionStylingSchema = ({ intl }) => ({
+  title: intl.formatMessage(messages.Accordion),
+  block: 'accordion',
+  fieldsets: [
+    {
+      id: 'default',
+      title: 'Default',
+      fields: ['theme'],
+    },
+  ],
+  properties: {
+    theme: {
+      title: intl.formatMessage(messages.Theme),
+      description: intl.formatMessage(messages.ThemeHelp),
+      choices: [
+        ['primary', intl.formatMessage(messages.ThemePrimary)],
+        ['secondary', intl.formatMessage(messages.ThemeSecondary)],
+        ['tertiary', intl.formatMessage(messages.ThemeTertiary)],
+      ],
+    },
+  },
+  required: [],
 });

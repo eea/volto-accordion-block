@@ -17,53 +17,91 @@ msgstr ""
 "X-Is-Fallback-For: it it-CH it-IT\n"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Accordion
 msgid "Accordion"
 msgstr "Accordion"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Accordion Title size
 msgid "Accordion Title size"
 msgstr "Dimensione del titolo"
 
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Accordion theme
+msgid "Accordion theme"
+msgstr "Tema della accordion"
+
 #: components/manage/Widgets/PanelsWidget
+# defaultMessage: Add
 msgid "Add"
 msgstr "Aggiungi"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Allow multiple panels open at a time
 msgid "Allow multiple panels open at a time"
 msgstr "Consente di avere più pannelli aperti contemporaneamente"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Collapsed by default
 msgid "Collapsed by default"
 msgstr "Collassati di default"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Friendly name
 msgid "Friendly name"
 msgstr "Titolo dell'elemento"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Non exclusive
 msgid "Non exclusive"
 msgstr "Non esclusivo"
 
 #: components/manage/Blocks/Accordion/Schema
-msgid "Style"
-msgstr "Stile"
+# defaultMessage: Options
+msgid "Options"
+msgstr "Opzioni"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Primary
+msgid "Primary"
+msgstr "Primario"
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Secondary
+msgid "Secondary"
+msgstr "Secondario"
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Tertiary
+msgid "Tertiary"
+msgstr "Terziario"
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Theme
+msgid "Theme"
+msgstr "Tema"
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Title
 msgid "Title"
 msgstr "Titolo"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Title Icon on the right
 msgid "Title Icon on the right"
 msgstr "Mostra l'icona sulla destra"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Title size
 msgid "Title size"
 msgstr "Dimensione del titolo"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
+# defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
 msgstr "Blocco sconosciuto"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
+# defaultMessage: delete
 msgid "delete"
 msgstr "Rimuovi"

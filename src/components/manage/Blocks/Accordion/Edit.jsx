@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import AccordionEdit from './AccordionEdit';
 import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
-import { accordionBlockSchema } from './Schema';
+import { AccordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
 import { cloneDeep } from 'lodash';
 import config from '@plone/volto/registry';
@@ -67,7 +67,7 @@ const Edit = (props) => {
    * @returns {Object} defaultValues
    */
   const setInitialData = () => {
-    const accordionSchema = applySchemaEnhancer(accordionBlockSchema({ intl }));
+    const accordionSchema = applySchemaEnhancer(AccordionBlockSchema({ intl }));
     const defaultValues = Object.keys(accordionSchema.properties).reduce(
       (accumulator, currentVal) => {
         return accordionSchema.properties[currentVal].default
@@ -259,7 +259,7 @@ const Edit = (props) => {
         )}
         {!data?.readOnlySettings && (
           <BlockDataForm
-            schema={accordionBlockSchema({ intl })}
+            schema={AccordionBlockSchema({ intl })}
             title="Accordion block"
             onChangeField={(id, value) => {
               onChangeBlock(block, {
