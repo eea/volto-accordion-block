@@ -55,7 +55,7 @@ const View = (props) => {
             styled
             key={id}
             exclusive={!data.exclusive}
-            className={data.theme}
+            className={data.styles?.theme}
           >
             <React.Fragment>
               <Accordion.Title

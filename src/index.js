@@ -3,6 +3,7 @@ import {
   AccordionBlockEdit,
   AccordionBlockView,
   AccordionLayoutSchema,
+  AccordionStylingSchema,
 } from './components';
 import { PanelsWidget } from '@eeacms/volto-accordion-block/components';
 import rightSVG from '@plone/volto/icons/right-key.svg';
@@ -55,6 +56,8 @@ const applyConfig = (config) => {
     blockHasOwnFocusManagement: true,
     sidebarTab: 1,
     schema: extendedSchema(config),
+    stylesSchema: AccordionStylingSchema,
+    enableStyling: true,
     security: {
       addPermission: [],
       view: [],

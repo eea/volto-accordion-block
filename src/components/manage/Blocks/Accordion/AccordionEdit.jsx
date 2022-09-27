@@ -47,7 +47,7 @@ export default (props) => {
   }, [data.collapsed]);
 
   return (
-    <Accordion fluid styled className={data.theme}>
+    <Accordion fluid styled className={data.styles?.theme}>
       <React.Fragment>
         <Accordion.Title
           as={data.title_size}
