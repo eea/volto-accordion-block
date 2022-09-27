@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2021-10-06T09:57:51.150Z\n"
+"POT-Creation-Date: 2022-09-27T08:42:53.695Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,11 @@ msgstr ""
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion Title size
 msgid "Accordion Title size"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Accordion theme
+msgid "Accordion theme"
 msgstr ""
 
 #: components/manage/Widgets/PanelsWidget
@@ -49,8 +54,28 @@ msgid "Non exclusive"
 msgstr ""
 
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Style
-msgid "Style"
+# defaultMessage: Options
+msgid "Options"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Primary
+msgid "Primary"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Secondary
+msgid "Secondary"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Tertiary
+msgid "Tertiary"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Theme
+msgid "Theme"
 msgstr ""
 
 #: components/manage/Blocks/Accordion/Schema
