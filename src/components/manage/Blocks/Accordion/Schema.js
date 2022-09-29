@@ -127,7 +127,7 @@ export const AccordionBlockSchema = ({ intl }) => ({
     right_arrows: {
       title: intl.formatMessage(messages.right_arrows),
       type: 'boolean',
-      default: false,
+      default: true,
     },
     collapsed: {
       title: intl.formatMessage(messages.collapsed),
