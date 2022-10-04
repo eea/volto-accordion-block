@@ -4,7 +4,7 @@ pipeline {
   environment {
         GIT_NAME = "volto-accordion-block"
         NAMESPACE = "@eeacms"
-        SONARQUBE_TAGS = "volto.eea.europa.eu,forest.eea.europa.eu,www.eea.europa.eu-ims,climate-energy.eea.europa.eu,sustainability.eionet.europa.eu,biodiversity.europa.eu,clms.land.copernicus.eu,industry.eea.europa.eu,water.europa.eu-freshwater,demo-www.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu,circularity.eea.europa.eu,prod-www.eea.europa.eu"
+        SONARQUBE_TAGS = "volto.eea.europa.eu,forest.eea.europa.eu,www.eea.europa.eu-ims,climate-energy.eea.europa.eu,sustainability.eionet.europa.eu,biodiversity.europa.eu,clms.land.copernicus.eu,industry.eea.europa.eu,water.europa.eu-freshwater,demo-www.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu,circularity.eea.europa.eu,prod-www.eea.europa.eu,water.europa.eu-marine"
         DEPENDENCIES = ""
         VOLTO = "16.0.0-alpha.14"
     }
