@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-accordion-block",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "volto-accordion-block: Volto accordion block",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -20,6 +20,7 @@
   "dependencies": {},
   "devDependencies": {
     "release-it": "*",
+    "md5": "^2.3.0",
     "@cypress/code-coverage": "^3.9.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "@plone/scripts": "*"

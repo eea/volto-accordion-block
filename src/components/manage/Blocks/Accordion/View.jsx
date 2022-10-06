@@ -51,11 +51,12 @@ const View = (props) => {
       {panels.map(([id, panel], index) => {
         return accordionBlockHasValue(panel) ? (
           <Accordion
-            fluid
-            styled
             key={id}
             exclusive={!data.exclusive}
-            className={data.styles?.theme}
+            className={
+              data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
+            }
+            {...accordionConfig.options}
           >
             <React.Fragment>
               <Accordion.Title

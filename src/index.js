@@ -58,6 +58,12 @@ const applyConfig = (config) => {
     schema: extendedSchema(config),
     stylesSchema: AccordionStylingSchema,
     enableStyling: true,
+    // See https://react.semantic-ui.com/modules/accordion/
+    options: {
+      styled: 'styled',
+      fluid: 'fluid',
+    },
+    defaults: {},
     security: {
       addPermission: [],
       view: [],
