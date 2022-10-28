@@ -34,16 +34,65 @@ start-backend-docker:		## Starts a Docker-based backend
 	@echo "$(GREEN)==> Start Docker-based Plone Backend$(RESET)"
 	docker run -it --rm --name=plone -p 8080:8080 -e SITE=Plone -e ADDONS="kitconcept.volto" -e ZCML="kitconcept.volto.cors" plone
 
-.PHONY: help
-help:		## Show this help.
-	@echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
-
 .PHONY: test
 test:
-	docker pull plone/volto-addon-ci
-	docker run -it --rm -e GIT_NAME=volto-slate -e RAZZLE_JEST_CONFIG=jest-addon.config.js -v "$$(pwd):/opt/frontend/my-volto-project/src/addons/volto-slate" plone/volto-addon-ci yarn test --watchAll=false
+	docker pull plone/volto-addon-ci:alpha
+	docker run -it --rm -e NAMESPACE="@eeacms" -e GIT_NAME="${DIR}" -e RAZZLE_JEST_CONFIG=jest-addon.config.js -v "$$(pwd):/opt/frontend/my-volto-project/src/addons/${DIR}" -e CI="true" plone/volto-addon-ci:alpha
 
 .PHONY: test-update
 test-update:
-	docker pull plone/volto-addon-ci
-	docker run -it --rm -e GIT_NAME=volto-slate -e RAZZLE_JEST_CONFIG=jest-addon.config.js -v "$$(pwd):/opt/frontend/my-volto-project/src/addons/volto-slate" plone/volto-addon-ci yarn test --watchAll=false -u
+	docker pull plone/volto-addon-ci:alpha
+	docker run -it --rm -e NAMESPACE="@eeacms" -e GIT_NAME="${DIR}" -e RAZZLE_JEST_CONFIG=jest-addon.config.js -v "$$(pwd):/opt/frontend/my-volto-project/src/addons/${DIR}" -e CI="true" plone/volto-addon-ci:alpha yarn test src/addons/${DIR}/src --watchAll=false -u
+
+.PHONY: help
+help:           ## Show this help.
+        @echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
+
+
+ifeq ($(wildcard ./project),)
+  NODE_MODULES = "../../../node_modules"
+else
+  NODE_MODULES = "./project/node_modules"
+endif
+
+.PHONY: stylelint
+stylelint:
+	$(NODE_MODULES)/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'
+
+.PHONY: stylelint-overrides
+stylelint-overrides:
+	$(NODE_MODULES)/.bin/stylelint --syntax less --allow-empty-input 'theme/**/*.overrides' 'src/**/*.overrides'
+
+.PHONY: stylelint-fix
+stylelint-fix:
+	$(NODE_MODULES)/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}' --fix
+	$(NODE_MODULES)/.bin/stylelint --syntax less --allow-empty-input 'theme/**/*.overrides' 'src/**/*.overrides' --fix
+
+.PHONY: prettier
+prettier:
+	$(NODE_MODULES)/.bin/prettier --single-quote --check 'src/**/*.{js,jsx,json,css,less,md}'
+
+.PHONY: prettier-fix
+prettier-fix:
+	$(NODE_MODULES)/.bin/prettier --single-quote  --write 'src/**/*.{js,jsx,json,css,less,md}'
+
+.PHONY: lint
+lint:
+	$(NODE_MODULES)/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'
+
+.PHONY: lint-fix
+lint-fix:
+	$(NODE_MODULES)/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'
+
+.PHONY: i18n
+i18n:
+	rm -rf build/messages
+	NODE_ENV=development $(NODE_MODULES)/.bin/i18n --addon
+
+.PHONY: cypress-run
+cypress-run:
+	NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress run
+
+.PHONY: cypress-open
+cypress-open:
+	NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress open
