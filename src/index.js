@@ -56,8 +56,7 @@ const applyConfig = (config) => {
     blockHasOwnFocusManagement: true,
     sidebarTab: 1,
     schema: extendedSchema(config),
-    stylesSchema: AccordionStylingSchema,
-    enableStyling: true,
+    schemaEnhancer: AccordionStylingSchema,
     // See https://react.semantic-ui.com/modules/accordion/
     options: {
       styled: 'styled',
