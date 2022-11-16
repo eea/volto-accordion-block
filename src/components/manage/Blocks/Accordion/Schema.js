@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl';
+import { addStyling } from '@plone/volto/helpers';
 
 const messages = defineMessages({
   Accordion: {
@@ -144,26 +145,31 @@ export const AccordionBlockSchema = ({ intl }) => ({
   required: ['title'],
 });
 
-export const AccordionStylingSchema = ({ intl }) => ({
-  title: intl.formatMessage(messages.Accordion),
-  block: 'accordion',
-  fieldsets: [
-    {
-      id: 'default',
-      title: 'Default',
-      fields: ['theme'],
+export const AccordionStylingSchema = (props) => {
+  const { intl } = props;
+  const schema = addStyling(props);
+  schema.properties.styles.schema = {
+    title: intl.formatMessage(messages.Accordion),
+    block: 'accordion',
+    fieldsets: [
+      {
+        id: 'default',
+        title: 'Default',
+        fields: ['theme'],
+      },
+    ],
+    properties: {
+      theme: {
+        title: intl.formatMessage(messages.Theme),
+        description: intl.formatMessage(messages.ThemeHelp),
+        choices: [
+          ['primary', intl.formatMessage(messages.ThemePrimary)],
+          ['secondary', intl.formatMessage(messages.ThemeSecondary)],
+          ['tertiary', intl.formatMessage(messages.ThemeTertiary)],
+        ],
+      },
     },
-  ],
-  properties: {
-    theme: {
-      title: intl.formatMessage(messages.Theme),
-      description: intl.formatMessage(messages.ThemeHelp),
-      choices: [
-        ['primary', intl.formatMessage(messages.ThemePrimary)],
-        ['secondary', intl.formatMessage(messages.ThemeSecondary)],
-        ['tertiary', intl.formatMessage(messages.ThemeTertiary)],
-      ],
-    },
-  },
-  required: [],
-});
+    required: [],
+  };
+  return schema;
+};
