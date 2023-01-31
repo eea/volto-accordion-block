@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git@github.com:eea/volto-accordion-block.git"
   },
+  "dependencies": {
+    "@eeacms/volto-widget-theme-picker": "1.0.0"
+  },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
     "@plone/scripts": "*",
