@@ -1,3 +1,4 @@
+import config from '@plone/volto/registry';
 import { defineMessages } from 'react-intl';
 import { addStyling } from '@plone/volto/helpers';
 
@@ -162,10 +163,14 @@ export const AccordionStylingSchema = (props) => {
       theme: {
         title: intl.formatMessage(messages.Theme),
         description: intl.formatMessage(messages.ThemeHelp),
-        choices: [
-          ['primary', intl.formatMessage(messages.ThemePrimary)],
-          ['secondary', intl.formatMessage(messages.ThemeSecondary)],
-          ['tertiary', intl.formatMessage(messages.ThemeTertiary)],
+        widget: 'theme_picker',
+        colors: [
+          ...(config.settings && config.settings.themeColors
+            ? config.settings.themeColors.map(({ value, title }) => ({
+                name: value,
+                label: title,
+              }))
+            : []),
         ],
       },
     },
