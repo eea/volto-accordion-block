@@ -1,4 +1,9 @@
-import { BlocksForm, Icon, SidebarPortal } from '@plone/volto/components';
+import {
+  BlocksForm,
+  Icon,
+  SidebarPortal,
+  BlocksToolbar,
+} from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 import helpSVG from '@plone/volto/icons/help.svg';
 import { isEmpty } from 'lodash';
@@ -251,6 +256,12 @@ const Edit = (props) => {
           </BlocksForm>
         </AccordionEdit>
       ))}
+      {selected ? (
+        <BlocksToolbar selectedBlock={selectedBlock} formData={data} />
+      ) : (
+        ''
+      )}
+
       <SidebarPortal selected={selected && !Object.keys(selectedBlock).length}>
         {instructions && (
           <Segment attached>
