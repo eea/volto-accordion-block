@@ -113,47 +113,53 @@ export class BlocksToolbarComponent extends React.Component {
       };
     }, {});
     const blockLayout = cloneWithIds.map((el) => el[0]);
-    //const newBlockData = Object.assign({}, formData);
-    //formData.data.blocks[selectedBlock.key].blocks
-    let acccordion = '';
-    if (Object.keys(selectedBlock).length > 0)
-      acccordion = Object.keys(selectedBlock)[0];
-    // console.log(form.data.blocks[acccordion].blocks)
-    console.log(acccordion);
+    const selectedAccordion = Object.keys(selectedBlock)[0];
+    const selectedIndex =
+      formData.data.blocks[selectedAccordion].blocks_layout.items.indexOf(
+        Object.values(selectedBlock)[0],
+      ) + 1;
+
+    const newBlockData = {
+      ...formData,
+      data: {
+        ...formData.data,
+        blocks: {
+          ...formData.data.blocks,
+          [selectedAccordion]: {
+            blocks: {
+              ...formData.data.blocks[selectedAccordion].blocks,
+              ...blocks,
+            },
+            blocks_layout: {
+              items: [
+                ...formData.data.blocks[
+                  selectedAccordion
+                ].blocks_layout.items.slice(0, selectedIndex),
+                ...blockLayout,
+                ...formData.data.blocks[
+                  selectedAccordion
+                ].blocks_layout.items.slice(selectedIndex),
+              ],
+            },
+          },
+        },
+      },
+    };
+    console.log({ newBlockData }, { formData }, { blockLayout }, { blocks });
+    /*//formData.data.blocks[selectedBlock.key].blocks
+
     //console.log(selectedBlock);
     // const selectedIndex = formData.data.blocks[selectedBlock].indexOf(
     //   selectedBlock,
     // );
     //console.log(selectedIndex);
     // some blocks may refuse to be copied
-    /*const blocksFieldname = getBlocksFieldname(formData);
-    const blocksLayoutFieldname = getBlocksLayoutFieldname(formData);
-    const selectedIndex =
-      formData[blocksLayoutFieldname]?.items?.indexOf(selectedBlock) + 1;
 
     //formData.blocks[selectedBlock].data
 
-    const newBlockData = {
-      [blocksFieldname]: {
-        ...formData[blocksFieldname],
-        ...Object.assign(
-          {},
-          ...cloneWithIds.map(([id, data]) => ({ [id]: data })),
-        ),
-      },
-      [blocksLayoutFieldname]: {
-        ...formData[blocksLayoutFieldname],
-        items: [
-          ...formData[blocksLayoutFieldname]?.items.slice(0, selectedIndex),
-          ...cloneWithIds.map(([id]) => id),
-          ...formData[blocksLayoutFieldname]?.items.slice(selectedIndex),
-        ],
-      },
-    };
-
     if (!(e.ctrlKey || e.metaKey)) this.props.resetBlocksClipboard();
-
-    this.props.onChangeBlocks(newBlockData);*/
+*/
+    this.props.onChangeBlocks(newBlockData);
   }
 
   render() {

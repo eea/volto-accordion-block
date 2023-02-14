@@ -125,6 +125,7 @@ const Edit = (props) => {
     data,
     properties.blocks,
   ]);
+  //console.log('DIN EDIT', data);
 
   const blockState = {};
   const panelData = properties;
@@ -257,7 +258,11 @@ const Edit = (props) => {
         </AccordionEdit>
       ))}
       {selected ? (
-        <BlocksToolbar selectedBlock={selectedBlock} formData={data} />
+        <BlocksToolbar
+          selectedBlock={selectedBlock}
+          formData={data}
+          onChangeBlocks={(newBlockData) => onChangeBlock(block, newBlockData)}
+        />
       ) : (
         ''
       )}
