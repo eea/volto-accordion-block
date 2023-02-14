@@ -125,7 +125,6 @@ const Edit = (props) => {
     data,
     properties.blocks,
   ]);
-  //console.log('DIN EDIT', data);
 
   const blockState = {};
   const panelData = properties;

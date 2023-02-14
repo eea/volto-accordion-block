@@ -88,7 +88,6 @@ export class BlocksToolbarComponent extends React.Component {
 
   pasteBlocks(e) {
     const { formData, blocksClipboard = {}, selectedBlock } = this.props;
-    console.log(selectedBlock);
     if (selectedBlock === {}) return;
     const mode = Object.keys(blocksClipboard).includes('cut') ? 'cut' : 'copy';
     const blocksData = blocksClipboard[mode] || [];
@@ -104,8 +103,6 @@ export class BlocksToolbarComponent extends React.Component {
           : [uuid(), blockData]; // if cut/pasting blocks, we don't clone
       })
       .filter((info) => !!info);
-    //console.log({ formData }, { selectedBlock }, { cloneWithIds });
-    //create block layout
     const blocks = cloneWithIds.reduce((acc, currentValue) => {
       return {
         ...acc,
