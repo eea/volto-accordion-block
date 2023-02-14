@@ -142,20 +142,6 @@ export class BlocksToolbarComponent extends React.Component {
         },
       },
     };
-    console.log({ newBlockData }, { formData }, { blockLayout }, { blocks });
-    /*//formData.data.blocks[selectedBlock.key].blocks
-
-    //console.log(selectedBlock);
-    // const selectedIndex = formData.data.blocks[selectedBlock].indexOf(
-    //   selectedBlock,
-    // );
-    //console.log(selectedIndex);
-    // some blocks may refuse to be copied
-
-    //formData.blocks[selectedBlock].data
-
-    if (!(e.ctrlKey || e.metaKey)) this.props.resetBlocksClipboard();
-*/
     this.props.onChangeBlocks(newBlockData);
   }
 
