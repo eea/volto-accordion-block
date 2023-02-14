@@ -88,7 +88,7 @@ export class BlocksToolbarComponent extends React.Component {
 
   pasteBlocks(e) {
     const { formData, blocksClipboard = {}, selectedBlock } = this.props;
-
+    console.log(selectedBlock);
     if (selectedBlock === {}) return;
     const mode = Object.keys(blocksClipboard).includes('cut') ? 'cut' : 'copy';
     const blocksData = blocksClipboard[mode] || [];
