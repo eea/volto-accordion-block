@@ -155,6 +155,71 @@ const Edit = (props) => {
     instructions = formDescription;
   }
 
+  const changeBlockDataPaste = (newBlockData) => {
+    //get the sequnces of pasted blocks
+
+    let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
+      let key = block[0];
+      let value = block[1];
+      if (Object.keys(data?.data?.blocks).find((x) => x === key)) return false;
+      return true;
+    });
+
+    //remove the pasted blocks from the unwanted place
+    let arrayBlocks = Object.entries(newBlockData.blocks).filter(function (el) {
+      if (
+        pastedBlocks.find(
+          (block) => JSON.stringify(block) === JSON.stringify(el),
+        )
+      )
+        return false;
+      return true;
+    });
+    let blockLayout = pastedBlocks.map((el) => el[0]);
+    let arrayLayout = newBlockData.blocks_layout.items.filter((el) => {
+      if (pastedBlocks.find((block) => block[0] === el)) return false;
+      return true;
+    });
+
+    let accordionId = Object.keys(selectedBlock)[0];
+    const selectedIndex =
+      data.data.blocks[accordionId].blocks_layout.items.indexOf(
+        Object.values(selectedBlock)[0],
+      ) + 1;
+
+    onChangeBlock(block, {
+      ...data,
+      data: {
+        ...newBlockData,
+        blocks: {
+          ...data.data.blocks,
+          [accordionId]: {
+            blocks: {
+              ...data.data.blocks[accordionId].blocks,
+
+              ...Object.fromEntries(pastedBlocks),
+            },
+            blocks_layout: {
+              items: [
+                ...data.data.blocks[accordionId].blocks_layout.items.slice(
+                  0,
+                  selectedIndex,
+                ),
+                ...blockLayout,
+                ...data.data.blocks[accordionId].blocks_layout.items.slice(
+                  selectedIndex,
+                ),
+              ],
+            },
+          },
+        },
+        blocks_layout: { items: arrayLayout },
+      },
+    });
+
+    // []} });
+  };
+
   return (
     <fieldset className="accordion-block">
       <legend
@@ -258,9 +323,12 @@ const Edit = (props) => {
       ))}
       {selected ? (
         <BlocksToolbar
-          selectedBlock={selectedBlock}
-          formData={data}
-          onChangeBlocks={(newBlockData) => onChangeBlock(block, newBlockData)}
+          selectedBlock={Object.keys(selectedBlock)[0]}
+          formData={data.data}
+          selectedBlocks={[]}
+          onChangeBlocks={(newBlockData) => {
+            changeBlockDataPaste(newBlockData);
+          }}
         />
       ) : (
         ''
