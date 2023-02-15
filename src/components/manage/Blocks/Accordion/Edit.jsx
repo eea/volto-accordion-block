@@ -156,25 +156,12 @@ const Edit = (props) => {
   }
 
   const changeBlockDataPaste = (newBlockData) => {
-    //get the sequnces of pasted blocks
-
     let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
       let key = block[0];
-      let value = block[1];
       if (Object.keys(data?.data?.blocks).find((x) => x === key)) return false;
       return true;
     });
 
-    //remove the pasted blocks from the unwanted place
-    let arrayBlocks = Object.entries(newBlockData.blocks).filter(function (el) {
-      if (
-        pastedBlocks.find(
-          (block) => JSON.stringify(block) === JSON.stringify(el),
-        )
-      )
-        return false;
-      return true;
-    });
     let blockLayout = pastedBlocks.map((el) => el[0]);
     let arrayLayout = newBlockData.blocks_layout.items.filter((el) => {
       if (pastedBlocks.find((block) => block[0] === el)) return false;
@@ -216,8 +203,6 @@ const Edit = (props) => {
         blocks_layout: { items: arrayLayout },
       },
     });
-
-    // []} });
   };
 
   return (
