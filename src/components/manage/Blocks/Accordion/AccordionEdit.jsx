@@ -55,14 +55,18 @@ export default (props) => {
     >
       <React.Fragment>
         <Accordion.Title
-          as={data.title_size}
+          as={'button'}
           active={isExclusive(index)}
           index={index}
           onClick={handleClick}
-          className={cx('accordion-title', {
-            'align-arrow-left': !props?.data?.right_arrows,
-            'align-arrow-right': props?.data?.right_arrows,
-          })}
+          className={cx(
+            'accordion-title',
+            {
+              'align-arrow-left': !props?.data?.right_arrows,
+              'align-arrow-right': props?.data?.right_arrows,
+            },
+            data.title_size,
+          )}
         >
           {accordionConfig.semanticIcon ? (
             <Icon className={accordionConfig.semanticIcon} />
