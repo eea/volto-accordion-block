@@ -181,6 +181,7 @@ const Edit = (props) => {
         blocks: {
           ...data.data.blocks,
           [accordionId]: {
+            ...data.data.blocks[accordionId],
             blocks: {
               ...data.data.blocks[accordionId].blocks,
 
