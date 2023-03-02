@@ -55,7 +55,7 @@ export default (props) => {
     >
       <React.Fragment>
         <Accordion.Title
-          as={'button'}
+          as={data.title_size}
           active={isExclusive(index)}
           index={index}
           onClick={handleClick}
