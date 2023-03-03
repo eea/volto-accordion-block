@@ -61,7 +61,7 @@ describe('Blocks Tests', () => {
 
     // then the page view should contain our changes
     cy.contains('My Add-on Page');
-    cy.get('h2.accordion-title').contains('Accordion panel 1');
+    cy.get('button.accordion-title').contains('Accordion panel 1');
   });
 
   it('Accordion Block: add accordion content', () => {
@@ -117,7 +117,7 @@ describe('Blocks Tests', () => {
     cy.wait(1000);
 
     //after saving
-    cy.get('div.accordion-title > span').contains('panel 2');
+    cy.get('button.accordion-title > span').contains('panel 2');
     // after save, the 3 child becomes second
     cy.get('.accordion:nth-child(2) > .title > .icon').click();
     cy.get('div.content')
