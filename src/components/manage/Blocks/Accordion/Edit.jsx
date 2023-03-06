@@ -4,9 +4,12 @@ import {
   SidebarPortal,
   BlocksToolbar,
 } from '@plone/volto/components';
-import { emptyBlocksForm } from '@plone/volto/helpers';
+import {
+  emptyBlocksForm,
+  getBlocksLayoutFieldname,
+} from '@plone/volto/helpers';
 import helpSVG from '@plone/volto/icons/help.svg';
-import { isEmpty } from 'lodash';
+import { isEmpty, without } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { withBlockExtensions } from '@plone/volto/helpers';
@@ -22,6 +25,7 @@ import config from '@plone/volto/registry';
 
 const Edit = (props) => {
   const [selectedBlock, setSelectedBlock] = useState({});
+  const [multiSelected, setMultiSelected] = useState([]);
   const {
     block,
     data,
@@ -37,7 +41,70 @@ const Edit = (props) => {
     ? emptyAccordion(3)
     : data.data;
   const metadata = props.metadata || props.properties;
+  console.log('SCHEMATA', data.data);
+  const onSelectBlock = (uid, id, isMultipleSelection, event, activeBlock) => {
+    let newMultiSelected = [];
+    let selected = id;
 
+    console.log({ activeBlock });
+    if (Object.values(activeBlock).length > 0) {
+      activeBlock = Object.values(activeBlock)[0];
+    }
+    if (data?.data?.blocks?.hasOwnProperty(uid) && isMultipleSelection) {
+      selected = null;
+      const blocksLayoutFieldname = getBlocksLayoutFieldname(
+        data.data.blocks[uid],
+      );
+
+      const blocks_layout = data.data.blocks[uid][blocksLayoutFieldname].items;
+
+      if (event.shiftKey) {
+        const anchor =
+          multiSelected.length > 0
+            ? blocks_layout.indexOf(multiSelected[0])
+            : blocks_layout.indexOf(activeBlock);
+        const focus = blocks_layout.indexOf(id);
+        console.log('se intra aici');
+        if (anchor === focus) {
+          newMultiSelected = [{ [uid]: id }];
+        } else if (focus > anchor) {
+          newMultiSelected = [
+            ...blocks_layout.slice(anchor, focus + 1).map((x) => {
+              return { [uid]: x };
+            }),
+          ];
+        } else {
+          newMultiSelected = [
+            ...blocks_layout.slice(focus, anchor + 1).map((x) => {
+              return { [uid]: x };
+            }),
+          ];
+        }
+      }
+      if ((event.ctrlKey || event.metaKey) && !event.shiftKey) {
+        if (multiSelected.includes({ [uid]: id })) {
+          selected = null;
+          newMultiSelected = without(multiSelected, { [uid]: id });
+        } else {
+          newMultiSelected = [...(multiSelected || []), { [uid]: id }];
+        }
+      }
+    }
+
+    setSelectedBlock({ [uid]: selected });
+    setMultiSelected(newMultiSelected);
+  };
+
+  const searchElementInMultiSelection = (uid, blockprops) => {
+    if (
+      multiSelected.find((el) => {
+        if (el[uid] == blockprops.block) return true;
+        return false;
+      })
+    )
+      return true;
+    return false;
+  };
   const applySchemaEnhancer = (originalSchema) => {
     let schema, schemaEnhancer;
     const formData = data;
@@ -236,11 +303,12 @@ const Edit = (props) => {
             metadata={metadata}
             properties={isEmpty(panel) ? emptyBlocksForm() : panel}
             selectedBlock={selected ? selectedBlock[uid] : null}
-            onSelectBlock={(id) =>
-              setSelectedBlock({
-                [uid]: id,
-              })
-            }
+            onSelectBlock={(id, l, e) => {
+              const isMultipleSelection = e
+                ? e.shiftKey || e.ctrlKey || e.metaKey
+                : false;
+              onSelectBlock(uid, id, isMultipleSelection, e, selectedBlock);
+            }}
             onChangeFormData={(newFormData) => {
               onChangeBlock(block, {
                 ...data,
@@ -275,35 +343,38 @@ const Edit = (props) => {
             }}
             pathname={pathname}
           >
-            {({ draginfo }, editBlock, blockProps) => (
-              <EditBlockWrapper
-                draginfo={draginfo}
-                blockProps={blockProps}
-                disabled={data.disableInnerButtons}
-                extraControls={
-                  <>
-                    {instructions && (
-                      <>
-                        <Button
-                          icon
-                          basic
-                          title="Section help"
-                          onClick={() => {
-                            setSelectedBlock({});
-                            const tab = manage ? 0 : 1;
-                            props.setSidebarTab(tab);
-                          }}
-                        >
-                          <Icon name={helpSVG} className="" size="19px" />
-                        </Button>
-                      </>
-                    )}
-                  </>
-                }
-              >
-                {editBlock}
-              </EditBlockWrapper>
-            )}
+            {({ draginfo }, editBlock, blockProps) => {
+              return (
+                <EditBlockWrapper
+                  draginfo={draginfo}
+                  blockProps={blockProps}
+                  disabled={data.disableInnerButtons}
+                  multiSelected={searchElementInMultiSelection(uid, blockProps)}
+                  extraControls={
+                    <>
+                      {instructions && (
+                        <>
+                          <Button
+                            icon
+                            basic
+                            title="Section help"
+                            onClick={() => {
+                              setSelectedBlock({});
+                              const tab = manage ? 0 : 1;
+                              props.setSidebarTab(tab);
+                            }}
+                          >
+                            <Icon name={helpSVG} className="" size="19px" />
+                          </Button>
+                        </>
+                      )}
+                    </>
+                  }
+                >
+                  {editBlock}
+                </EditBlockWrapper>
+              );
+            }}
           </BlocksForm>
         </AccordionEdit>
       ))}
@@ -311,7 +382,17 @@ const Edit = (props) => {
         <BlocksToolbar
           selectedBlock={Object.keys(selectedBlock)[0]}
           formData={data.data}
-          selectedBlocks={[]}
+          selectedBlocks={multiSelected}
+          onSetSelectedBlocks={(blockIds) => {
+            setMultiSelected(blockIds);
+          }}
+          onSelectBlock={(id, l, e) => {
+            const isMultipleSelection = e
+              ? e.shiftKey || e.ctrlKey || e.metaKey
+              : false;
+
+            onSelectBlock(id, isMultipleSelection, e, selectedBlock);
+          }}
           onChangeBlocks={(newBlockData) => {
             changeBlockDataPaste(newBlockData);
           }}
