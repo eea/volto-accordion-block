@@ -41,6 +41,7 @@ const Edit = (props) => {
     ? emptyAccordion(3)
     : data.data;
   const metadata = props.metadata || props.properties;
+  const [currentUid, setCurrentUid] = useState('');
   console.log('SCHEMATA', data.data);
   const onSelectBlock = (uid, id, isMultipleSelection, event, activeBlock) => {
     let newMultiSelected = [];
@@ -66,39 +67,32 @@ const Edit = (props) => {
         const focus = blocks_layout.indexOf(id);
         console.log('se intra aici');
         if (anchor === focus) {
-          newMultiSelected = [{ [uid]: id }];
+          newMultiSelected = [id];
         } else if (focus > anchor) {
-          newMultiSelected = [
-            ...blocks_layout.slice(anchor, focus + 1).map((x) => {
-              return { [uid]: x };
-            }),
-          ];
+          newMultiSelected = [...blocks_layout.slice(anchor, focus + 1)];
         } else {
-          newMultiSelected = [
-            ...blocks_layout.slice(focus, anchor + 1).map((x) => {
-              return { [uid]: x };
-            }),
-          ];
+          newMultiSelected = [...blocks_layout.slice(focus, anchor + 1)];
         }
       }
       if ((event.ctrlKey || event.metaKey) && !event.shiftKey) {
-        if (multiSelected.includes({ [uid]: id })) {
+        if (multiSelected.includes(id)) {
           selected = null;
-          newMultiSelected = without(multiSelected, { [uid]: id });
+          newMultiSelected = without(multiSelected, id);
         } else {
-          newMultiSelected = [...(multiSelected || []), { [uid]: id }];
+          newMultiSelected = [...(multiSelected || []), id];
         }
       }
     }
 
     setSelectedBlock({ [uid]: selected });
+    setCurrentUid(uid);
     setMultiSelected(newMultiSelected);
   };
 
   const searchElementInMultiSelection = (uid, blockprops) => {
     if (
       multiSelected.find((el) => {
-        if (el[uid] == blockprops.block) return true;
+        if (el == blockprops.block) return true;
         return false;
       })
     )
@@ -170,7 +164,7 @@ const Edit = (props) => {
 
   React.useEffect(() => {
     properties.blocks_layout.items.map((item) => {
-      if (isEmpty(properties.blocks[item].blocks)) {
+      if (isEmpty(properties.blocks[item]?.blocks)) {
         return onChangeBlock(block, {
           ...data,
           data: {
@@ -223,52 +217,76 @@ const Edit = (props) => {
   }
 
   const changeBlockDataPaste = (newBlockData) => {
+    console.log({ newBlockData });
+
+    const selectedIndex =
+      data.data.blocks[currentUid].blocks_layout.items.indexOf(
+        Object.values(selectedBlock)[0],
+      ) + 1;
     let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
       let key = block[0];
-      if (Object.keys(data?.data?.blocks).find((x) => x === key)) return false;
+      console.log({ key });
+      if (
+        data?.data?.blocks[currentUid].blocks_layout.items.find(
+          (x) => x === key,
+        )
+      )
+        return false;
       return true;
     });
 
     let blockLayout = pastedBlocks.map((el) => el[0]);
-    let arrayLayout = newBlockData.blocks_layout.items.filter((el) => {
-      if (pastedBlocks.find((block) => block[0] === el)) return false;
-      return true;
-    });
+    console.log(blockLayout);
 
-    let accordionId = Object.keys(selectedBlock)[0];
-    const selectedIndex =
-      data.data.blocks[accordionId].blocks_layout.items.indexOf(
-        Object.values(selectedBlock)[0],
-      ) + 1;
+    console.log('RESULT', {
+      ...data,
+      data: {
+        blocks: {
+          ...data.data.blocks,
+          [currentUid]: {
+            ...data.data.blocks[currentUid],
+            ...newBlockData,
+          },
+        },
+
+        blocks_layout: {
+          items: [
+            ...data.data.blocks[currentUid].blocks_layout.items.slice(
+              0,
+              selectedIndex,
+            ),
+            ...blockLayout,
+            ...data.data.blocks[currentUid].blocks_layout.items.slice(
+              selectedIndex,
+            ),
+          ],
+        },
+      },
+    });
 
     onChangeBlock(block, {
       ...data,
       data: {
-        ...newBlockData,
         blocks: {
           ...data.data.blocks,
-          [accordionId]: {
-            ...data.data.blocks[accordionId],
-            blocks: {
-              ...data.data.blocks[accordionId].blocks,
-
-              ...Object.fromEntries(pastedBlocks),
-            },
+          [currentUid]: {
+            ...data.data.blocks[currentUid],
+            ...newBlockData,
             blocks_layout: {
               items: [
-                ...data.data.blocks[accordionId].blocks_layout.items.slice(
+                ...data.data.blocks[currentUid].blocks_layout.items.slice(
                   0,
                   selectedIndex,
                 ),
                 ...blockLayout,
-                ...data.data.blocks[accordionId].blocks_layout.items.slice(
+                ...data.data.blocks[currentUid].blocks_layout.items.slice(
                   selectedIndex,
                 ),
               ],
             },
           },
         },
-        blocks_layout: { items: arrayLayout },
+        blocks_layout: data.data.blocks_layout,
       },
     });
   };
@@ -381,7 +399,7 @@ const Edit = (props) => {
       {selected ? (
         <BlocksToolbar
           selectedBlock={Object.keys(selectedBlock)[0]}
-          formData={data.data}
+          formData={data?.data?.blocks[currentUid]}
           selectedBlocks={multiSelected}
           onSetSelectedBlocks={(blockIds) => {
             setMultiSelected(blockIds);
