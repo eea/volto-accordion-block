@@ -42,12 +42,11 @@ const Edit = (props) => {
     : data.data;
   const metadata = props.metadata || props.properties;
   const [currentUid, setCurrentUid] = useState('');
-  console.log('SCHEMATA', data.data);
+
   const onSelectBlock = (uid, id, isMultipleSelection, event, activeBlock) => {
     let newMultiSelected = [];
     let selected = id;
 
-    console.log({ activeBlock });
     if (Object.values(activeBlock).length > 0) {
       activeBlock = Object.values(activeBlock)[0];
     }
@@ -65,7 +64,6 @@ const Edit = (props) => {
             ? blocks_layout.indexOf(multiSelected[0])
             : blocks_layout.indexOf(activeBlock);
         const focus = blocks_layout.indexOf(id);
-        console.log('se intra aici');
         if (anchor === focus) {
           newMultiSelected = [id];
         } else if (focus > anchor) {
@@ -217,15 +215,13 @@ const Edit = (props) => {
   }
 
   const changeBlockDataPaste = (newBlockData) => {
-    console.log({ newBlockData });
-
     const selectedIndex =
       data.data.blocks[currentUid].blocks_layout.items.indexOf(
         Object.values(selectedBlock)[0],
       ) + 1;
     let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
       let key = block[0];
-      console.log({ key });
+
       if (
         data?.data?.blocks[currentUid].blocks_layout.items.find(
           (x) => x === key,
@@ -236,33 +232,6 @@ const Edit = (props) => {
     });
 
     let blockLayout = pastedBlocks.map((el) => el[0]);
-    console.log(blockLayout);
-
-    console.log('RESULT', {
-      ...data,
-      data: {
-        blocks: {
-          ...data.data.blocks,
-          [currentUid]: {
-            ...data.data.blocks[currentUid],
-            ...newBlockData,
-          },
-        },
-
-        blocks_layout: {
-          items: [
-            ...data.data.blocks[currentUid].blocks_layout.items.slice(
-              0,
-              selectedIndex,
-            ),
-            ...blockLayout,
-            ...data.data.blocks[currentUid].blocks_layout.items.slice(
-              selectedIndex,
-            ),
-          ],
-        },
-      },
-    });
 
     onChangeBlock(block, {
       ...data,
