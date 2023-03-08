@@ -47,7 +47,7 @@ const Edit = (props) => {
     let newMultiSelected = [];
     let selected = id;
 
-    if (Object.values(activeBlock).length > 0) {
+    if (Object.values(activeBlock || {})?.length > 0) {
       activeBlock = Object.values(activeBlock)[0];
     }
     if (data?.data?.blocks?.hasOwnProperty(uid) && isMultipleSelection) {
