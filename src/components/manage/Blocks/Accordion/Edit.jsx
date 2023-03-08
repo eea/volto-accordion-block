@@ -214,7 +214,7 @@ const Edit = (props) => {
     instructions = formDescription;
   }
 
-  const changeBlockDataPaste = (newBlockData) => {
+  const changeBlockData = (newBlockData) => {
     const selectedIndex =
       data.data.blocks[currentUid].blocks_layout.items.indexOf(
         Object.values(selectedBlock)[0],
@@ -381,7 +381,7 @@ const Edit = (props) => {
             onSelectBlock(id, isMultipleSelection, e, selectedBlock);
           }}
           onChangeBlocks={(newBlockData) => {
-            changeBlockDataPaste(newBlockData);
+            changeBlockData(newBlockData);
           }}
         />
       ) : (
