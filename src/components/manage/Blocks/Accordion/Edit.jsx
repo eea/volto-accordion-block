@@ -90,7 +90,7 @@ const Edit = (props) => {
   const searchElementInMultiSelection = (uid, blockprops) => {
     if (
       multiSelected.find((el) => {
-        if (el == blockprops.block) return true;
+        if (el === blockprops.block) return true;
         return false;
       })
     )
