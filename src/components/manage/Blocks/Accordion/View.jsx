@@ -63,7 +63,13 @@ const View = (props) => {
                 as={data.title_size}
                 active={isExclusive(index)}
                 index={index}
+                tabIndex={0}
                 onClick={handleClick}
+                onKeyDown={(e) => {
+                  if (e.nativeEvent.keyCode === 13) {
+                    handleClick(e, { index });
+                  }
+                }}
                 className={cx('accordion-title', {
                   'align-arrow-left': !props?.data?.right_arrows,
                   'align-arrow-right': props?.data?.right_arrows,
