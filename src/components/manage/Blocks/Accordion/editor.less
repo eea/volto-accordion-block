@@ -158,8 +158,15 @@
     width: 100%;
   }
 
-  .block.selected {
+  .block {
     z-index: 2;
+  }
+}
+
+.multiSelected {
+  .block::before {
+    z-index: 1;
+    background-color: rgba(120, 192, 215, 0.375);
   }
 }
 
