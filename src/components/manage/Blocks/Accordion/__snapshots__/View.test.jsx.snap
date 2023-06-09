@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View Component renders without crashing 1`] = `
+<div
+  className="accordion-block"
+>
+  <div
+    className="accordion ui default"
+  >
+    <h3
+      className="title accordion-title align-arrow-right"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      tabIndex={0}
+    >
+      <div>
+        Icon
+      </div>
+      <span>
+        Panel 1
+      </span>
+    </h3>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "WebkitTransition": "opacity 500ms ease 0ms",
+            "opacity": 0,
+            "transition": "opacity 500ms ease 0ms",
+          }
+        }
+      >
+        <div
+          className="content"
+        >
+          <div>
+            RenderBlocks
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="accordion ui default"
+  >
+    <h3
+      className="title accordion-title align-arrow-right"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      tabIndex={0}
+    >
+      <div>
+        Icon
+      </div>
+      <span>
+        Panel 2
+      </span>
+    </h3>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "WebkitTransition": "opacity 500ms ease 0ms",
+            "opacity": 0,
+            "transition": "opacity 500ms ease 0ms",
+          }
+        }
+      >
+        <div
+          className="content"
+        >
+          <div>
+            RenderBlocks
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
