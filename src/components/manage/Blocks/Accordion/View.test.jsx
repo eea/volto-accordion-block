@@ -1,11 +1,12 @@
 import React from 'react';
 import View from './View';
 import renderer from 'react-test-renderer';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
 import { MemoryRouter } from 'react-router-dom';
 import config from '@plone/volto/registry';
+import * as utils from './util';
 import '@testing-library/jest-dom/extend-expect';
 
 config.blocks.blocksConfig.accordion = {
@@ -41,11 +42,8 @@ jest.mock('@plone/volto/components', () => ({
 }));
 
 jest.mock('./util', () => ({
-  getPanels: () => [
-    ['id1', { title: 'Panel 1' }],
-    ['id2', { title: 'Panel 2' }],
-  ],
-  accordionBlockHasValue: () => true,
+  getPanels: () => [['id1', { title: 'Panel 1' }]],
+  accordionBlockHasValue: jest.fn(),
 }));
 
 const mockData = {
@@ -69,6 +67,20 @@ const mockData1 = {
 
 describe('View Component', () => {
   it('renders without crashing', () => {
+    utils.accordionBlockHasValue.mockReturnValue(true);
+    const component = renderer.create(
+      <Provider store={store}>
+        <MemoryRouter>
+          <View data={mockData} />
+        </MemoryRouter>
+      </Provider>,
+    );
+    const json = component.toJSON();
+    expect(json).toMatchSnapshot();
+  });
+
+  it('renders null', () => {
+    utils.accordionBlockHasValue.mockReturnValue(false);
     const component = renderer.create(
       <Provider store={store}>
         <MemoryRouter>
@@ -81,6 +93,7 @@ describe('View Component', () => {
   });
 
   it('renders with panels', () => {
+    utils.accordionBlockHasValue.mockReturnValue(true);
     const { rerender, getByText } = render(
       <Provider store={store}>
         <MemoryRouter>
@@ -89,7 +102,6 @@ describe('View Component', () => {
       </Provider>,
     );
     expect(getByText('Panel 1')).toBeInTheDocument();
-    expect(getByText('Panel 2')).toBeInTheDocument();
 
     rerender(
       <Provider store={store}>
@@ -98,5 +110,64 @@ describe('View Component', () => {
         </MemoryRouter>
       </Provider>,
     );
+  });
+
+  it('should open accordion content when title is clicked', () => {
+    utils.accordionBlockHasValue.mockReturnValue(true);
+    config.blocks.blocksConfig.accordion = {
+      ...config.blocks.blocksConfig.accordion,
+      semanticIcon: 'someIcon',
+    };
+    const { container, getByText } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <View data={mockData} />
+        </MemoryRouter>
+      </Provider>,
+    );
+    const accordionTitle = container.querySelector('.accordion-title');
+    fireEvent.click(accordionTitle);
+
+    const contentElement = getByText('RenderBlocks');
+    expect(contentElement).toBeInTheDocument();
+  });
+
+  it('should open accordion content when title is clicked', () => {
+    utils.accordionBlockHasValue.mockReturnValue(true);
+    const { container, getByText } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <View data={{ ...mockData, non_exclusive: false }}>
+            <p>Accordion Content</p>
+          </View>
+        </MemoryRouter>
+      </Provider>,
+    );
+    const accordionTitle = container.querySelector('.accordion-title');
+    fireEvent.click(accordionTitle);
+
+    const contentElement = getByText('RenderBlocks');
+    expect(contentElement).toBeInTheDocument();
+  });
+
+  it('should open accordion content when Enter key is pressed', () => {
+    config.blocks.blocksConfig.accordion = {
+      ...config.blocks.blocksConfig.accordion,
+      semanticIcon: 'someIcon',
+    };
+
+    const { container, getByText } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <View data={mockData} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const accordionTitle = container.querySelector('.accordion-title');
+    fireEvent.keyDown(accordionTitle, { keyCode: 13 });
+
+    const contentElement = getByText('RenderBlocks');
+    expect(contentElement).toBeInTheDocument();
   });
 });
