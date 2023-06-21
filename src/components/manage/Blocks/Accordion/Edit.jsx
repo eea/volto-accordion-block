@@ -3,24 +3,23 @@ import {
   Icon,
   SidebarPortal,
   BlocksToolbar,
+  BlockDataForm,
 } from '@plone/volto/components';
 import {
   emptyBlocksForm,
   getBlocksLayoutFieldname,
+  withBlockExtensions,
 } from '@plone/volto/helpers';
 import helpSVG from '@plone/volto/icons/help.svg';
-import { isEmpty, without } from 'lodash';
+import { isEmpty, without, cloneDeep } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
-import { withBlockExtensions } from '@plone/volto/helpers';
-import { BlockDataForm } from '@plone/volto/components';
 import { useIntl } from 'react-intl';
 import AccordionEdit from './AccordionEdit';
 import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
 import { AccordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
-import { cloneDeep } from 'lodash';
 import config from '@plone/volto/registry';
 
 const Edit = (props) => {
@@ -88,15 +87,9 @@ const Edit = (props) => {
   };
 
   const searchElementInMultiSelection = (uid, blockprops) => {
-    if (
-      multiSelected.find((el) => {
-        if (el === blockprops.block) return true;
-        return false;
-      })
-    )
-      return true;
-    return false;
+    return !!multiSelected.find((el) => el === blockprops.block);
   };
+
   const applySchemaEnhancer = (originalSchema) => {
     let schema, schemaEnhancer;
     const formData = data;
@@ -222,13 +215,9 @@ const Edit = (props) => {
     let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
       let key = block[0];
 
-      if (
-        data?.data?.blocks[currentUid].blocks_layout.items.find(
-          (x) => x === key,
-        )
-      )
-        return false;
-      return true;
+      return !data?.data?.blocks[currentUid].blocks_layout.items.find(
+        (x) => x === key,
+      );
     });
 
     let blockLayout = pastedBlocks.map((el) => el[0]);
