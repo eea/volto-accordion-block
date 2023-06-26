@@ -8,7 +8,7 @@ import { Portal } from 'react-portal';
 import addSVG from '@plone/volto/icons/add.svg';
 
 const NewBlockAddButton = (props) => {
-  const { allowedBlocks, block, index, onInsertBlock } = props;
+  const { blocksConfig, block, index, onInsertBlock } = props;
   const ref = React.useRef();
   const [isOpenMenu, setOpenMenu] = React.useState(false);
 
@@ -55,7 +55,7 @@ const NewBlockAddButton = (props) => {
               onInsertBlock={onInsertBlock}
               currentBlock={block}
               showRestricted
-              allowedBlocks={allowedBlocks}
+              blocksConfig={blocksConfig}
               ref={ref}
             />
           </div>

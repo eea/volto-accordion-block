@@ -11,7 +11,7 @@ import {
   withBlockExtensions,
 } from '@plone/volto/helpers';
 import helpSVG from '@plone/volto/icons/help.svg';
-import { isEmpty, without, cloneDeep } from 'lodash';
+import { isEmpty, without, cloneDeep, pickBy } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { useIntl } from 'react-intl';
@@ -35,6 +35,7 @@ const Edit = (props) => {
     manage,
     formDescription,
   } = props;
+
   const intl = useIntl();
   const properties = isEmpty(data?.data?.blocks)
     ? emptyAccordion(3)
@@ -249,6 +250,16 @@ const Edit = (props) => {
     });
   };
 
+  const blockConfig = config.blocks.blocksConfig.accordion;
+  const blocksConfig = blockConfig.blocksConfig || props.blocksConfig;
+  // The accordion is able to get the allowedBlocks info from the custom DX layout
+  // Fallback to the blockConfig one
+  const allowedBlocks = data.allowedBlocks || blockConfig.allowedBlocks;
+
+  const allowedBlocksConfig = allowedBlocks
+    ? pickBy(blocksConfig, (value, key) => allowedBlocks.includes(key))
+    : blocksConfig;
+
   return (
     <fieldset className="accordion-block">
       <legend
@@ -275,7 +286,7 @@ const Edit = (props) => {
             title={data.placeholder}
             description={instructions}
             manage={manage}
-            allowedBlocks={data.allowedBlocks}
+            blocksConfig={allowedBlocksConfig}
             metadata={metadata}
             properties={isEmpty(panel) ? emptyBlocksForm() : panel}
             selectedBlock={selected ? selectedBlock[uid] : null}
@@ -395,6 +406,8 @@ const Edit = (props) => {
             }}
             formData={data}
             block={block}
+            blocksConfig={blocksConfig}
+            onChangeBlock={onChangeBlock}
           />
         )}
       </SidebarPortal>

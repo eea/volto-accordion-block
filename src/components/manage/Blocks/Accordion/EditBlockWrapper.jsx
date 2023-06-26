@@ -68,7 +68,6 @@ class EditBlockWrapper extends React.Component {
     } = this.props;
 
     const {
-      allowedBlocks,
       block,
       data,
       onDeleteBlock,
@@ -86,9 +85,6 @@ class EditBlockWrapper extends React.Component {
     const required = isBoolean(data.required)
       ? data.required
       : includes(config.blocks.requiredBlocks, type);
-
-    const allowedBlocksFromConfig =
-      blockProps.blocksConfig.accordion?.allowedBlocks;
 
     return (
       <div ref={this.blockNode}>
@@ -133,7 +129,6 @@ class EditBlockWrapper extends React.Component {
                         onSelectBlock(onInsertBlock(id, value));
                         this.setState({ addNewBlockOpened: false });
                       }}
-                      allowedBlocks={allowedBlocks || allowedBlocksFromConfig}
                     />
                   )}
                   {!required && (
