@@ -50,8 +50,9 @@ const NewBlockAddButton = (props) => {
         <Portal node={document.getElementById('body')}>
           <div
             ref={setPopperElement}
-            style={{ ...styles.popper, zIndex: '100' }}
+            style={styles.popper}
             {...attributes.popper}
+            className="accordion-chooser"
           >
             <BlockChooser
               onInsertBlock={onInsertBlock}
