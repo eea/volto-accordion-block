@@ -47,6 +47,7 @@ const View = (props) => {
 
   return (
     <div className="accordion-block">
+      {data.headline && <h2 className="headline">{data.headline}</h2>}
       {panels.map(([id, panel], index) => {
         return accordionBlockHasValue(panel) ? (
           <Accordion
