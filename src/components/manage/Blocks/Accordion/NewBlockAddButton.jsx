@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Ref } from 'semantic-ui-react';
 import { BlockChooser, Icon } from '@plone/volto/components';
-import useOutsideClick from '@kitconcept/volto-blocks-grid/helpers/useOutsideClick/useOutsideClick';
+import { useDetectClickOutside } from '@plone/volto/helpers';
 import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 
@@ -9,8 +9,12 @@ import addSVG from '@plone/volto/icons/add.svg';
 
 const NewBlockAddButton = (props) => {
   const { blocksConfig, block, index, onInsertBlock } = props;
-  const ref = React.useRef();
   const [isOpenMenu, setOpenMenu] = React.useState(false);
+
+  const blockChooserRef = useDetectClickOutside({
+    onTriggered: () => setOpenMenu(false),
+    triggerKeys: ['Escape'],
+  });
 
   const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
@@ -28,8 +32,6 @@ const NewBlockAddButton = (props) => {
       },
     ],
   });
-
-  useOutsideClick(ref, () => setOpenMenu(false));
 
   return (
     <>
@@ -56,7 +58,7 @@ const NewBlockAddButton = (props) => {
               currentBlock={block}
               showRestricted
               blocksConfig={blocksConfig}
-              ref={ref}
+              blockChooserRef={blockChooserRef}
             />
           </div>
         </Portal>
