@@ -50,7 +50,7 @@ const NewBlockAddButton = (props) => {
         <Portal node={document.getElementById('body')}>
           <div
             ref={setPopperElement}
-            style={styles.popper}
+            style={{ ...styles.popper, zIndex: '100' }}
             {...attributes.popper}
           >
             <BlockChooser
