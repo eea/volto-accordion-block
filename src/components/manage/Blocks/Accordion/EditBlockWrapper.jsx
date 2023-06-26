@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, BlockChooser } from '@plone/volto/components';
+import { Icon } from '@plone/volto/components';
 import { blockHasValue } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
 import { Button } from 'semantic-ui-react';
@@ -8,9 +8,9 @@ import isBoolean from 'lodash/isBoolean';
 import { defineMessages, injectIntl } from 'react-intl';
 import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
 import cx from 'classnames';
+import NewBlockAddButton from './NewBlockAddButton';
 
 import dragSVG from '@plone/volto/icons/drag.svg';
-import addSVG from '@plone/volto/icons/circle-plus.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
 
 const messages = defineMessages({
@@ -73,9 +73,10 @@ class EditBlockWrapper extends React.Component {
       data,
       onDeleteBlock,
       onInsertBlock,
-      onMutateBlock,
       onSelectBlock,
       selected,
+      index,
+      blocksConfig,
     } = blockProps;
     const type = data['@type'];
     const { disableNewBlocks } = data;
@@ -124,19 +125,16 @@ class EditBlockWrapper extends React.Component {
                   </div>
 
                   {!disableNewBlocks && !blockHasValue(data) && (
-                    <Button
-                      icon
-                      basic
-                      title="Add block"
-                      onClick={() => {
-                        this.setState({
-                          addNewBlockOpened: !this.state.addNewBlockOpened,
-                        });
+                    <NewBlockAddButton
+                      block={block}
+                      index={index}
+                      blocksConfig={blocksConfig}
+                      onInsertBlock={(id, value) => {
+                        onSelectBlock(onInsertBlock(id, value));
+                        this.setState({ addNewBlockOpened: false });
                       }}
-                      className="accordion-block-add-button"
-                    >
-                      <Icon name={addSVG} className="" size="19px" />
-                    </Button>
+                      allowedBlocks={allowedBlocks || allowedBlocksFromConfig}
+                    />
                   )}
                   {!required && (
                     <Button
@@ -149,20 +147,6 @@ class EditBlockWrapper extends React.Component {
                     >
                       <Icon name={trashSVG} size="19px" color="#e40166" />
                     </Button>
-                  )}
-                  {this.state.addNewBlockOpened && (
-                    <BlockChooser
-                      onMutateBlock={(id, value) => {
-                        onMutateBlock(id, value);
-                        this.setState({ addNewBlockOpened: false });
-                      }}
-                      onInsertBlock={(id, value) => {
-                        onSelectBlock(onInsertBlock(id, value));
-                        this.setState({ addNewBlockOpened: false });
-                      }}
-                      currentBlock={block}
-                      allowedBlocks={allowedBlocks || allowedBlocksFromConfig}
-                    />
                   )}
                 </>
               )}
