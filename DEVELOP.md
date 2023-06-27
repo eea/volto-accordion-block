@@ -26,7 +26,7 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1.  Install
 
-        yarn develop
+        make develop
         yarn
 
 1.  Start backend
@@ -49,3 +49,31 @@ Before starting make sure your development environment is properly set. See [Vol
 1.  Happy hacking!
 
         cd src/addons/volto-accordion-block/
+
+## Cypress
+
+To run cypress locally, first make sure you don't have any Volto/Plone running on ports `8080` and `3000`.
+
+You don't have to be in a `clean-volto-project`, you can be in any Volto Frontend 
+project where you added `volto-accordion-block` to `mrs.developer.json`
+
+Go to:
+
+        cd src/addons/volto-accordion-block/
+
+Start:
+
+        make
+        make start
+
+This will build and start with Docker a clean `Plone backend` and `Volto Frontend` with `volto-accordion-block` block installed.
+
+Run:
+
+        make cypress
+
+Or:
+
+        make cypress-run
+
+The hot-reload should work
