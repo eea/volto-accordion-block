@@ -59,8 +59,8 @@ const applyConfig = (config) => {
     schemaEnhancer: AccordionStylingSchema,
     // See https://react.semantic-ui.com/modules/accordion/
     options: {
-      styled: 'styled',
-      fluid: 'fluid',
+      styled: true,
+      fluid: true,
     },
     defaults: {},
     security: {
