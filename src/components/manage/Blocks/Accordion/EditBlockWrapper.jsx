@@ -94,10 +94,10 @@ class EditBlockWrapper extends React.Component {
                       blocksConfig={blocksConfig}
                       onInsertBlock={(id, value) => {
                         onSelectBlock(onInsertBlock(id, value));
-                        this.setState({ addNewBlockOpened: false });
                       }}
                     />
                   )}
+
                   {!required && (
                     <Button
                       icon
