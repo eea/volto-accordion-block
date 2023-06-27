@@ -9,6 +9,7 @@
     ```Bash
     git clone https://github.com/eea/volto-accordion-block.git
     cd volto-accordion-block
+    git checkout -b bugfix-123456 develop
     make
     make start
     ```
