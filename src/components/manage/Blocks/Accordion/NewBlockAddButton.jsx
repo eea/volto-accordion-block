@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Ref } from 'semantic-ui-react';
 import { BlockChooser, Icon } from '@plone/volto/components';
-import { useDetectClickOutside } from '@plone/volto/helpers';
 import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 import addSVG from '@plone/volto/icons/add.svg';
@@ -9,9 +8,19 @@ import addSVG from '@plone/volto/icons/add.svg';
 const OpenedBlocksChooser = (props) => {
   const { blocksConfig, block, onInsertBlock } = props;
 
-  const blockChooserRef = useDetectClickOutside({
-    onTriggered: () => props.setOpenMenu(false),
-    triggerKeys: ['Escape'],
+  const ref = React.useRef(null);
+
+  function handleClickOutside(event) {
+    if (ref.current && !ref.current.contains(event.target)) {
+      props.setOpenMenu(false);
+    }
+  }
+
+  React.useEffect(() => {
+    document.body.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.body.removeEventListener('mousedown', handleClickOutside);
+    };
   });
 
   return (
@@ -20,7 +29,7 @@ const OpenedBlocksChooser = (props) => {
       currentBlock={block}
       showRestricted
       blocksConfig={blocksConfig}
-      ref={blockChooserRef}
+      ref={ref}
     />
   );
 };
