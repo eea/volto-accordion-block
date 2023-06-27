@@ -43,28 +43,31 @@ endif
 
 ##############################################################################
 # SETTINGS AND VARIABLE
-NODE_MODULES = "../../../node_modules"
-PLONE_VERSION=6
-VOLTO_VERSION=16
-ADDON_NAME="@eeacms/volto-accordion-block"
-ADDON_PATH="volto-accordion-block"
-DOCKER_COMPOSE=PLONE_VERSION=${PLONE_VERSION} VOLTO_VERSION=${VOLTO_VERSION} ADDON_NAME=${ADDON_NAME} ADDON_PATH=${ADDON_PATH} docker-compose
+DIR=$(shell basename $$(pwd))
+NODE_MODULES?="../../../node_modules"
+PLONE_VERSION?=6
+VOLTO_VERSION?=16
+ADDON_PATH="${DIR}"
+ADDON_NAME="@eeacms/${ADDON_PATH}"
+DOCKER_COMPOSE=PLONE_VERSION=${PLONE_VERSION} VOLTO_VERSION=${VOLTO_VERSION} ADDON_NAME=${ADDON_NAME} ADDON_PATH=${ADDON_PATH} docker compose
 
 # Top-level targets
 .PHONY: all
-all: clean bootstrap
+all: clean install
 
 .PHONY: clean
-clean:			## Clean
+clean:			## Cleanup development environment
 	${DOCKER_COMPOSE} down --volumes --remove-orphans
 
-.PHONY: bootstrap
-bootstrap:		## Bootstrap
-	${DOCKER_COMPOSE} build
+.PHONY: install
+install:		## Build and install development environment
+	echo "Running:	${DOCKER_COMPOSE} build"
 	${DOCKER_COMPOSE} pull
+	${DOCKER_COMPOSE} build
 
 .PHONY: start
-start:			## Start
+start:			## Start development environment
+	echo "Running:	${DOCKER_COMPOSE} up"
 	${DOCKER_COMPOSE} up
 
 .PHONY: cypress
