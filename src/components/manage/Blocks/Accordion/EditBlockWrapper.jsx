@@ -6,7 +6,6 @@ import { Button } from 'semantic-ui-react';
 import includes from 'lodash/includes';
 import isBoolean from 'lodash/isBoolean';
 import { defineMessages, injectIntl } from 'react-intl';
-import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
 import cx from 'classnames';
 import NewBlockAddButton from './NewBlockAddButton';
 
@@ -25,38 +24,6 @@ const messages = defineMessages({
 });
 
 class EditBlockWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addNewBlockOpened: false,
-    };
-  }
-
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
-  handleClickOutside = (e) => {
-    if (
-      this.blockNode.current &&
-      doesNodeContainClick(this.blockNode.current, e)
-    )
-      return;
-
-    if (this.state.addNewBlockOpened) {
-      this.setState({
-        addNewBlockOpened: false,
-      });
-      return true;
-    }
-  };
-
-  blockNode = React.createRef();
-
   render() {
     const {
       intl,
@@ -87,7 +54,7 @@ class EditBlockWrapper extends React.Component {
       : includes(config.blocks.requiredBlocks, type);
 
     return (
-      <div ref={this.blockNode}>
+      <div>
         <div
           ref={draginfo?.innerRef}
           {...(selected ? draginfo?.draggableProps : null)}
@@ -122,12 +89,6 @@ class EditBlockWrapper extends React.Component {
 
                   {!disableNewBlocks && !blockHasValue(data) && (
                     <NewBlockAddButton
-                      addNewBlockOpened={this.state.addNewBlockOpened}
-                      setAddNewBlockOpened={() => {
-                        this.setState({
-                          addNewBlockOpened: !this.state.addNewBlockOpened,
-                        });
-                      }}
                       block={block}
                       index={index}
                       blocksConfig={blocksConfig}
