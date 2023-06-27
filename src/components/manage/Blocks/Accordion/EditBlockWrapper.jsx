@@ -122,6 +122,12 @@ class EditBlockWrapper extends React.Component {
 
                   {!disableNewBlocks && !blockHasValue(data) && (
                     <NewBlockAddButton
+                      addNewBlockOpened={this.state.addNewBlockOpened}
+                      setAddNewBlockOpened={() => {
+                        this.setState({
+                          addNewBlockOpened: !this.state.addNewBlockOpened,
+                        });
+                      }}
                       block={block}
                       index={index}
                       blocksConfig={blocksConfig}
