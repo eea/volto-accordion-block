@@ -98,6 +98,7 @@ export const AccordionBlockSchema = ({ intl }) => ({
       id: 'options',
       title: intl.formatMessage(messages.Options),
       fields: [
+        'headline',
         'title',
         'title_size',
         'right_arrows',
@@ -150,7 +151,7 @@ export const AccordionBlockSchema = ({ intl }) => ({
       default: true,
     },
   },
-  required: ['title'],
+  required: [],
 });
 
 export const AccordionStylingSchema = (props) => {
