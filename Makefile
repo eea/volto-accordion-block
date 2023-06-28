@@ -9,7 +9,7 @@
 #
 # Cypress:
 #
-#    make cypress
+#    make cypress-open
 #
 ##############################################################################
 # SETUP MAKE
@@ -70,8 +70,8 @@ start:			## Start development environment
 	echo "Running:	${DOCKER_COMPOSE} up"
 	${DOCKER_COMPOSE} up
 
-.PHONY: cypress
-cypress:		## Open cypress integration tests
+.PHONY: cypress-open
+cypress-open:		## Open cypress integration tests
 	NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress open
 
 .PHONY: cypress-run

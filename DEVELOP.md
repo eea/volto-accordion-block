@@ -107,13 +107,13 @@ Start:
 
 This will build and start with Docker a clean `Plone backend` and `Volto Frontend` with `volto-accordion-block` block installed.
 
-Run:
+Open Cypress Interface:
 
   ```Bash
-  make cypress
+  make cypress-open
   ```
 
-Or:
+Or run it:
 
   ```Bash
   make cypress-run
