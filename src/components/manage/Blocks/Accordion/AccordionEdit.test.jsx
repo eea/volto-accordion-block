@@ -2,8 +2,8 @@ import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 import AccordionEdit from './AccordionEdit';
 import renderer from 'react-test-renderer';
-import '@testing-library/jest-dom/extend-expect';
 import config from '@plone/volto/registry';
+import '@testing-library/jest-dom/extend-expect';
 
 config.blocks.blocksConfig.accordion = {
   ...config.blocks.blocksConfig.accordion,
@@ -117,5 +117,49 @@ describe('AccordionEdit', () => {
       uid,
       panel,
     ]);
+  });
+
+  it('should open accordion content when title is clicked', () => {
+    config.blocks.blocksConfig.accordion = {
+      ...config.blocks.blocksConfig.accordion,
+      semanticIcon: undefined,
+    };
+    const { container, getByText } = render(
+      <AccordionEdit
+        handleTitleChange={handleTitleChange}
+        handleTitleClick={handleTitleClick}
+        uid={uid}
+        panel={panel}
+        data={data}
+        index={index}
+      >
+        <p>Accordion Content</p>
+      </AccordionEdit>,
+    );
+    const accordionTitle = container.querySelector('.accordion-title');
+    fireEvent.click(accordionTitle);
+
+    const contentElement = getByText('Accordion Content');
+    expect(contentElement).toBeInTheDocument();
+  });
+
+  it('should open accordion content when title is clicked', () => {
+    const { container, getByText } = render(
+      <AccordionEdit
+        handleTitleChange={handleTitleChange}
+        handleTitleClick={handleTitleClick}
+        uid={uid}
+        panel={panel}
+        data={{ ...data, non_exclusive: false }}
+        index={index}
+      >
+        <p>Accordion Content</p>
+      </AccordionEdit>,
+    );
+    const accordionTitle = container.querySelector('.accordion-title');
+    fireEvent.click(accordionTitle);
+
+    const contentElement = getByText('Accordion Content');
+    expect(contentElement).toBeInTheDocument();
   });
 });
