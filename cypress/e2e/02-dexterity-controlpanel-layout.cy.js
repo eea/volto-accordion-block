@@ -48,6 +48,9 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
       .type('Chapter 1')
       .should('have.value', 'Chapter 1');
 
+    cy.get('.accordion:nth-child(2) > .title > .icon').click();
+    cy.wait(500);
+
     cy.get('.accordion:nth-child(2) .content .slate-editor [contenteditable=true]')
       .last().focus().click().type('Once upon a time...{enter}');
     
