@@ -63,6 +63,10 @@ const messages = defineMessages({
     id: 'Tertiary',
     defaultMessage: 'Tertiary',
   },
+  headline: {
+    id: 'Headline',
+    defaultMessage: 'Headline',
+  },
 });
 
 export const AccordionSchema = {
@@ -103,6 +107,9 @@ export const AccordionBlockSchema = ({ intl }) => ({
     },
   ],
   properties: {
+    headline: {
+      title: intl.formatMessage(messages.headline),
+    },
     title: {
       title: intl.formatMessage(messages.Title),
       description: intl.formatMessage(messages.friendly_name),
