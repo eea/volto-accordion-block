@@ -1,16 +1,15 @@
 import React from 'react';
-import { Icon, BlockChooser } from '@plone/volto/components';
+import { Icon } from '@plone/volto/components';
 import { blockHasValue } from '@plone/volto/helpers';
 import config from '@plone/volto/registry';
 import { Button } from 'semantic-ui-react';
 import includes from 'lodash/includes';
 import isBoolean from 'lodash/isBoolean';
 import { defineMessages, injectIntl } from 'react-intl';
-import { doesNodeContainClick } from 'semantic-ui-react/dist/commonjs/lib';
 import cx from 'classnames';
+import NewBlockAddButton from './NewBlockAddButton';
 
 import dragSVG from '@plone/volto/icons/drag.svg';
-import addSVG from '@plone/volto/icons/circle-plus.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
 
 const messages = defineMessages({
@@ -25,38 +24,6 @@ const messages = defineMessages({
 });
 
 class EditBlockWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      addNewBlockOpened: false,
-    };
-  }
-
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
-  handleClickOutside = (e) => {
-    if (
-      this.blockNode.current &&
-      doesNodeContainClick(this.blockNode.current, e)
-    )
-      return;
-
-    if (this.state.addNewBlockOpened) {
-      this.setState({
-        addNewBlockOpened: false,
-      });
-      return true;
-    }
-  };
-
-  blockNode = React.createRef();
-
   render() {
     const {
       intl,
@@ -68,14 +35,14 @@ class EditBlockWrapper extends React.Component {
     } = this.props;
 
     const {
-      allowedBlocks,
       block,
       data,
       onDeleteBlock,
       onInsertBlock,
-      onMutateBlock,
       onSelectBlock,
       selected,
+      index,
+      blocksConfig,
     } = blockProps;
     const type = data['@type'];
     const { disableNewBlocks } = data;
@@ -86,11 +53,8 @@ class EditBlockWrapper extends React.Component {
       ? data.required
       : includes(config.blocks.requiredBlocks, type);
 
-    const allowedBlocksFromConfig =
-      blockProps.blocksConfig.accordion?.allowedBlocks;
-
     return (
-      <div ref={this.blockNode}>
+      <div>
         <div
           ref={draginfo?.innerRef}
           {...(selected ? draginfo?.draggableProps : null)}
@@ -124,20 +88,16 @@ class EditBlockWrapper extends React.Component {
                   </div>
 
                   {!disableNewBlocks && !blockHasValue(data) && (
-                    <Button
-                      icon
-                      basic
-                      title="Add block"
-                      onClick={() => {
-                        this.setState({
-                          addNewBlockOpened: !this.state.addNewBlockOpened,
-                        });
+                    <NewBlockAddButton
+                      block={block}
+                      index={index}
+                      blocksConfig={blocksConfig}
+                      onInsertBlock={(id, value) => {
+                        onSelectBlock(onInsertBlock(id, value));
                       }}
-                      className="accordion-block-add-button"
-                    >
-                      <Icon name={addSVG} className="" size="19px" />
-                    </Button>
+                    />
                   )}
+
                   {!required && (
                     <Button
                       icon
@@ -149,20 +109,6 @@ class EditBlockWrapper extends React.Component {
                     >
                       <Icon name={trashSVG} size="19px" color="#e40166" />
                     </Button>
-                  )}
-                  {this.state.addNewBlockOpened && (
-                    <BlockChooser
-                      onMutateBlock={(id, value) => {
-                        onMutateBlock(id, value);
-                        this.setState({ addNewBlockOpened: false });
-                      }}
-                      onInsertBlock={(id, value) => {
-                        onSelectBlock(onInsertBlock(id, value));
-                        this.setState({ addNewBlockOpened: false });
-                      }}
-                      currentBlock={block}
-                      allowedBlocks={allowedBlocks || allowedBlocksFromConfig}
-                    />
                   )}
                 </>
               )}

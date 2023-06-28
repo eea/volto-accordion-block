@@ -15,6 +15,10 @@
     margin-bottom: 1rem;
   }
 
+  [class^='block-editor-'] {
+    margin-bottom: 2rem;
+  }
+
   .block-add-button {
     display: none !important;
   }
@@ -22,6 +26,13 @@
   .block.accordion.selected::before,
   .block.accordion:hover::before {
     border-style: dashed;
+  }
+
+  .add-block-button {
+    svg.circled {
+      padding: 0;
+      border: 1px solid currentColor;
+    }
   }
 
   fieldset {
@@ -179,5 +190,13 @@
   div.rah-static.rah-static--height-zero > div {
     display: block !important;
     opacity: 1 !important;
+  }
+}
+
+.accordion-chooser {
+  z-index: 100;
+
+  .blocks-chooser {
+    position: static;
   }
 }

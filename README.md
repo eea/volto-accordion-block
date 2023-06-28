@@ -20,40 +20,24 @@
 
 ![Volto Block Accordion](https://github.com/eea/volto-accordion-block/raw/docs/docs/volto-accordion-block.gif)
 
-## Upgrade
-
-### Upgrading to 6.x
-
-This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addStyling).
-
 ## Getting started
 
 ### Try volto-accordion-block with Docker
 
-1. Get the latest Docker images
+      git clone https://github.com/eea/volto-accordion-block.git
+      cd volto-accordion-block
+      make
+      make start
 
-   ```
-   docker pull plone
-   docker pull plone/volto
-   ```
-
-1. Start Plone backend
-
-   ```
-   docker run -d --name plone -p 8080:8080 -e SITE=Plone -e PROFILES="profile-plone.restapi:blocks" plone
-   ```
-
-1. Start Volto frontend
-
-   ```
-   docker run -it --rm -p 3000:3000 --link plone -e ADDONS="@eeacms/volto-accordion-block" plone/volto
-   ```
-
-1. Go to http://localhost:3000
+Go to http://localhost:3000
 
 ### Add volto-accordion-block to your Volto project
 
 1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
+
+    ```Bash
+    docker compose up backend
+    ```
 
 1. Start Volto frontend
 
@@ -65,7 +49,7 @@ This version requires: `@plone/volto >= 16.0.0.alpha.46` (schemaEnhancer / addSt
   ],
 
   "dependencies": {
-      "@eeacms/volto-accordion-block": "^3.0.0"
+      "@eeacms/volto-accordion-block": "*"
   }
   ```
 

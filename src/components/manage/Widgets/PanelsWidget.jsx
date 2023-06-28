@@ -4,8 +4,7 @@ import { omit, without } from 'lodash';
 import move from 'lodash-move';
 import { useIntl, defineMessages } from 'react-intl';
 import { Button } from 'semantic-ui-react';
-import { Icon, FormFieldWrapper } from '@plone/volto/components';
-import { DragDropList } from '@plone/volto/components';
+import { Icon, FormFieldWrapper, DragDropList } from '@plone/volto/components';
 import { emptyBlocksForm } from '@plone/volto/helpers';
 
 import addSVG from '@plone/volto/icons/add.svg';

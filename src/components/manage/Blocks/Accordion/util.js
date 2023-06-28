@@ -1,11 +1,11 @@
 import { v4 as uuid } from 'uuid';
-import { emptyBlocksForm } from '@plone/volto/helpers';
 import { map } from 'lodash';
 
 import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
   blockHasValue,
+  emptyBlocksForm,
 } from '@plone/volto/helpers';
 
 export const emptyAccordion = (count) => {
