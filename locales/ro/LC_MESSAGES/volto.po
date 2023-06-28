@@ -1,80 +1,75 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Plone\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-27T08:42:53.695Z\n"
+"POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"Last-Translator: \n"
 "Language: \n"
-"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"MIME-Version: 1.0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
-"Preferred-Encodings: utf-8\n"
-"Domain: volto\n"
+"Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion
 msgid "Accordion"
-msgstr "Acordeão"
+msgstr "Acordeon"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion Title size
 msgid "Accordion Title size"
-msgstr "Tamanho do título do Acordeão"
+msgstr "Mărimea titlului acordeonului"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion theme
 msgid "Accordion theme"
-msgstr "Tema do Acordeão"
+msgstr "Tema acordeonului"
 
 #: components/manage/Widgets/PanelsWidget
 # defaultMessage: Add
 msgid "Add"
-msgstr "Adicionar"
+msgstr "Adaugă"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Allow multiple panels open at a time
 msgid "Allow multiple panels open at a time"
-msgstr "Permitir muitos painéis abertos ao mesmo tempo"
+msgstr "Permite deschiderea mai multor panouri simultan"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Collapsed by default
 msgid "Collapsed by default"
-msgstr "Por padrão fechado"
+msgstr "Închis implicit"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Friendly name
 msgid "Friendly name"
-msgstr "Nome amigável"
+msgstr "Nume"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Non exclusive
 msgid "Non exclusive"
-msgstr "Não exclusivo"
+msgstr "Non exclusiv"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Options
 msgid "Options"
-msgstr "Opções"
+msgstr "Opțiuni"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Primary
 msgid "Primary"
-msgstr "Primário"
+msgstr "Primară"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Secondary
 msgid "Secondary"
-msgstr "Secondário"
+msgstr "Secundară"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Tertiary
 msgid "Tertiary"
-msgstr "Terciário"
+msgstr "Terțiară"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Theme
@@ -84,24 +79,24 @@ msgstr "Tema"
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Title
 msgid "Title"
-msgstr "Título"
+msgstr "Titlu"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Title Icon on the right
 msgid "Title Icon on the right"
-msgstr "Ícone do título à direita"
+msgstr "Pictograma în dreapta titlului"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Title size
 msgid "Title size"
-msgstr "Tamanho do título"
+msgstr "Mărime titlu"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
-msgstr "Bloco desconhecido"
+msgstr "Block necunoscut"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 # defaultMessage: delete
 msgid "delete"
-msgstr "remover"
+msgstr "Șterge"
