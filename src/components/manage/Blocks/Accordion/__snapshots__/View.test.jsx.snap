@@ -12,6 +12,7 @@ exports[`View Component renders without crashing 1`] = `
 >
   <div
     className="accordion ui default"
+    id="id1"
   >
     <h3
       className="title accordion-title align-arrow-right"
