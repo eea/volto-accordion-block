@@ -76,7 +76,7 @@ const View = (props) => {
   };
 
   const scrollToElement = () => {
-    if (!!activePanels) {
+    if (!!activePanels && data.allow_linking && !!activePanels[0].length) {
       let element = document.getElementById(
         activePanels[activePanels.length - 1],
       );
@@ -94,11 +94,21 @@ const View = (props) => {
   }, []);
 
   React.useEffect(() => {
-    return data.collapsed
-      ? activePanels && setActivePanel(activePanels || [])
-      : setActivePanel([firstIdFromPanels, ...(activePanels || [])]);
+    if (data.allow_linking) {
+      if (data.collapsed) {
+        setActivePanel(activePanels || []);
+      } else {
+        if (!!activePanels && !!activePanels[0].length) {
+          setActivePanel(activePanels || []);
+        } else {
+          setActivePanel([firstIdFromPanels, ...(activePanels || [])]);
+        }
+      }
+    } else {
+      setActiveIndex(data.collapsed ? [] : [0]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.collapsed]);
+  }, [data.collapsed, data.allow_linking]);
 
   return (
     <div className="accordion-block">
