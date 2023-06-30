@@ -90,12 +90,14 @@ const View = (props) => {
 
   React.useEffect(() => {
     setTimeout(() => scrollToElement(), animationDuration);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
     return data.collapsed
       ? activePanels && setActivePanel(activePanels || [])
       : setActivePanel([firstIdFromPanels, ...(activePanels || [])]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.collapsed]);
 
   return (
