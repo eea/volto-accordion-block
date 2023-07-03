@@ -43,14 +43,6 @@ const messages = defineMessages({
     id: 'Allow multiple panels open at a time',
     defaultMessage: 'Allow multiple panels open at a time',
   },
-  allow_linking: {
-    id: 'Allow linking',
-    defaultMessage: 'Allow linking',
-  },
-  allow_linking_description: {
-    id: 'Allow linking to the last accordion item selected',
-    defaultMessage: 'Allow linking to the last accordion item selected',
-  },
   Theme: {
     id: 'Theme',
     defaultMessage: 'Theme',
@@ -107,7 +99,6 @@ export const AccordionBlockSchema = ({ intl }) => ({
         'right_arrows',
         'collapsed',
         'non_exclusive',
-        'allow_linking',
       ],
     },
   ],
@@ -148,12 +139,6 @@ export const AccordionBlockSchema = ({ intl }) => ({
     non_exclusive: {
       title: intl.formatMessage(messages.non_exclusive),
       description: intl.formatMessage(messages.non_exclusive_description),
-      type: 'boolean',
-      default: true,
-    },
-    allow_linking: {
-      title: intl.formatMessage(messages.allow_linking),
-      description: intl.formatMessage(messages.allow_linking_description),
       type: 'boolean',
       default: true,
     },
