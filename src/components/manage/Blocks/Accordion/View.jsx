@@ -37,6 +37,7 @@ const View = (props) => {
     searchParams.set(key, value);
 
     history.push({
+      hash: location.hash,
       pathname: location.pathname,
       search: searchParams.toString(),
     });
