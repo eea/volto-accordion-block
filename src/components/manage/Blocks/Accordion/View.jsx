@@ -12,6 +12,11 @@ import './editor.less';
 
 const animationDuration = 500;
 
+const useQuery = (location) => {
+  const { search } = location;
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
+
 const View = (props) => {
   const { data } = props;
   const location = useLocation();
@@ -23,12 +28,7 @@ const View = (props) => {
   const accordionConfig = config.blocks.blocksConfig.accordion;
   const { titleIcons } = accordionConfig;
 
-  const useQuery = () => {
-    const { search } = location;
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  };
-
-  const query = useQuery();
+  const query = useQuery(location);
   const activePanels = query.get('activeAccordion')?.split(',');
   const [firstIdFromPanels] = panels[0];
 
