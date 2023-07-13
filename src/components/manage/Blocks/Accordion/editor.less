@@ -1,7 +1,12 @@
 @type: 'extra';
 @element: 'custom';
+@itemVerticalPadding:   0.875em;
+@itemHorizontalPadding: 1.25em;
 
 @import (multiple) '../../theme.config';
+
+// optionally import menu variables for itemVerticalPadding values
+@import (optional) '~volto-themes/default/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
 
@@ -77,8 +82,10 @@
 
   .power-user-menu {
     .ui.menu {
-      .item {
-        padding: 0.875em 1.25em;
+      .accordion {
+        // override padding and margin from semantic .ui.accordion .accordion
+        padding: @itemVerticalPadding @itemHorizontalPadding;
+        margin: 0;
       }
 
       .title {
