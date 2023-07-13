@@ -2,11 +2,17 @@
 @element: 'custom';
 @itemVerticalPadding: 0.875em;
 @itemHorizontalPadding: 1.25em;
+@themesFolderEEA: 'eea';
 
 @import (multiple) '../../theme.config';
 
 // optionally import menu variables for itemVerticalPadding values
+// loading them in a function would mean that the top variable declaration
+// would win as such we use direct imports
+// Site theme declaration of menu variables wins over default theme
 @import (optional) '~volto-themes/default/collections/menu.variables';
+@import (optional) '@{themesFolderEEA}/@{menu}/collections/menu.variables';
+@import (optional) '@{siteFolder}/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
 
