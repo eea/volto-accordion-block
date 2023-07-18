@@ -30,6 +30,7 @@ exports[`View Component renders without crashing 1`] = `
     <div
       aria-hidden={true}
       className="rah-static rah-static--height-zero"
+      onTransitionEnd={[Function]}
       style={
         Object {
           "height": 0,
