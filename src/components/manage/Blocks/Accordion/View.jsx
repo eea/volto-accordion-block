@@ -10,8 +10,6 @@ import AnimateHeight from 'react-animate-height';
 import config from '@plone/volto/registry';
 import './editor.less';
 
-const animationDuration = 500;
-
 const useQuery = (location) => {
   const { search } = location;
   return React.useMemo(() => new URLSearchParams(search), [search]);
@@ -25,12 +23,16 @@ const View = (props) => {
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState([]);
   const [activePanel, setActivePanel] = React.useState([]);
+  const [itemToScroll, setItemToScroll] = React.useState('');
   const accordionConfig = config.blocks.blocksConfig.accordion;
   const { titleIcons } = accordionConfig;
 
   const query = useQuery(location);
   const activePanels = query.get('activeAccordion')?.split(',');
   const [firstIdFromPanels] = panels[0];
+
+  const activePanelsRef = React.useRef(activePanels);
+  const firstIdFromPanelsRef = React.useRef(firstIdFromPanels);
 
   const addQueryParam = (key, value) => {
     const searchParams = new URLSearchParams(location.search);
@@ -90,21 +92,25 @@ const View = (props) => {
   };
 
   React.useEffect(() => {
-    setTimeout(() => scrollToElement(), animationDuration);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    !!activePanelsRef.current &&
+      setItemToScroll(
+        activePanelsRef.current[activePanelsRef.current?.length - 1],
+      );
   }, []);
 
   React.useEffect(() => {
     if (data.collapsed) {
-      setActivePanel(activePanels || []);
+      setActivePanel(activePanelsRef.current || []);
     } else {
-      if (!!activePanels && !!activePanels[0].length) {
-        setActivePanel(activePanels || []);
+      if (!!activePanelsRef.current && !!activePanelsRef.current[0].length) {
+        setActivePanel(activePanelsRef.current || []);
       } else {
-        setActivePanel([firstIdFromPanels, ...(activePanels || [])]);
+        setActivePanel([
+          firstIdFromPanelsRef.current,
+          ...(activePanelsRef.current || []),
+        ]);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.collapsed]);
 
   return (
@@ -162,8 +168,14 @@ const View = (props) => {
               </Accordion.Title>
               <AnimateHeight
                 animateOpacity
-                duration={animationDuration}
+                duration={500}
                 height={isExclusive(id) ? 'auto' : 0}
+                onTransitionEnd={() => {
+                  if (!!activePanels && id === itemToScroll) {
+                    scrollToElement();
+                    setItemToScroll('');
+                  }
+                }}
               >
                 <Accordion.Content active={isExclusive(id)}>
                   <RenderBlocks
