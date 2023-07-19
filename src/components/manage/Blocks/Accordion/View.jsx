@@ -11,7 +11,7 @@ import config from '@plone/volto/registry';
 import './editor.less';
 
 const View = (props) => {
-  const { data } = props;
+  const { data, className } = props;
   const location = useLocation();
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
@@ -46,7 +46,7 @@ const View = (props) => {
   }, [data.collapsed]);
 
   return (
-    <div className="accordion-block">
+    <div className={cx('accordion-block', className)}>
       {data.headline && <h2 className="headline">{data.headline}</h2>}
       {panels.map(([id, panel], index) => {
         return accordionBlockHasValue(panel) ? (
