@@ -12,6 +12,7 @@ exports[`View Component renders without crashing 1`] = `
 >
   <div
     className="accordion ui default"
+    id="id1"
   >
     <h3
       className="title accordion-title align-arrow-right"
@@ -29,6 +30,7 @@ exports[`View Component renders without crashing 1`] = `
     <div
       aria-hidden={true}
       className="rah-static rah-static--height-zero"
+      onTransitionEnd={[Function]}
       style={
         Object {
           "height": 0,
