@@ -143,8 +143,9 @@
   }
 
   // with z-index: -1 you don't get the hover and focused border for block child section
+  // TODO: to be removed if https://github.com/plone/volto/pull/5029 merged
   .block .block:not(.inner)::before {
-    z-index: 0;
+    z-index: auto;
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { getPanels, accordionBlockHasValue } from './util';
 import { Accordion, Icon } from 'semantic-ui-react';
 import { withBlockExtensions } from '@plone/volto/helpers';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import cx from 'classnames';
 import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
@@ -10,39 +10,107 @@ import AnimateHeight from 'react-animate-height';
 import config from '@plone/volto/registry';
 import './editor.less';
 
+const useQuery = (location) => {
+  const { search } = location;
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+};
+
 const View = (props) => {
   const { data, className } = props;
   const location = useLocation();
+  const history = useHistory();
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState([]);
+  const [activePanel, setActivePanel] = React.useState([]);
+  const [itemToScroll, setItemToScroll] = React.useState('');
   const accordionConfig = config.blocks.blocksConfig.accordion;
   const { titleIcons } = accordionConfig;
+
+  const query = useQuery(location);
+  const activePanels = query.get('activeAccordion')?.split(',');
+  const [firstIdFromPanels] = panels[0];
+
+  const activePanelsRef = React.useRef(activePanels);
+  const firstIdFromPanelsRef = React.useRef(firstIdFromPanels);
+
+  const addQueryParam = (key, value) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set(key, value);
+
+    history.push({
+      hash: location.hash,
+      pathname: location.pathname,
+      search: searchParams.toString(),
+    });
+  };
+
   const handleClick = (e, itemProps) => {
-    const { index } = itemProps;
+    const { index, id } = itemProps;
     if (data.non_exclusive) {
       const newIndex =
         activeIndex.indexOf(index) === -1
           ? [...activeIndex, index]
           : activeIndex.filter((item) => item !== index);
+      const newPanel =
+        activePanel.indexOf(id) === -1
+          ? [...activePanel, id]
+          : activePanel.filter((item) => item !== id);
 
-      setActiveIndex(newIndex);
+      handleActiveIndex(newIndex, newPanel);
     } else {
       const newIndex =
         activeIndex.indexOf(index) === -1
           ? [index]
           : activeIndex.filter((item) => item !== index);
+      const newPanel =
+        activePanel.indexOf(id) === -1
+          ? [id]
+          : activePanel.filter((item) => item !== id);
 
-      setActiveIndex(newIndex);
+      handleActiveIndex(newIndex, newPanel);
     }
   };
 
-  const isExclusive = (index) => {
-    return activeIndex.includes(index);
+  const handleActiveIndex = (index, id) => {
+    setActiveIndex(index);
+    setActivePanel(id);
+    addQueryParam('activeAccordion', id);
+  };
+
+  const scrollToElement = () => {
+    if (!!activePanels && !!activePanels[0].length) {
+      let element = document.getElementById(
+        activePanels[activePanels.length - 1],
+      );
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const isExclusive = (id) => {
+    return activePanel.includes(id);
   };
 
   React.useEffect(() => {
-    return data.collapsed ? setActiveIndex([]) : setActiveIndex([0]);
+    !!activePanelsRef.current &&
+      setItemToScroll(
+        activePanelsRef.current[activePanelsRef.current?.length - 1],
+      );
+  }, []);
+
+  React.useEffect(() => {
+    if (data.collapsed) {
+      setActivePanel(activePanelsRef.current || []);
+    } else {
+      if (!!activePanelsRef.current && !!activePanelsRef.current[0].length) {
+        setActivePanel(activePanelsRef.current || []);
+      } else {
+        setActivePanel([
+          firstIdFromPanelsRef.current,
+          ...(activePanelsRef.current || []),
+        ]);
+      }
+    }
   }, [data.collapsed]);
 
   return (
@@ -52,6 +120,7 @@ const View = (props) => {
         return accordionBlockHasValue(panel) ? (
           <Accordion
             key={id}
+            id={id}
             exclusive={!data.exclusive}
             className={
               data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
@@ -61,10 +130,10 @@ const View = (props) => {
             <React.Fragment>
               <Accordion.Title
                 as={data.title_size}
-                active={isExclusive(index)}
+                active={isExclusive(id)}
                 index={index}
                 tabIndex={0}
-                onClick={handleClick}
+                onClick={(e) => handleClick(e, { index, id })}
                 onKeyDown={(e) => {
                   if (e.nativeEvent.keyCode === 13) {
                     handleClick(e, { index });
@@ -77,7 +146,7 @@ const View = (props) => {
               >
                 {accordionConfig.semanticIcon ? (
                   <Icon className={accordionConfig.semanticIcon} />
-                ) : isExclusive(index) ? (
+                ) : isExclusive(id) ? (
                   <VoltoIcon
                     name={
                       props?.data?.right_arrows
@@ -101,9 +170,15 @@ const View = (props) => {
               <AnimateHeight
                 animateOpacity
                 duration={500}
-                height={isExclusive(index) ? 'auto' : 0}
+                height={isExclusive(id) ? 'auto' : 0}
+                onTransitionEnd={() => {
+                  if (!!activePanels && id === itemToScroll) {
+                    scrollToElement();
+                    setItemToScroll('');
+                  }
+                }}
               >
-                <Accordion.Content active={isExclusive(index)}>
+                <Accordion.Content active={isExclusive(id)}>
                   <RenderBlocks
                     {...props}
                     location={location}
