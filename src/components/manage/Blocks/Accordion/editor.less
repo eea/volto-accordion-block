@@ -14,6 +14,7 @@
 // Site theme declaration of menu variables wins over default theme
 @import (optional) '~volto-themes/default/collections/menu.variables';
 @import (optional) '@{themesFolderEEA}/@{menu}/collections/menu.variables';
+@import (optional) '@{themesFolderEEA}/@{menu}/modules/accordion.variables';
 @import (optional) '@{siteFolder}/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
@@ -154,6 +155,25 @@
   .ui.accordion {
     margin-top: 0 !important;
     clear: both; /* ensure floated images from content area don't spill over next accordion title */
+
+    &.accordion-filter-container {
+      border-bottom: @titleBorderBottom;
+
+      .close:before,
+      .filter:before {
+        width: 3rem;
+        color: @deepBlue;
+        font-size: 1.1rem;
+      }
+
+      .close:before {
+        content: '\f00d' !important;
+      }
+
+      .filter:before {
+        content: '\f0b0' !important;
+      }
+    }
   }
 
   .accordion-title {

@@ -9,6 +9,7 @@ import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
 import config from '@plone/volto/registry';
 import './editor.less';
+import AccordionFilter from './AccordionFilter';
 
 const useQuery = (location) => {
   const { search } = location;
@@ -23,6 +24,7 @@ const View = (props) => {
   const metadata = props.metadata || props.properties;
   const [activeIndex, setActiveIndex] = React.useState([]);
   const [activePanel, setActivePanel] = React.useState([]);
+  const [filterValue, setFilterValue] = React.useState('');
   const [itemToScroll, setItemToScroll] = React.useState('');
   const accordionConfig = config.blocks.blocksConfig.accordion;
   const { titleIcons } = accordionConfig;
@@ -78,6 +80,10 @@ const View = (props) => {
     addQueryParam('activeAccordion', id);
   };
 
+  const handleFilteredValueChange = (value) => {
+    setFilterValue(value);
+  };
+
   const scrollToElement = () => {
     if (!!activePanels && !!activePanels[0].length) {
       let element = document.getElementById(
@@ -116,81 +122,98 @@ const View = (props) => {
   return (
     <div className={cx('accordion-block', className)}>
       {data.headline && <h2 className="headline">{data.headline}</h2>}
-      {panels.map(([id, panel], index) => {
-        return accordionBlockHasValue(panel) ? (
-          <Accordion
-            key={id}
-            id={id}
-            exclusive={!data.exclusive}
-            className={
-              data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
-            }
-            {...accordionConfig.options}
-          >
-            <React.Fragment>
-              <Accordion.Title
-                as={data.title_size}
-                active={isExclusive(id)}
-                index={index}
-                tabIndex={0}
-                onClick={(e) => handleClick(e, { index, id })}
-                onKeyDown={(e) => {
-                  if (e.nativeEvent.keyCode === 13) {
-                    handleClick(e, { index });
-                  }
-                }}
-                className={cx('accordion-title', {
-                  'align-arrow-left': !props?.data?.right_arrows,
-                  'align-arrow-right': props?.data?.right_arrows,
-                })}
-              >
-                {accordionConfig.semanticIcon ? (
-                  <Icon className={accordionConfig.semanticIcon} />
-                ) : isExclusive(id) ? (
-                  <VoltoIcon
-                    name={
-                      props?.data?.right_arrows
-                        ? titleIcons.opened.rightPosition
-                        : titleIcons.opened.leftPosition
+      {data.filtering && (
+        <AccordionFilter
+          config={config}
+          data={data}
+          filterValue={filterValue}
+          handleFilteredValueChange={handleFilteredValueChange}
+        />
+      )}
+      {panels
+        .filter(
+          (panel) =>
+            !data.filtering ||
+            filterValue === '' ||
+            (filterValue !== '' && panel[1].title?.includes(filterValue)),
+        )
+        .map(([id, panel], index) => {
+          return accordionBlockHasValue(panel) ? (
+            <Accordion
+              key={id}
+              id={id}
+              exclusive={!data.exclusive}
+              className={
+                data.styles
+                  ? data.styles.theme
+                  : accordionConfig?.defaults?.theme
+              }
+              {...accordionConfig.options}
+            >
+              <React.Fragment>
+                <Accordion.Title
+                  as={data.title_size}
+                  active={isExclusive(id)}
+                  index={index}
+                  tabIndex={0}
+                  onClick={(e) => handleClick(e, { index, id })}
+                  onKeyDown={(e) => {
+                    if (e.nativeEvent.keyCode === 13) {
+                      handleClick(e, { index });
                     }
-                    size={titleIcons.size}
-                  />
-                ) : (
-                  <VoltoIcon
-                    name={
-                      props?.data?.right_arrows
-                        ? titleIcons.closed.rightPosition
-                        : titleIcons.closed.leftPosition
+                  }}
+                  className={cx('accordion-title', {
+                    'align-arrow-left': !props?.data?.right_arrows,
+                    'align-arrow-right': props?.data?.right_arrows,
+                  })}
+                >
+                  {accordionConfig.semanticIcon ? (
+                    <Icon className={accordionConfig.semanticIcon} />
+                  ) : isExclusive(id) ? (
+                    <VoltoIcon
+                      name={
+                        props?.data?.right_arrows
+                          ? titleIcons.opened.rightPosition
+                          : titleIcons.opened.leftPosition
+                      }
+                      size={titleIcons.size}
+                    />
+                  ) : (
+                    <VoltoIcon
+                      name={
+                        props?.data?.right_arrows
+                          ? titleIcons.closed.rightPosition
+                          : titleIcons.closed.leftPosition
+                      }
+                      size={titleIcons.size}
+                    />
+                  )}
+                  <span>{panel?.title}</span>
+                </Accordion.Title>
+                <AnimateHeight
+                  animateOpacity
+                  duration={500}
+                  height={isExclusive(id) ? 'auto' : 0}
+                  onTransitionEnd={() => {
+                    if (!!activePanels && id === itemToScroll) {
+                      scrollToElement();
+                      setItemToScroll('');
                     }
-                    size={titleIcons.size}
-                  />
-                )}
-                <span>{panel?.title}</span>
-              </Accordion.Title>
-              <AnimateHeight
-                animateOpacity
-                duration={500}
-                height={isExclusive(id) ? 'auto' : 0}
-                onTransitionEnd={() => {
-                  if (!!activePanels && id === itemToScroll) {
-                    scrollToElement();
-                    setItemToScroll('');
-                  }
-                }}
-              >
-                <Accordion.Content active={isExclusive(id)}>
-                  <RenderBlocks
-                    {...props}
-                    location={location}
-                    metadata={metadata}
-                    content={panel}
-                  />
-                </Accordion.Content>
-              </AnimateHeight>
-            </React.Fragment>
-          </Accordion>
-        ) : null;
-      })}
+                  }}
+                >
+                  <Accordion.Content active={isExclusive(id)}>
+                    <RenderBlocks
+                      {...props}
+                      location={location}
+                      metadata={metadata}
+                      content={panel}
+                    />
+                  </Accordion.Content>
+                </AnimateHeight>
+              </React.Fragment>
+            </Accordion>
+          ) : null;
+        })}
     </div>
   );
 };
