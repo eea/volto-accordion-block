@@ -18,10 +18,10 @@ const AccordionFilter = ({
     >
       <Accordion.Title className="accordion-title active align-arrow-right">
         {filterValue === '' ? (
-          <Icon className="filter" />
+          <Icon className="ri-filter-3-line" />
         ) : (
           <Icon
-            className="close"
+            className="ri-close-line"
             onClick={() => handleFilteredValueChange('')}
           />
         )}

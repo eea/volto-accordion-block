@@ -2,6 +2,10 @@
 @element: 'custom';
 @itemVerticalPadding: 0.875em;
 @itemHorizontalPadding: 1.25em;
+@emSize: 16px;
+@1px: unit((1 / @emSize), rem);
+@silverGray: #e6e7e8;
+@deepBlue: #3d5265;
 @themesFolderEEA: 'eea';
 @siteFolder: '../../theme';
 @menu: 'pastananga';
@@ -14,6 +18,7 @@
 // Site theme declaration of menu variables wins over default theme
 @import (optional) '~volto-themes/default/collections/menu.variables';
 @import (optional) '@{themesFolderEEA}/@{menu}/collections/menu.variables';
+@import (optional) '@{themesFolderEEA}/@{menu}/modules/accordion.variables';
 @import (optional) '@{siteFolder}/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
@@ -159,20 +164,25 @@
     &.accordion-filter-container {
       border-bottom: @titleBorderBottom;
 
-      .close:before,
-      .filter:before {
+      .ri-close-line:before,
+      .ri-filter-3-line:before {
         width: 3rem;
         color: @deepBlue;
-        font-size: 1.1rem;
+        font-size: 2rem;
       }
 
-      .close:before {
-        content: '\f00d' !important;
+      .ri-close-line:before {
+        content: '\eb99' !important;
       }
 
-      .filter:before {
-        content: '\f0b0' !important;
+      .ri-filter-3-line:before {
+        content: '\ed25' !important;
       }
+    }
+
+    &.accordion-filter-container[class*='ary'] input,
+    &.accordion-filter-container[class*='ary'] i:before {
+      color: white;
     }
   }
 

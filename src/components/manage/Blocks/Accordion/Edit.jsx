@@ -292,7 +292,10 @@ const Edit = (props) => {
             (panel) =>
               !data.filtering ||
               filterValue === '' ||
-              (filterValue !== '' && panel[1].title?.includes(filterValue)),
+              (filterValue !== '' &&
+                panel[1].title
+                  ?.toLowerCase()
+                  .includes(filterValue.toLowerCase())),
           )
           .map(([uid, panel], index) => (
             <AccordionEdit
