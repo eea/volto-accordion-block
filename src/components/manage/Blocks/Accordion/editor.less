@@ -169,11 +169,13 @@
         font-size: @filterIconFontSize;
       }
 
-      .close-icon:before {
+      .close-icon:before,
+      .accordion-icon-opened:before {
         content: var(--accordion-icon-inactive, '\eb99');
       }
 
-      .filter-icon:before {
+      .filter-icon:before,
+      .accordion-icon-closed:before {
         content: var(--accordion-icon-inactive, '\ed25');
       }
     }
