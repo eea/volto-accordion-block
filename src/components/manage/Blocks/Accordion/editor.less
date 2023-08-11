@@ -2,10 +2,11 @@
 @element: 'custom';
 @itemVerticalPadding: 0.875em;
 @itemHorizontalPadding: 1.25em;
-@emSize: 16px;
-@1px: unit((1 / @emSize), rem);
-@silverGray: #e6e7e8;
-@deepBlue: #3d5265;
+@filterIconWidth: 3rem;
+@filterIconFontSize: 2rem;
+@primaryColor: #004b7f;
+@secondaryColor: #007b6c;
+@tertiaryColor: #3d5265;
 @themesFolderEEA: 'eea';
 @siteFolder: '../../theme';
 @menu: 'pastananga';
@@ -22,7 +23,6 @@
 @import (optional) '@{siteFolder}/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
-@titleBorderBottom: @1px solid @silverGray;
 
 // Edit
 .block-editor-accordion {
@@ -161,14 +161,10 @@
     margin-top: 0 !important;
     clear: both; /* ensure floated images from content area don't spill over next accordion title */
 
-    &.accordion-filter-container {
-      border-bottom: @titleBorderBottom;
-
-      .ri-close-line:before,
-      .ri-filter-3-line:before {
-        width: 3rem;
-        color: @deepBlue;
-        font-size: 2rem;
+    .filter {
+      i:before {
+        width: @filterIconWidth;
+        font-size: @filterIconFontSize;
       }
 
       .ri-close-line:before {
@@ -180,10 +176,23 @@
       }
     }
 
-    &.accordion-filter-container[class*='ary'] input,
-    &.accordion-filter-container[class*='ary'] i:before {
-      color: white;
+    &.primary .filter {
+      background-color: @primaryColor;
     }
+
+    &.secondary .filter {
+      background-color: @secondaryColor;
+    }
+
+    &.tertiary .filter {
+      background-color: @tertiaryColor;
+    }
+  }
+
+  .ui.accordion[class*='ary'] .filter input,
+  .ui.accordion[class*='ary'] .filter i,
+  .ui.accordion[class*='ary'] .filter i:before {
+    color: white;
   }
 
   .accordion-title {

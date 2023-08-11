@@ -1,6 +1,6 @@
 import React from 'react';
-import './editor.less';
 import { Accordion, Input, Icon } from 'semantic-ui-react';
+import './editor.less';
 
 const AccordionFilter = ({
   config,
@@ -14,9 +14,9 @@ const AccordionFilter = ({
     <Accordion
       className={`${
         data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
-      } accordion-filter-container`}
+      }`}
     >
-      <Accordion.Title className="accordion-title active align-arrow-right">
+      <Accordion.Title className="accordion-title filter align-arrow-right">
         {filterValue === '' ? (
           <Icon className="ri-filter-3-line" />
         ) : (
