@@ -135,7 +135,10 @@ const View = (props) => {
           (panel) =>
             !data.filtering ||
             filterValue === '' ||
-            (filterValue !== '' && panel[1].title?.includes(filterValue)),
+            (filterValue !== '' &&
+              panel[1].title
+                ?.toLowerCase()
+                .includes(filterValue.toLowerCase())),
         )
         .map(([id, panel], index) => {
           return accordionBlockHasValue(panel) ? (
