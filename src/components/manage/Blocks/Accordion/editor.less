@@ -7,6 +7,8 @@
 @primaryColor: #004b7f;
 @secondaryColor: #007b6c;
 @tertiaryColor: #3d5265;
+@iconColorNoTheme: #808285;
+@iconColorNoThemeHover: #323232;
 @themesFolderEEA: 'eea';
 @siteFolder: '../../theme';
 @menu: 'pastananga';
@@ -167,12 +169,12 @@
         font-size: @filterIconFontSize;
       }
 
-      .ri-close-line:before {
-        content: '\eb99' !important;
+      .close-icon:before {
+        content: var(--accordion-icon-inactive, '\eb99');
       }
 
-      .ri-filter-3-line:before {
-        content: '\ed25' !important;
+      .filter-icon:before {
+        content: var(--accordion-icon-inactive, '\ed25');
       }
     }
 
@@ -189,8 +191,18 @@
     }
   }
 
+  .filter:not([class*='ary']) i:before {
+    color: @iconColorNoTheme;
+  }
+
+  .filter:not([class*='ary']):focus-visible,
+  .filter:not([class*='ary']):hover {
+    i:before {
+      color: @iconColorNoThemeHover;
+    }
+  }
+
   .ui.accordion[class*='ary'] .filter input,
-  .ui.accordion[class*='ary'] .filter i,
   .ui.accordion[class*='ary'] .filter i:before {
     color: white;
   }

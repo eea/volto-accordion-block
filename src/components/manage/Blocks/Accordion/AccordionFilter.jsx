@@ -18,10 +18,16 @@ const AccordionFilter = ({
     >
       <Accordion.Title className="accordion-title filter align-arrow-right">
         {filterValue === '' ? (
-          <Icon className="ri-filter-3-line" />
+          <Icon
+            className={`ri-icon ${
+              accordionConfig.filterIcon?.closed || 'filter-icon'
+            }`}
+          />
         ) : (
           <Icon
-            className="ri-close-line"
+            className={`ri-icon ${
+              accordionConfig.filterIcon?.opened || 'close-icon'
+            }`}
             onClick={() => handleFilteredValueChange('')}
           />
         )}
