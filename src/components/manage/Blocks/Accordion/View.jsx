@@ -1,11 +1,11 @@
 import React from 'react';
-import { getPanels, accordionBlockHasValue } from './util';
-import { Accordion, Icon } from 'semantic-ui-react';
+import { getPanels, accordionBlockHasValue, Icon } from './util';
+import { Accordion } from 'semantic-ui-react';
 import { withBlockExtensions } from '@plone/volto/helpers';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import cx from 'classnames';
-import { Icon as VoltoIcon, RenderBlocks } from '@plone/volto/components';
+import { RenderBlocks } from '@plone/volto/components';
 import AnimateHeight from 'react-animate-height';
 import config from '@plone/volto/registry';
 import './editor.less';
@@ -28,6 +28,8 @@ const View = (props) => {
   const [itemToScroll, setItemToScroll] = React.useState('');
   const accordionConfig = config.blocks.blocksConfig.accordion;
   const { titleIcons } = accordionConfig;
+  const iconOnRight = data.right_arrows;
+  const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
 
   const query = useQuery(location);
   const activePanels = query.get('activeAccordion')?.split(',');
@@ -141,6 +143,7 @@ const View = (props) => {
                 .includes(filterValue.toLowerCase())),
         )
         .map(([id, panel], index) => {
+          const active = isExclusive(id);
           return accordionBlockHasValue(panel) ? (
             <Accordion
               key={id}
@@ -156,7 +159,7 @@ const View = (props) => {
               <React.Fragment>
                 <Accordion.Title
                   as={data.title_size}
-                  active={isExclusive(id)}
+                  active={active}
                   index={index}
                   tabIndex={0}
                   onClick={(e) => handleClick(e, { index, id })}
@@ -166,37 +169,23 @@ const View = (props) => {
                     }
                   }}
                   className={cx('accordion-title', {
-                    'align-arrow-left': !props?.data?.right_arrows,
-                    'align-arrow-right': props?.data?.right_arrows,
+                    'align-arrow-left': !iconOnRight,
+                    'align-arrow-right': iconOnRight,
                   })}
                 >
-                  {accordionConfig.semanticIcon ? (
-                    <Icon className={accordionConfig.semanticIcon} />
-                  ) : isExclusive(id) ? (
-                    <VoltoIcon
-                      name={
-                        props?.data?.right_arrows
-                          ? titleIcons.opened.rightPosition
-                          : titleIcons.opened.leftPosition
-                      }
-                      size={titleIcons.size}
-                    />
-                  ) : (
-                    <VoltoIcon
-                      name={
-                        props?.data?.right_arrows
-                          ? titleIcons.closed.rightPosition
-                          : titleIcons.closed.leftPosition
-                      }
-                      size={titleIcons.size}
-                    />
-                  )}
+                  <Icon
+                    name={
+                      active
+                        ? titleIcons.opened[iconPosition]
+                        : titleIcons.closed[iconPosition]
+                    }
+                  />
                   <span>{panel?.title}</span>
                 </Accordion.Title>
                 <AnimateHeight
                   animateOpacity
                   duration={500}
-                  height={isExclusive(id) ? 'auto' : 0}
+                  height={active ? 'auto' : 0}
                   onTransitionEnd={() => {
                     if (!!activePanels && id === itemToScroll) {
                       scrollToElement();
@@ -204,7 +193,7 @@ const View = (props) => {
                     }
                   }}
                 >
-                  <Accordion.Content active={isExclusive(id)}>
+                  <Accordion.Content active={active}>
                     <RenderBlocks
                       {...props}
                       location={location}

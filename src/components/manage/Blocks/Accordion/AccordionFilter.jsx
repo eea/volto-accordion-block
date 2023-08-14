@@ -1,5 +1,6 @@
 import React from 'react';
-import { Accordion, Input, Icon } from 'semantic-ui-react';
+import { Accordion, Input } from 'semantic-ui-react';
+import { Icon } from './util';
 import './editor.less';
 
 const AccordionFilter = ({
@@ -9,6 +10,9 @@ const AccordionFilter = ({
   handleFilteredValueChange,
 }) => {
   const accordionConfig = config.blocks.blocksConfig.accordion;
+  const { titleIcons } = accordionConfig;
+  const iconOnRight = data.right_arrows;
+  const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
   return (
     <Accordion
       className={`${
@@ -21,20 +25,14 @@ const AccordionFilter = ({
           (data.right_arrows ? 'align-arrow-right' : 'align-arrow-left')
         }
       >
-        {filterValue === '' ? (
-          <Icon
-            className={`ri-icon ${
-              accordionConfig.filterIcon?.closed || 'filter-icon'
-            }`}
-          />
-        ) : (
-          <Icon
-            className={`ri-icon ${
-              accordionConfig.filterIcon?.opened || 'close-icon'
-            }`}
-            onClick={() => handleFilteredValueChange('')}
-          />
-        )}
+        <Icon
+          name={
+            filterValue === ''
+              ? titleIcons.unfiltered[iconPosition]
+              : titleIcons.filtered[iconPosition]
+          }
+          onClick={() => handleFilteredValueChange('')}
+        />
         <Input
           fluid
           className="input-accordion-title"

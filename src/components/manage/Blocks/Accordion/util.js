@@ -1,6 +1,10 @@
 import { v4 as uuid } from 'uuid';
 import { map } from 'lodash';
 
+import { Icon as VoltoIcon } from '@plone/volto/components';
+import { Icon as SemanticIcon } from 'semantic-ui-react';
+import config from '@plone/volto/registry';
+
 import {
   getBlocksFieldname,
   getBlocksLayoutFieldname,
@@ -41,4 +45,21 @@ export const accordionBlockHasValue = (content) => {
   });
   if (content.hasOwnProperty('title') && content?.title.length > 0) return true;
   return blockValue.some((item) => item === true);
+};
+
+export const Icon = (props) => {
+  const { size, name, ...rest } = props;
+  const options = config.blocks.blocksConfig.accordion.titleIcons;
+  const componentToRender = options.iconComponent;
+
+  // Map component names to their actual components
+  const componentMap = {
+    SemanticIcon,
+    VoltoIcon,
+  };
+
+  // Get the component from the map based on the configuration
+  const IconComponent = componentMap[componentToRender] || VoltoIcon;
+
+  return <IconComponent size={options.size} name={name} {...rest} />;
 };

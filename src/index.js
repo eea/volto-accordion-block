@@ -9,6 +9,8 @@ import { PanelsWidget } from '@eeacms/volto-accordion-block/components';
 import rightSVG from '@plone/volto/icons/right-key.svg';
 import leftSVG from '@plone/volto/icons/left-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
+import filterSVG from '@plone/volto/icons/filter.svg';
+import clearSVG from '@plone/volto/icons/clear.svg';
 
 const extendedSchema = (config) => {
   const choices = Object.keys(config.blocks.blocksConfig)
@@ -47,7 +49,10 @@ const applyConfig = (config) => {
     titleIcons: {
       closed: { leftPosition: rightSVG, rightPosition: leftSVG },
       opened: { leftPosition: downSVG, rightPosition: downSVG },
+      filtered: { leftPosition: clearSVG, rightPosition: clearSVG },
+      unfiltered: { leftPosition: filterSVG, rightPosition: filterSVG },
       size: '24px',
+      iconComponent: 'VoltoIcon', // other option is SemanticIcon
     },
     view: AccordionBlockView,
     edit: AccordionBlockEdit,
