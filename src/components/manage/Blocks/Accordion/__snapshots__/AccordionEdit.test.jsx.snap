@@ -10,7 +10,7 @@ exports[`AccordionEdit should render correctly 1`] = `
   >
     <i
       aria-hidden="true"
-      className="icon someIcon"
+      className="chevron left tiny icon"
       onClick={[Function]}
     />
     <div

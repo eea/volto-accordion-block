@@ -24,13 +24,15 @@ config.blocks.blocksConfig.accordion = {
   ...config.blocks.blocksConfig.accordion,
   titleIcons: {
     opened: {
-      rightPosition: '',
-      leftPosition: '',
+      rightPosition: 'chevron left',
+      leftPosition: 'chevron right',
     },
     closed: {
-      rightPosition: '',
-      leftPosition: '',
+      rightPosition: 'chevron down',
+      leftPosition: 'chevron down',
     },
+    size: 'tiny',
+    iconComponent: 'SemanticIcon',
   },
 };
 
