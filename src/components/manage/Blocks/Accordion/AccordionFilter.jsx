@@ -9,14 +9,18 @@ const AccordionFilter = ({
   handleFilteredValueChange,
 }) => {
   const accordionConfig = config.blocks.blocksConfig.accordion;
-
   return (
     <Accordion
       className={`${
         data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
       }`}
     >
-      <Accordion.Title className="accordion-title filter align-arrow-right">
+      <Accordion.Title
+        className={
+          'accordion-title filter ' +
+          (data.right_arrows ? 'align-arrow-right' : 'align-arrow-left')
+        }
+      >
         {filterValue === '' ? (
           <Icon
             className={`ri-icon ${
