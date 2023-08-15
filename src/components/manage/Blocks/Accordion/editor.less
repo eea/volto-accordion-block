@@ -133,7 +133,6 @@
     z-index: 3;
     right: -9px;
     display: flex;
-    border: none;
     border: 1px solid @borderColor;
     border-bottom: 1px solid @pageBackground;
     margin-top: -45px;
@@ -167,16 +166,6 @@
       i:before {
         width: @filterIconWidth;
         font-size: @filterIconFontSize;
-      }
-
-      .close-icon:before,
-      .accordion-icon-opened:before {
-        content: var(--accordion-icon-inactive, '\eb99');
-      }
-
-      .filter-icon:before,
-      .accordion-icon-closed:before {
-        content: var(--accordion-icon-inactive, '\ed25');
       }
     }
 
