@@ -17,6 +17,12 @@
 @import (optional) '@{siteFolder}/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
+@accordionStyledWidth: auto;
+
+// style accordion has a static width of 600px from semantic so we need to override it
+.accordion-block .ui.styled.accordion {
+  width: @accordionStyledWidth;
+}
 
 // Edit
 .block-editor-accordion {
