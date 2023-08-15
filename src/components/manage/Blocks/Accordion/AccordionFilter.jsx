@@ -15,7 +15,7 @@ const AccordionFilter = ({
   const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
   return (
     <Accordion
-      className={`${
+      className={`styled ${
         data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
       }`}
     >

@@ -2,13 +2,6 @@
 @element: 'custom';
 @itemVerticalPadding: 0.875em;
 @itemHorizontalPadding: 1.25em;
-@filterIconWidth: 3rem;
-@filterIconFontSize: 2rem;
-@primaryColor: #004b7f;
-@secondaryColor: #007b6c;
-@tertiaryColor: #3d5265;
-@iconColorNoTheme: #808285;
-@iconColorNoThemeHover: #323232;
 @themesFolderEEA: 'eea';
 @siteFolder: '../../theme';
 @menu: 'pastananga';
@@ -21,7 +14,6 @@
 // Site theme declaration of menu variables wins over default theme
 @import (optional) '~volto-themes/default/collections/menu.variables';
 @import (optional) '@{themesFolderEEA}/@{menu}/collections/menu.variables';
-@import (optional) '@{themesFolderEEA}/@{menu}/modules/accordion.variables';
 @import (optional) '@{siteFolder}/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
@@ -161,41 +153,6 @@
   .ui.accordion {
     margin-top: 0 !important;
     clear: both; /* ensure floated images from content area don't spill over next accordion title */
-
-    .filter {
-      i:before {
-        width: @filterIconWidth;
-        font-size: @filterIconFontSize;
-      }
-    }
-
-    &.primary .filter {
-      background-color: @primaryColor;
-    }
-
-    &.secondary .filter {
-      background-color: @secondaryColor;
-    }
-
-    &.tertiary .filter {
-      background-color: @tertiaryColor;
-    }
-  }
-
-  .filter:not([class*='ary']) i:before {
-    color: @iconColorNoTheme;
-  }
-
-  .filter:not([class*='ary']):focus-visible,
-  .filter:not([class*='ary']):hover {
-    i:before {
-      color: @iconColorNoThemeHover;
-    }
-  }
-
-  .ui.accordion[class*='ary'] .filter input,
-  .ui.accordion[class*='ary'] .filter i:before {
-    color: white;
   }
 
   .accordion-title {
