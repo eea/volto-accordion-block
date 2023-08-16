@@ -1,11 +1,9 @@
 import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 import AccordionFilter from './AccordionFilter';
-import config from '@plone/volto/registry';
 import '@testing-library/jest-dom/extend-expect';
 
-config.blocks.blocksConfig.accordion = {
-  ...config.blocks.blocksConfig.accordion,
+const accordionConfig = {
   defaults: {
     theme: 'defaultTheme',
   },
@@ -25,7 +23,6 @@ config.blocks.blocksConfig.accordion = {
 
 const handleFilteredValueChange = jest.fn();
 let filterValue = '';
-const accordionConfig = config.blocks.blocksConfig.accordion;
 const data = {
   styles: {
     theme: 'custom-theme',
