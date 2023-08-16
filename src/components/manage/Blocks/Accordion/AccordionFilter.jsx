@@ -9,14 +9,13 @@ const AccordionFilter = ({
   filterValue,
   handleFilteredValueChange,
 }) => {
-  const accordionConfig = config.blocks.blocksConfig.accordion;
-  const { titleIcons } = accordionConfig;
+  const { titleIcons } = config;
   const iconOnRight = data.right_arrows;
   const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
   return (
     <Accordion
       className={`styled ${
-        data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
+        data.styles ? data.styles.theme : config?.defaults?.theme
       }`}
     >
       <Accordion.Title

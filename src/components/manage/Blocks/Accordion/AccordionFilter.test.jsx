@@ -3,34 +3,34 @@ import React from 'react';
 import AccordionFilter from './AccordionFilter';
 import '@testing-library/jest-dom/extend-expect';
 
-const accordionConfig = {
-  defaults: {
-    theme: 'defaultTheme',
-  },
-  titleIcons: {
-    unfiltered: {
-      rightPosition: 'chevron left',
-      leftPosition: 'chevron right',
-    },
-    filtered: {
-      rightPosition: 'chevron down',
-      leftPosition: 'chevron down',
-    },
-    size: 'tiny',
-    iconComponent: 'SemanticIcon',
-  },
-};
-
-const handleFilteredValueChange = jest.fn();
-let filterValue = '';
-const data = {
-  styles: {
-    theme: 'custom-theme',
-  },
-  right_arrows: true,
-};
-
 describe('AccordionFilter', () => {
+  const accordionConfig = {
+    defaults: {
+      theme: 'defaultTheme',
+    },
+    titleIcons: {
+      unfiltered: {
+        rightPosition: 'chevron left',
+        leftPosition: 'chevron right',
+      },
+      filtered: {
+        rightPosition: 'chevron down',
+        leftPosition: 'chevron down',
+      },
+      size: 'tiny',
+      iconComponent: 'SemanticIcon',
+    },
+  };
+
+  const handleFilteredValueChange = jest.fn();
+  let filterValue = '';
+  const data = {
+    styles: {
+      theme: 'custom-theme',
+    },
+    right_arrows: true,
+  };
+
   it('renders correctly with default props', () => {
     const { container } = render(
       <AccordionFilter
