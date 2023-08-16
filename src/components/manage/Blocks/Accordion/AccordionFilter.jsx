@@ -30,6 +30,7 @@ const AccordionFilter = ({
               ? titleIcons.unfiltered[iconPosition]
               : titleIcons.filtered[iconPosition]
           }
+          options={titleIcons}
           onClick={() => handleFilteredValueChange('')}
         />
         <Input

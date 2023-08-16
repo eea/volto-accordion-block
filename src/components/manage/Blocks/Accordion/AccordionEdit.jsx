@@ -64,6 +64,7 @@ export default (props) => {
           })}
         >
           <Icon
+            options={titleIcons}
             name={
               isActive
                 ? titleIcons.opened[iconPosition]

@@ -7,7 +7,6 @@ import '@testing-library/jest-dom/extend-expect';
 
 config.blocks.blocksConfig.accordion = {
   ...config.blocks.blocksConfig.accordion,
-  semanticIcon: 'someIcon',
   defaults: {
     theme: 'defaultTheme',
   },
@@ -123,7 +122,6 @@ describe('AccordionEdit', () => {
   it('should open accordion content when title is clicked', () => {
     config.blocks.blocksConfig.accordion = {
       ...config.blocks.blocksConfig.accordion,
-      semanticIcon: undefined,
     };
     const { container, getByText } = render(
       <AccordionEdit

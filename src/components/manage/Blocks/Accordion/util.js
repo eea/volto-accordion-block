@@ -3,7 +3,6 @@ import { map } from 'lodash';
 
 import { Icon as VoltoIcon } from '@plone/volto/components';
 import { Icon as SemanticIcon } from 'semantic-ui-react';
-import config from '@plone/volto/registry';
 
 import {
   getBlocksFieldname,
@@ -48,8 +47,7 @@ export const accordionBlockHasValue = (content) => {
 };
 
 export const Icon = (props) => {
-  const { size, name, ...rest } = props;
-  const options = config.blocks.blocksConfig.accordion.titleIcons;
+  const { name, options, ...rest } = props;
   const componentToRender = options.iconComponent;
 
   // Map component names to their actual components

@@ -174,6 +174,7 @@ const View = (props) => {
                   })}
                 >
                   <Icon
+                    options={titleIcons}
                     name={
                       active
                         ? titleIcons.opened[iconPosition]
