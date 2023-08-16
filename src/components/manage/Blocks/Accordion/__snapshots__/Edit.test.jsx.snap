@@ -17,9 +17,11 @@ exports[`Edit Component renders without crashing 1`] = `
       className="active title accordion-title align-arrow-left"
       onClick={[Function]}
     >
-      <div>
-        Icon
-      </div>
+      <i
+        aria-hidden="true"
+        className="chevron right tiny icon"
+        onClick={[Function]}
+      />
       <div
         className="ui fluid transparent input input-accordion-title"
       >
@@ -67,9 +69,11 @@ exports[`Edit Component renders without crashing 1`] = `
       className="title accordion-title align-arrow-left"
       onClick={[Function]}
     >
-      <div>
-        Icon
-      </div>
+      <i
+        aria-hidden="true"
+        className="chevron down tiny icon"
+        onClick={[Function]}
+      />
       <div
         className="ui fluid transparent input input-accordion-title"
       >
@@ -118,9 +122,11 @@ exports[`Edit Component renders without crashing 1`] = `
       className="title accordion-title align-arrow-left"
       onClick={[Function]}
     >
-      <div>
-        Icon
-      </div>
+      <i
+        aria-hidden="true"
+        className="chevron down tiny icon"
+        onClick={[Function]}
+      />
       <div
         className="ui fluid transparent input input-accordion-title"
       >

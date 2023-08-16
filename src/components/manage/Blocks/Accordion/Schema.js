@@ -43,6 +43,10 @@ const messages = defineMessages({
     id: 'Allow multiple panels open at a time',
     defaultMessage: 'Allow multiple panels open at a time',
   },
+  filtering: {
+    id: 'Enable filtering',
+    defaultMessage: 'Enable filtering',
+  },
   Theme: {
     id: 'Theme',
     defaultMessage: 'Theme',
@@ -104,6 +108,7 @@ export const AccordionBlockSchema = ({ intl }) => ({
         'right_arrows',
         'collapsed',
         'non_exclusive',
+        'filtering',
       ],
     },
   ],
@@ -149,6 +154,11 @@ export const AccordionBlockSchema = ({ intl }) => ({
       description: intl.formatMessage(messages.non_exclusive_description),
       type: 'boolean',
       default: true,
+    },
+    filtering: {
+      title: intl.formatMessage(messages.filtering),
+      type: 'boolean',
+      default: false,
     },
   },
   required: [],
