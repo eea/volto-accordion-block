@@ -116,10 +116,6 @@ describe('View Component', () => {
 
   it('should open accordion content when title is clicked', () => {
     utils.accordionBlockHasValue.mockReturnValue(true);
-    // config.blocks.blocksConfig.accordion = {
-    //   ...config.blocks.blocksConfig.accordion,
-    //   semanticIcon: 'someIcon',
-    // };
     const { container, getByText } = render(
       <Provider store={store}>
         <MemoryRouter>
@@ -153,11 +149,6 @@ describe('View Component', () => {
   });
 
   it('should open accordion content when Enter key is pressed', () => {
-    // config.blocks.blocksConfig.accordion = {
-    //   ...config.blocks.blocksConfig.accordion,
-    //   semanticIcon: 'someIcon',
-    // };
-
     const { container, getByText } = render(
       <Provider store={store}>
         <MemoryRouter>

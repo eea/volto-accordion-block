@@ -306,6 +306,7 @@ const Edit = (props) => {
               handleTitleClick={() => setSelectedBlock({})}
               data={data}
               index={index}
+              key={uid}
             >
               <BlocksForm
                 key={uid}
