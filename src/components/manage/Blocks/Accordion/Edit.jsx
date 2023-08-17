@@ -266,6 +266,8 @@ const Edit = (props) => {
     ? pickBy(blocksConfig, (value, key) => allowedBlocks.includes(key))
     : blocksConfig;
 
+  const schema = AccordionBlockSchema({ intl });
+
   return (
     <>
       {data.headline && <h2 className="headline">{data.headline}</h2>}
@@ -428,8 +430,8 @@ const Edit = (props) => {
           )}
           {!data?.readOnlySettings && (
             <BlockDataForm
-              schema={AccordionBlockSchema({ intl })}
-              title="Accordion block"
+              schema={schema}
+              title={schema.title}
               onChangeField={(id, value) => {
                 onChangeBlock(block, {
                   ...data,

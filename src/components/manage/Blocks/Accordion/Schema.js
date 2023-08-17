@@ -7,6 +7,10 @@ const messages = defineMessages({
     id: 'Accordion',
     defaultMessage: 'Accordion',
   },
+  AccordionBlock: {
+    id: 'Accordion block',
+    defaultMessage: 'Accordion block',
+  },
   Options: {
     id: 'Options',
     defaultMessage: 'Options',
@@ -73,25 +77,27 @@ const messages = defineMessages({
   },
 });
 
-export const AccordionSchema = {
-  title: 'Accordion',
-  fieldsets: [
-    {
-      id: 'default',
-      title: 'Default',
-      fields: ['panel_title'],
+export const AccordionSchema = (intl) => {
+  return {
+    title: intl.formatMessage(messages.Accordion),
+    fieldsets: [
+      {
+        id: 'default',
+        title: 'Default',
+        fields: ['panel_title'],
+      },
+    ],
+    properties: {
+      panel_title: {
+        title: 'Accordion title',
+      },
     },
-  ],
-  properties: {
-    panel_title: {
-      title: 'Accordion title',
-    },
-  },
-  required: [],
+    required: [],
+  };
 };
 
 export const AccordionBlockSchema = ({ intl }) => ({
-  title: 'Accordion block',
+  title: intl.formatMessage(messages.AccordionBlock),
   fieldsets: [
     {
       id: 'default',
@@ -124,7 +130,7 @@ export const AccordionBlockSchema = ({ intl }) => ({
     data: {
       title: intl.formatMessage(messages.Accordion),
       type: 'panels',
-      schema: AccordionSchema,
+      schema: AccordionSchema(intl),
     },
     title_size: {
       title: intl.formatMessage(messages.title_size),
