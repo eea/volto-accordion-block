@@ -281,7 +281,7 @@ const Edit = (props) => {
         </legend>
         {data.filtering && (
           <AccordionFilter
-            config={config}
+            config={blockConfig}
             data={data}
             filterValue={filterValue}
             handleFilteredValueChange={handleFilteredValueChange}

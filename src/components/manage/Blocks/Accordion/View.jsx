@@ -126,7 +126,7 @@ const View = (props) => {
       {data.headline && <h2 className="headline">{data.headline}</h2>}
       {data.filtering && (
         <AccordionFilter
-          config={config}
+          config={accordionConfig}
           data={data}
           filterValue={filterValue}
           handleFilteredValueChange={handleFilteredValueChange}
