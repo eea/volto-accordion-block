@@ -3,6 +3,18 @@ import React from 'react';
 import AccordionFilter from './AccordionFilter';
 import '@testing-library/jest-dom/extend-expect';
 
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-intl-redux';
+
+const mockStore = configureStore();
+
+const store = mockStore({
+  intl: {
+    locale: 'en',
+    messages: {},
+  },
+});
+
 describe('AccordionFilter', () => {
   const accordionConfig = {
     defaults: {
@@ -33,12 +45,14 @@ describe('AccordionFilter', () => {
 
   it('renders correctly with default props', () => {
     const { container } = render(
-      <AccordionFilter
-        config={accordionConfig}
-        data={data}
-        filterValue={filterValue}
-        handleFilteredValueChange={handleFilteredValueChange}
-      />,
+      <Provider store={store}>
+        <AccordionFilter
+          config={accordionConfig}
+          data={data}
+          filterValue={filterValue}
+          handleFilteredValueChange={handleFilteredValueChange}
+        />
+      </Provider>,
     );
 
     // Assert that Accordion, Accordion.Title, Icon, and Input components are rendered
@@ -50,12 +64,14 @@ describe('AccordionFilter', () => {
 
   it('calls handleFilteredValueChange when input value changes', () => {
     const { getByPlaceholderText } = render(
-      <AccordionFilter
-        config={accordionConfig}
-        data={data}
-        filterValue={filterValue}
-        handleFilteredValueChange={handleFilteredValueChange}
-      />,
+      <Provider store={store}>
+        <AccordionFilter
+          config={accordionConfig}
+          data={data}
+          filterValue={filterValue}
+          handleFilteredValueChange={handleFilteredValueChange}
+        />
+      </Provider>,
     );
 
     const input = getByPlaceholderText('Type to filter...');
@@ -66,12 +82,14 @@ describe('AccordionFilter', () => {
 
   it('calls handleFilteredValueChange when icon is clicked', () => {
     const { container } = render(
-      <AccordionFilter
-        config={accordionConfig}
-        data={data}
-        filterValue={filterValue}
-        handleFilteredValueChange={handleFilteredValueChange}
-      />,
+      <Provider store={store}>
+        <AccordionFilter
+          config={accordionConfig}
+          data={data}
+          filterValue={filterValue}
+          handleFilteredValueChange={handleFilteredValueChange}
+        />
+      </Provider>,
     );
 
     const icon = container.querySelector('i');
@@ -84,12 +102,14 @@ describe('AccordionFilter', () => {
     data.right_arrows = false;
     data.styles = false;
     const { container } = render(
-      <AccordionFilter
-        config={accordionConfig}
-        data={data}
-        filterValue={filterValue}
-        handleFilteredValueChange={handleFilteredValueChange}
-      />,
+      <Provider store={store}>
+        <AccordionFilter
+          config={accordionConfig}
+          data={data}
+          filterValue={filterValue}
+          handleFilteredValueChange={handleFilteredValueChange}
+        />
+      </Provider>,
     );
 
     expect(container.querySelector('.align-arrow-left')).toBeInTheDocument();
@@ -98,12 +118,14 @@ describe('AccordionFilter', () => {
   it('renders with filtered icon', () => {
     filterValue = 'value';
     const { container } = render(
-      <AccordionFilter
-        config={accordionConfig}
-        data={data}
-        filterValue={filterValue}
-        handleFilteredValueChange={handleFilteredValueChange}
-      />,
+      <Provider store={store}>
+        <AccordionFilter
+          config={accordionConfig}
+          data={data}
+          filterValue={filterValue}
+          handleFilteredValueChange={handleFilteredValueChange}
+        />
+      </Provider>,
     );
 
     expect(container.querySelector('.chevron.down')).toBeInTheDocument();
