@@ -27,6 +27,11 @@ msgid "Accordion Title size"
 msgstr "Tamanho do título do Acordeão"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Accordion block
+msgid "Accordion block"
+msgstr "Acordeão bloco"
+
+#: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion theme
 msgid "Accordion theme"
 msgstr "Tema do Acordeão"
@@ -47,9 +52,19 @@ msgid "Collapsed by default"
 msgstr "Por padrão fechado"
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Enable filtering
+msgid "Enable filtering"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Friendly name
 msgid "Friendly name"
 msgstr "Nome amigável"
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Headline
+msgid "Headline"
+msgstr ""
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Non exclusive
@@ -95,6 +110,11 @@ msgstr "Ícone do título à direita"
 # defaultMessage: Title size
 msgid "Title size"
 msgstr "Tamanho do título"
+
+#: components/manage/Blocks/Accordion/AccordionFilter
+# defaultMessage: Type to filter...
+msgid "Type to filter..."
+msgstr "Filtrar..."
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 # defaultMessage: Unknown Block {block}

@@ -13,14 +13,15 @@ config.blocks.blocksConfig.accordion = {
   ...config.blocks.blocksConfig.accordion,
   titleIcons: {
     opened: {
-      rightPosition: '',
-      leftPosition: '',
+      rightPosition: 'chevron left',
+      leftPosition: 'chevron right',
     },
     closed: {
-      rightPosition: '',
-      leftPosition: '',
+      rightPosition: 'chevron down',
+      leftPosition: 'chevron down',
     },
-    size: '10px',
+    size: 'tiny',
+    iconComponent: 'SemanticIcon',
   },
 };
 
@@ -44,6 +45,7 @@ jest.mock('@plone/volto/components', () => ({
 jest.mock('./util', () => ({
   getPanels: () => [['id1', { title: 'Panel 1' }]],
   accordionBlockHasValue: jest.fn(),
+  Icon: () => <div>Icon</div>,
 }));
 
 const mockData = {
@@ -114,10 +116,6 @@ describe('View Component', () => {
 
   it('should open accordion content when title is clicked', () => {
     utils.accordionBlockHasValue.mockReturnValue(true);
-    config.blocks.blocksConfig.accordion = {
-      ...config.blocks.blocksConfig.accordion,
-      semanticIcon: 'someIcon',
-    };
     const { container, getByText } = render(
       <Provider store={store}>
         <MemoryRouter>
@@ -151,11 +149,6 @@ describe('View Component', () => {
   });
 
   it('should open accordion content when Enter key is pressed', () => {
-    config.blocks.blocksConfig.accordion = {
-      ...config.blocks.blocksConfig.accordion,
-      semanticIcon: 'someIcon',
-    };
-
     const { container, getByText } = render(
       <Provider store={store}>
         <MemoryRouter>

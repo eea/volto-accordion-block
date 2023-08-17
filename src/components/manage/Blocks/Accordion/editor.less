@@ -17,6 +17,12 @@
 @import (optional) '@{siteFolder}/collections/menu.variables';
 
 @borderColor: rgba(120, 192, 215, 0.75);
+@accordionStyledWidth: auto;
+
+// style accordion has a static width of 600px from semantic so we need to override it
+.accordion-block .ui.styled.accordion {
+  width: @accordionStyledWidth;
+}
 
 // Edit
 .block-editor-accordion {
@@ -73,15 +79,6 @@
     margin: 0;
 
     .ui.accordion {
-      &.primary,
-      &.secondary,
-      &.tertiary {
-        .active.title input,
-        .active.title i {
-          color: #fff;
-        }
-      }
-
       .title:not(.ui) {
         position: relative;
       }
@@ -125,7 +122,6 @@
     z-index: 3;
     right: -9px;
     display: flex;
-    border: none;
     border: 1px solid @borderColor;
     border-bottom: 1px solid @pageBackground;
     margin-top: -45px;

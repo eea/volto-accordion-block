@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2022-09-27T08:42:53.695Z\n"
+"POT-Creation-Date: 2023-08-17T16:01:50.964Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,11 @@ msgstr ""
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion Title size
 msgid "Accordion Title size"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Accordion block
+msgid "Accordion block"
 msgstr ""
 
 #: components/manage/Blocks/Accordion/Schema
@@ -44,8 +49,18 @@ msgid "Collapsed by default"
 msgstr ""
 
 #: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Enable filtering
+msgid "Enable filtering"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Friendly name
 msgid "Friendly name"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/Schema
+# defaultMessage: Headline
+msgid "Headline"
 msgstr ""
 
 #: components/manage/Blocks/Accordion/Schema
@@ -91,6 +106,11 @@ msgstr ""
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Title size
 msgid "Title size"
+msgstr ""
+
+#: components/manage/Blocks/Accordion/AccordionFilter
+# defaultMessage: Type to filter...
+msgid "Type to filter..."
 msgstr ""
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
