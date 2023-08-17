@@ -4,23 +4,23 @@ import {
   SidebarPortal,
   BlocksToolbar,
   BlockDataForm,
-} from '@plone/volto/components';
+} from "@plone/volto/components";
 import {
   emptyBlocksForm,
   getBlocksLayoutFieldname,
   withBlockExtensions,
-} from '@plone/volto/helpers';
-import helpSVG from '@plone/volto/icons/help.svg';
-import { isEmpty, without, cloneDeep, pickBy } from 'lodash';
-import React, { useState } from 'react';
-import { Button, Segment } from 'semantic-ui-react';
-import { useIntl } from 'react-intl';
-import AccordionEdit from './AccordionEdit';
-import EditBlockWrapper from './EditBlockWrapper';
-import './editor.less';
-import { AccordionBlockSchema } from './Schema';
-import { emptyAccordion, getPanels } from './util';
-import config from '@plone/volto/registry';
+} from "@plone/volto/helpers";
+import helpSVG from "@plone/volto/icons/help.svg";
+import { isEmpty, without, cloneDeep, pickBy } from "lodash";
+import React, { useState } from "react";
+import { Button, Segment } from "semantic-ui-react";
+import { useIntl } from "react-intl";
+import AccordionEdit from "./AccordionEdit";
+import EditBlockWrapper from "./EditBlockWrapper";
+import "./editor.less";
+import { AccordionBlockSchema } from "./Schema";
+import { emptyAccordion, getPanels } from "./util";
+import config from "@plone/volto/registry";
 
 const Edit = (props) => {
   const [selectedBlock, setSelectedBlock] = useState({});
@@ -41,7 +41,7 @@ const Edit = (props) => {
     ? emptyAccordion(3)
     : data.data;
   const metadata = props.metadata || props.properties;
-  const [currentUid, setCurrentUid] = useState('');
+  const [currentUid, setCurrentUid] = useState("");
 
   const onSelectBlock = (uid, id, isMultipleSelection, event, activeBlock) => {
     let newMultiSelected = [];
@@ -53,7 +53,7 @@ const Edit = (props) => {
     if (data?.data?.blocks?.hasOwnProperty(uid) && isMultipleSelection) {
       selected = null;
       const blocksLayoutFieldname = getBlocksLayoutFieldname(
-        data.data.blocks[uid],
+        data.data.blocks[uid]
       );
 
       const blocks_layout = data.data.blocks[uid][blocksLayoutFieldname].items;
@@ -96,7 +96,7 @@ const Edit = (props) => {
     const formData = data;
     const { blocks } = config;
 
-    const blockType = formData['@type'];
+    const blockType = formData["@type"];
     const variations = blocks?.blocksConfig[blockType]?.variations || [];
 
     if (variations.length === 0) {
@@ -111,7 +111,7 @@ const Edit = (props) => {
     let activeItem = variations.find((item) => item.id === activeItemName);
     if (!activeItem) activeItem = variations.find((item) => item.isDefault);
 
-    schemaEnhancer = activeItem?.['schemaEnhancer'];
+    schemaEnhancer = activeItem?.["schemaEnhancer"];
 
     schema = schemaEnhancer
       ? schemaEnhancer({ schema: cloneDeep(originalSchema), formData, intl })
@@ -135,7 +135,7 @@ const Edit = (props) => {
             }
           : accumulator;
       },
-      {},
+      {}
     );
 
     return {
@@ -188,7 +188,7 @@ const Edit = (props) => {
     const modifiedBlock = {
       ...panel,
       title: e.target.value,
-      '@type': 'accordionPanel',
+      "@type": "accordionPanel",
     };
     onChangeBlock(block, {
       ...data,
@@ -204,20 +204,20 @@ const Edit = (props) => {
 
   // Get editing instructions from block settings or props
   let instructions = data?.instructions?.data || data?.instructions;
-  if (!instructions || instructions === '<p><br/></p>') {
+  if (!instructions || instructions === "<p><br/></p>") {
     instructions = formDescription;
   }
 
   const changeBlockData = (newBlockData) => {
     const selectedIndex =
       data.data.blocks[currentUid].blocks_layout.items.indexOf(
-        Object.values(selectedBlock)[0],
+        Object.values(selectedBlock)[0]
       ) + 1;
     let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
       let key = block[0];
 
       return !data?.data?.blocks[currentUid].blocks_layout.items.find(
-        (x) => x === key,
+        (x) => x === key
       );
     });
 
@@ -235,11 +235,11 @@ const Edit = (props) => {
               items: [
                 ...data.data.blocks[currentUid].blocks_layout.items.slice(
                   0,
-                  selectedIndex,
+                  selectedIndex
                 ),
                 ...blockLayout,
                 ...data.data.blocks[currentUid].blocks_layout.items.slice(
-                  selectedIndex,
+                  selectedIndex
                 ),
               ],
             },
@@ -260,6 +260,8 @@ const Edit = (props) => {
     ? pickBy(blocksConfig, (value, key) => allowedBlocks.includes(key))
     : blocksConfig;
 
+  const schema = AccordionBlockSchema({ intl });
+
   return (
     <>
       {data.headline && <h2 className="headline">{data.headline}</h2>}
@@ -271,7 +273,7 @@ const Edit = (props) => {
           }}
           aria-hidden="true"
         >
-          {data.title || 'Accordion'}
+          {data.title || "Accordion"}
         </legend>
         {panels.map(([uid, panel], index) => (
           <AccordionEdit
@@ -311,7 +313,7 @@ const Edit = (props) => {
                 });
               }}
               onChangeField={(id, value) => {
-                if (['blocks', 'blocks_layout'].indexOf(id) > -1) {
+                if (["blocks", "blocks_layout"].indexOf(id) > -1) {
                   blockState[id] = value;
                   onChangeBlock(block, {
                     ...data,
@@ -340,7 +342,7 @@ const Edit = (props) => {
                     disabled={data.disableInnerButtons}
                     multiSelected={searchElementInMultiSelection(
                       uid,
-                      blockProps,
+                      blockProps
                     )}
                     extraControls={
                       <>
@@ -390,7 +392,7 @@ const Edit = (props) => {
             }}
           />
         ) : (
-          ''
+          ""
         )}
 
         <SidebarPortal
@@ -403,8 +405,8 @@ const Edit = (props) => {
           )}
           {!data?.readOnlySettings && (
             <BlockDataForm
-              schema={AccordionBlockSchema({ intl })}
-              title="Accordion block"
+              schema={schema}
+              title={schema.title}
               onChangeField={(id, value) => {
                 onChangeBlock(block, {
                   ...data,

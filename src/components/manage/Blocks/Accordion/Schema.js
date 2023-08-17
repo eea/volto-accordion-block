@@ -1,109 +1,115 @@
-import config from '@plone/volto/registry';
-import { defineMessages } from 'react-intl';
-import { addStyling } from '@plone/volto/helpers';
+import config from "@plone/volto/registry";
+import { defineMessages } from "react-intl";
+import { addStyling } from "@plone/volto/helpers";
 
 const messages = defineMessages({
   Accordion: {
-    id: 'Accordion',
-    defaultMessage: 'Accordion',
+    id: "Accordion",
+    defaultMessage: "Accordion",
+  },
+  AccordionBlock: {
+    id: "Accordion block",
+    defaultMessage: "Accordion block",
   },
   Options: {
-    id: 'Options',
-    defaultMessage: 'Options',
+    id: "Options",
+    defaultMessage: "Options",
   },
   Title: {
-    id: 'Title',
-    defaultMessage: 'Title',
+    id: "Title",
+    defaultMessage: "Title",
   },
   friendly_name: {
-    id: 'Friendly name',
-    defaultMessage: 'Friendly name',
+    id: "Friendly name",
+    defaultMessage: "Friendly name",
   },
   title_size: {
-    id: 'Title size',
-    defaultMessage: 'Title size',
+    id: "Title size",
+    defaultMessage: "Title size",
   },
   title_size_description: {
-    id: 'Accordion Title size',
-    defaultMessage: 'Accordion Title size',
+    id: "Accordion Title size",
+    defaultMessage: "Accordion Title size",
   },
   right_arrows: {
-    id: 'Title Icon on the right',
-    defaultMessage: 'Title Icon on the right',
+    id: "Title Icon on the right",
+    defaultMessage: "Title Icon on the right",
   },
   collapsed: {
-    id: 'Collapsed by default',
-    defaultMessage: 'Collapsed by default',
+    id: "Collapsed by default",
+    defaultMessage: "Collapsed by default",
   },
   non_exclusive: {
-    id: 'Non exclusive',
-    defaultMessage: 'Non exclusive',
+    id: "Non exclusive",
+    defaultMessage: "Non exclusive",
   },
   non_exclusive_description: {
-    id: 'Allow multiple panels open at a time',
-    defaultMessage: 'Allow multiple panels open at a time',
+    id: "Allow multiple panels open at a time",
+    defaultMessage: "Allow multiple panels open at a time",
   },
   Theme: {
-    id: 'Theme',
-    defaultMessage: 'Theme',
+    id: "Theme",
+    defaultMessage: "Theme",
   },
   ThemeHelp: {
-    id: 'Accordion theme',
-    defaultMessage: 'Accordion theme',
+    id: "Accordion theme",
+    defaultMessage: "Accordion theme",
   },
   ThemePrimary: {
-    id: 'Primary',
-    defaultMessage: 'Primary',
+    id: "Primary",
+    defaultMessage: "Primary",
   },
   ThemeSecondary: {
-    id: 'Secondary',
-    defaultMessage: 'Secondary',
+    id: "Secondary",
+    defaultMessage: "Secondary",
   },
   ThemeTertiary: {
-    id: 'Tertiary',
-    defaultMessage: 'Tertiary',
+    id: "Tertiary",
+    defaultMessage: "Tertiary",
   },
   headline: {
-    id: 'Headline',
-    defaultMessage: 'Headline',
+    id: "Headline",
+    defaultMessage: "Headline",
   },
 });
 
-export const AccordionSchema = {
-  title: 'Accordion',
-  fieldsets: [
-    {
-      id: 'default',
-      title: 'Default',
-      fields: ['panel_title'],
+export const AccordionSchema = (intl) => {
+  return {
+    title: intl.formatMessage(message.Accordion),
+    fieldsets: [
+      {
+        id: "default",
+        title: "Default",
+        fields: ["panel_title"],
+      },
+    ],
+    properties: {
+      panel_title: {
+        title: "Accordion title",
+      },
     },
-  ],
-  properties: {
-    panel_title: {
-      title: 'Accordion title',
-    },
-  },
-  required: [],
+    required: [],
+  };
 };
 
 export const AccordionBlockSchema = ({ intl }) => ({
-  title: 'Accordion block',
+  title: intl.formatMessage(message.AccordionBlock),
   fieldsets: [
     {
-      id: 'default',
-      title: 'Default',
-      fields: ['data'],
+      id: "default",
+      title: "Default",
+      fields: ["data"],
     },
     {
-      id: 'options',
+      id: "options",
       title: intl.formatMessage(messages.Options),
       fields: [
-        'headline',
-        'title',
-        'title_size',
-        'right_arrows',
-        'collapsed',
-        'non_exclusive',
+        "headline",
+        "title",
+        "title_size",
+        "right_arrows",
+        "collapsed",
+        "non_exclusive",
       ],
     },
   ],
@@ -114,40 +120,40 @@ export const AccordionBlockSchema = ({ intl }) => ({
     title: {
       title: intl.formatMessage(messages.Title),
       description: intl.formatMessage(messages.friendly_name),
-      type: 'string',
+      type: "string",
     },
     data: {
       title: intl.formatMessage(messages.Accordion),
-      type: 'panels',
-      schema: AccordionSchema,
+      type: "panels",
+      schema: AccordionSchema(intl),
     },
     title_size: {
       title: intl.formatMessage(messages.title_size),
       description: intl.formatMessage(messages.title_size_description),
-      type: 'string',
-      factory: 'Choice',
+      type: "string",
+      factory: "Choice",
       choices: [
-        ['h2', 'Heading 2'],
-        ['h3', 'Heading 3'],
-        ['h4', 'Heading 4'],
-        ['h5', 'Heading 5'],
-        ['h6', 'Heading 6'],
+        ["h2", "Heading 2"],
+        ["h3", "Heading 3"],
+        ["h4", "Heading 4"],
+        ["h5", "Heading 5"],
+        ["h6", "Heading 6"],
       ],
     },
     right_arrows: {
       title: intl.formatMessage(messages.right_arrows),
-      type: 'boolean',
+      type: "boolean",
       default: true,
     },
     collapsed: {
       title: intl.formatMessage(messages.collapsed),
-      type: 'boolean',
+      type: "boolean",
       default: true,
     },
     non_exclusive: {
       title: intl.formatMessage(messages.non_exclusive),
       description: intl.formatMessage(messages.non_exclusive_description),
-      type: 'boolean',
+      type: "boolean",
       default: true,
     },
   },
@@ -159,19 +165,19 @@ export const AccordionStylingSchema = (props) => {
   const schema = addStyling(props);
   schema.properties.styles.schema = {
     title: intl.formatMessage(messages.Accordion),
-    block: 'accordion',
+    block: intl.formatMessage(messages.Accordion),
     fieldsets: [
       {
-        id: 'default',
-        title: 'Default',
-        fields: ['theme'],
+        id: "default",
+        title: "Default",
+        fields: ["theme"],
       },
     ],
     properties: {
       theme: {
         title: intl.formatMessage(messages.Theme),
         description: intl.formatMessage(messages.ThemeHelp),
-        widget: 'theme_picker',
+        widget: "theme_picker",
         colors: [
           ...(config.settings && config.settings.themeColors
             ? config.settings.themeColors.map(({ value, title }) => ({
