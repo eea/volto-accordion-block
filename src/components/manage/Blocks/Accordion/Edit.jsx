@@ -306,7 +306,7 @@ const Edit = (props) => {
               handleTitleClick={() => setSelectedBlock({})}
               data={data}
               index={index}
-              key={index}
+              key={`accordion-${index}`}
             >
               <BlocksForm
                 key={uid}
