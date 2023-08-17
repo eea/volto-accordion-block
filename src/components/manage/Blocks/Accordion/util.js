@@ -56,7 +56,7 @@ export const Icon = (props) => {
     VoltoIcon,
   };
   // Get the component from the map based on the configuration
-  const IconComponent = componentMap[componentToRender] || SemanticIcon;
+  const IconComponent = componentMap[componentToRender] || VoltoIcon;
 
   return <IconComponent size={options.size} name={name} {...rest} />;
 };
