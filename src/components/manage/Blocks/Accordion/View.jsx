@@ -156,8 +156,8 @@ const View = (props) => {
                   tabIndex={0}
                   onClick={(e) => handleClick(e, { index, id })}
                   onKeyDown={(e) => {
-                    if (e.nativeEvent.keyCode === 13) {
-                      handleClick(e, { index });
+                    if (e.keyCode === 13) {
+                      handleClick(e, { index, id });
                     }
                   }}
                   className={cx('accordion-title', {
