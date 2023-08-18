@@ -51,29 +51,21 @@ const View = (props) => {
 
   const handleClick = (e, itemProps) => {
     const { index, id } = itemProps;
-    if (data.non_exclusive) {
-      const newIndex =
-        activeIndex.indexOf(index) === -1
+    const newIndex =
+      activeIndex.indexOf(index) === -1
+        ? data.non_exclusive
           ? [...activeIndex, index]
-          : activeIndex.filter((item) => item !== index);
-      const newPanel =
-        activePanel.indexOf(id) === -1
+          : [index]
+        : activeIndex.filter((item) => item !== index);
+
+    const newPanel =
+      activePanel.indexOf(id) === -1
+        ? data.non_exclusive
           ? [...activePanel, id]
-          : activePanel.filter((item) => item !== id);
+          : [id]
+        : activePanel.filter((item) => item !== id);
 
-      handleActiveIndex(newIndex, newPanel);
-    } else {
-      const newIndex =
-        activeIndex.indexOf(index) === -1
-          ? [index]
-          : activeIndex.filter((item) => item !== index);
-      const newPanel =
-        activePanel.indexOf(id) === -1
-          ? [id]
-          : activePanel.filter((item) => item !== id);
-
-      handleActiveIndex(newIndex, newPanel);
-    }
+    handleActiveIndex(newIndex, newPanel);
   };
 
   const handleActiveIndex = (index, id) => {
