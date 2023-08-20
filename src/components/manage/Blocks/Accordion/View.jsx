@@ -38,6 +38,14 @@ const View = (props) => {
   const activePanelsRef = React.useRef(activePanels);
   const firstIdFromPanelsRef = React.useRef(firstIdFromPanels);
 
+  const detectIfDiff = () => {
+    return (
+      location?.pathname.slice(
+        location?.pathname.lastIndexOf('/'),
+        location?.pathname.length,
+      ) === '/diff'
+    );
+  };
   const addQueryParam = (key, value) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set(key, value);
@@ -178,7 +186,7 @@ const View = (props) => {
                 <AnimateHeight
                   animateOpacity
                   duration={500}
-                  height={active ? 'auto' : 0}
+                  height={active || detectIfDiff() ? 'auto' : 0}
                   onTransitionEnd={() => {
                     if (!!activePanels && id === itemToScroll) {
                       scrollToElement();
@@ -186,7 +194,7 @@ const View = (props) => {
                     }
                   }}
                 >
-                  <Accordion.Content active={active}>
+                  <Accordion.Content active={detectIfDiff() ? true : active}>
                     <RenderBlocks
                       {...props}
                       location={location}
