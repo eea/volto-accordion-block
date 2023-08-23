@@ -152,18 +152,21 @@ const View = (props) => {
                 <Accordion.Title
                   as={data.title_size}
                   active={active}
-                  index={index}
-                  tabIndex={0}
-                  onClick={(e) => handleClick(e, { index, id })}
-                  onKeyDown={(e) => {
-                    if (e.keyCode === 13) {
-                      handleClick(e, { index, id });
-                    }
-                  }}
+                  aria-expanded={active}
                   className={cx('accordion-title', {
                     'align-arrow-left': !iconOnRight,
                     'align-arrow-right': iconOnRight,
                   })}
+                  index={index}
+                  onClick={(e) => handleClick(e, { index, id })}
+                  onKeyDown={(e) => {
+                    if (e.keyCode === 13 || e.keyCode === 32) {
+                      e.preventDefault();
+                      handleClick(e, { index, id });
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
                 >
                   <Icon
                     options={titleIcons}
