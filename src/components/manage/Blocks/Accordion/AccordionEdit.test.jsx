@@ -7,20 +7,20 @@ import '@testing-library/jest-dom/extend-expect';
 
 config.blocks.blocksConfig.accordion = {
   ...config.blocks.blocksConfig.accordion,
-  semanticIcon: 'someIcon',
   defaults: {
     theme: 'defaultTheme',
   },
   titleIcons: {
     opened: {
-      rightPosition: 'openedRightIcon',
-      leftPosition: 'openedLeftIcon',
+      rightPosition: 'chevron left',
+      leftPosition: 'chevron right',
     },
     closed: {
-      rightPosition: 'closedRightIcon',
-      leftPosition: 'closedLeftIcon',
+      rightPosition: 'chevron down',
+      leftPosition: 'chevron down',
     },
-    size: '10px',
+    size: 'tiny',
+    iconComponent: 'SemanticIcon',
   },
 };
 
@@ -122,7 +122,6 @@ describe('AccordionEdit', () => {
   it('should open accordion content when title is clicked', () => {
     config.blocks.blocksConfig.accordion = {
       ...config.blocks.blocksConfig.accordion,
-      semanticIcon: undefined,
     };
     const { container, getByText } = render(
       <AccordionEdit

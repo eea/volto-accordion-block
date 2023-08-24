@@ -36,9 +36,13 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.content.active.common .button.accordion')
       .contains('Accordion')
       .click();
-    
-    cy.get('#field-allowedBlocks.react-select-container').click().type("Image{enter}");
-    cy.get('#field-allowedBlocks.react-select-container').click().type("Text{enter}");
+
+    cy.get('#field-allowedBlocks.react-select-container')
+      .click()
+      .type('Image{enter}');
+    cy.get('#field-allowedBlocks.react-select-container')
+      .click()
+      .type('Text{enter}');
 
     // By default all should be collapsed (no active class on first)
     cy.get('.accordion:nth-child(2)').should('not.have.class', 'active');
@@ -51,11 +55,21 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.accordion:nth-child(2) > .title > .icon').click();
     cy.wait(500);
 
-    cy.get('.accordion:nth-child(2) .content .slate-editor [contenteditable=true]')
-      .last().focus().click().type('Once upon a time...{enter}');
-    
-    cy.get('.accordion:nth-child(2) .content .slate-editor [contenteditable=true]')
-      .last().focus().click().type('/');
+    cy.get(
+      '.accordion:nth-child(2) .content .slate-editor [contenteditable=true]',
+    )
+      .last()
+      .focus()
+      .click()
+      .type('Once upon a time...{enter}');
+
+    cy.get(
+      '.accordion:nth-child(2) .content .slate-editor [contenteditable=true]',
+    )
+      .last()
+      .focus()
+      .click()
+      .type('/');
     cy.wait(500);
     cy.get('.power-user-menu a.item').should('have.length', 1);
 
@@ -83,17 +97,35 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
 
     cy.get('.accordion:nth-child(3) > .title > .icon').click();
     cy.wait(500);
-    cy.get('.accordion:nth-child(3) .content .slate-editor [contenteditable=true]')
-      .last().focus().click().type('The quick brown fox jumps over the lazy dog{enter}')
-    
-    cy.get('.accordion:nth-child(3) .content .slate-editor [contenteditable=true]')
-      .last().focus().click().type('/');
+    cy.get(
+      '.accordion:nth-child(3) .content .slate-editor [contenteditable=true]',
+    )
+      .last()
+      .focus()
+      .click()
+      .type('The quick brown fox jumps over the lazy dog{enter}');
+
+    cy.get(
+      '.accordion:nth-child(3) .content .slate-editor [contenteditable=true]',
+    )
+      .last()
+      .focus()
+      .click()
+      .type('/');
     cy.wait(500);
     cy.get('.power-user-menu a.item').should('have.length', 1);
-    cy.get('.accordion:nth-child(3) .content .slate-editor [contenteditable=true]')
-      .last().focus().click().type('Image{enter}');
+    cy.get(
+      '.accordion:nth-child(3) .content .slate-editor [contenteditable=true]',
+    )
+      .last()
+      .focus()
+      .click()
+      .type('Image{enter}');
     cy.get('.accordion:nth-child(3) .content .block.image input[type="text"]')
-      .click().type('https://eea.github.io/volto-eea-design-system/img/eea_icon.png{enter}');
+      .click()
+      .type(
+        'https://eea.github.io/volto-eea-design-system/img/eea_icon.png{enter}',
+      );
 
     cy.get('.accordion:nth-child(4) > .title input')
       .click()
@@ -115,8 +147,13 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.accordion:nth-child(1) .content').contains('Once upon a time...');
 
     cy.get('.accordion:nth-child(2) > h2.title').click();
-    cy.get('.accordion:nth-child(2) .content').contains('The quick brown fox jumps over the lazy dog');
-    cy.get('.accordion:nth-child(2) .content img')
-      .should('have.attr', 'src', 'https://eea.github.io/volto-eea-design-system/img/eea_icon.png');
+    cy.get('.accordion:nth-child(2) .content').contains(
+      'The quick brown fox jumps over the lazy dog',
+    );
+    cy.get('.accordion:nth-child(2) .content img').should(
+      'have.attr',
+      'src',
+      'https://eea.github.io/volto-eea-design-system/img/eea_icon.png',
+    );
   });
 });

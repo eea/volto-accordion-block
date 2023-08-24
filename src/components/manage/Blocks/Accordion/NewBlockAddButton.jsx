@@ -27,7 +27,6 @@ const OpenedBlocksChooser = (props) => {
     <BlockChooser
       onInsertBlock={onInsertBlock}
       currentBlock={block}
-      showRestricted
       blocksConfig={blocksConfig}
       ref={ref}
     />

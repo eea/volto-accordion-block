@@ -70,7 +70,8 @@ const PanelsWidget = (props) => {
             <Icon name={addSVG} size="18px" />
             &nbsp;
             {/* Custom addMessage in schema, else default to english */}
-            {objectSchema.addMessage || `Add ${objectSchema.title}`}
+            {objectSchema.addMessage ||
+              `${intl.formatMessage(messages.add)} ${objectSchema.title}`}
           </Button>
         </div>
       </FormFieldWrapper>

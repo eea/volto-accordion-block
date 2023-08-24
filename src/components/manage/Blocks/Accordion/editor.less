@@ -1,9 +1,28 @@
 @type: 'extra';
 @element: 'custom';
+@itemVerticalPadding: 0.875em;
+@itemHorizontalPadding: 1.25em;
+@themesFolderEEA: 'eea';
+@siteFolder: '../../theme';
+@menu: 'pastananga';
 
 @import (multiple) '../../theme.config';
 
+// optionally import menu variables for itemVerticalPadding values
+// loading them in a function would mean that the top variable declaration
+// would win as such we use direct imports
+// Site theme declaration of menu variables wins over default theme
+@import (optional) '~volto-themes/default/collections/menu.variables';
+@import (optional) '@{themesFolderEEA}/@{menu}/collections/menu.variables';
+@import (optional) '@{siteFolder}/collections/menu.variables';
+
 @borderColor: rgba(120, 192, 215, 0.75);
+@accordionStyledWidth: auto;
+
+// style accordion has a static width of 600px from semantic so we need to override it
+.accordion-block .ui.styled.accordion {
+  width: @accordionStyledWidth;
+}
 
 // Edit
 .block-editor-accordion {
@@ -60,19 +79,36 @@
     margin: 0;
 
     .ui.accordion {
-      &.primary,
-      &.secondary,
-      &.tertiary {
-        .active.title input,
-        .active.title i {
-          color: #fff;
-        }
+      .title:not(.ui) {
+        position: relative;
+      }
+    }
+  }
+
+  .power-user-menu {
+    .ui.menu {
+      .accordion {
+        // override padding and margin from semantic .ui.accordion .accordion
+        padding: @itemVerticalPadding @itemHorizontalPadding;
+        margin: 0;
+      }
+      // block chooser hover items don't have a bg color change, title block had a hover bg color
+      .title {
+        background: none;
       }
     }
   }
 
   .blocks-form {
     margin-top: 0.5rem;
+
+    .block-editor-columnsBlock .columns-block .ui.segment {
+      border: 1px solid #e6e7e8;
+
+      .ui.seven.cards {
+        margin-top: 0.5em;
+      }
+    }
   }
 
   .blocks-chooser {
@@ -86,7 +122,6 @@
     z-index: 3;
     right: -9px;
     display: flex;
-    border: none;
     border: 1px solid @borderColor;
     border-bottom: 1px solid @pageBackground;
     margin-top: -45px;
@@ -101,6 +136,12 @@
     .ui.basic.button:hover {
       background: transparent !important;
     }
+  }
+
+  // with z-index: -1 you don't get the hover and focused border for block child section
+  // TODO: to be removed if https://github.com/plone/volto/pull/5029 merged
+  .block .block:not(.inner)::before {
+    z-index: auto;
   }
 }
 
@@ -167,10 +208,6 @@
 
   .input-accordion-title {
     width: 100%;
-  }
-
-  .block {
-    z-index: 2;
   }
 }
 

@@ -1,8 +1,8 @@
-import { Icon as VoltoIcon } from '@plone/volto/components';
 import cx from 'classnames';
 import React from 'react';
 import AnimateHeight from 'react-animate-height';
-import { Accordion, Input, Icon } from 'semantic-ui-react';
+import { Accordion, Input } from 'semantic-ui-react';
+import { Icon } from './util';
 import config from '@plone/volto/registry';
 
 export default (props) => {
@@ -18,6 +18,9 @@ export default (props) => {
   const [activeIndex, setActiveIndex] = React.useState([0]);
   const accordionConfig = config.blocks.blocksConfig.accordion;
   const { titleIcons } = accordionConfig;
+  const isActive = activeIndex.includes(index);
+  const iconOnRight = data.right_arrows;
+  const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
 
   const handleClick = (e, itemProps) => {
     const { index } = itemProps;
@@ -38,10 +41,6 @@ export default (props) => {
     }
   };
 
-  const isExclusive = (index) => {
-    return activeIndex.includes(index);
-  };
-
   React.useEffect(() => {
     return data.collapsed ? setActiveIndex([]) : setActiveIndex([0]);
   }, [data.collapsed]);
@@ -56,35 +55,22 @@ export default (props) => {
       <React.Fragment>
         <Accordion.Title
           as={data.title_size}
-          active={isExclusive(index)}
+          active={isActive}
           index={index}
           onClick={handleClick}
           className={cx('accordion-title', {
-            'align-arrow-left': !props?.data?.right_arrows,
-            'align-arrow-right': props?.data?.right_arrows,
+            'align-arrow-left': !iconOnRight,
+            'align-arrow-right': iconOnRight,
           })}
         >
-          {accordionConfig.semanticIcon ? (
-            <Icon className={accordionConfig.semanticIcon} />
-          ) : isExclusive(index) ? (
-            <VoltoIcon
-              name={
-                props?.data?.right_arrows
-                  ? titleIcons.opened.rightPosition
-                  : titleIcons.opened.leftPosition
-              }
-              size={titleIcons.size}
-            />
-          ) : (
-            <VoltoIcon
-              name={
-                props?.data?.right_arrows
-                  ? titleIcons.closed.rightPosition
-                  : titleIcons.closed.leftPosition
-              }
-              size={titleIcons.size}
-            />
-          )}
+          <Icon
+            options={titleIcons}
+            name={
+              isActive
+                ? titleIcons.opened[iconPosition]
+                : titleIcons.closed[iconPosition]
+            }
+          />
           {!data.readOnlyTitles ? (
             <Input
               fluid
@@ -105,11 +91,9 @@ export default (props) => {
         <AnimateHeight
           animateOpacity
           duration={500}
-          height={isExclusive(index) ? 'auto' : 0}
+          height={isActive ? 'auto' : 0}
         >
-          <Accordion.Content active={isExclusive(index)}>
-            {children}
-          </Accordion.Content>
+          <Accordion.Content active={isActive}>{children}</Accordion.Content>
         </AnimateHeight>
       </React.Fragment>
     </Accordion>
