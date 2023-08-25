@@ -3,7 +3,11 @@ import React from 'react';
 import AccordionEdit from './AccordionEdit';
 import renderer from 'react-test-renderer';
 import config from '@plone/volto/registry';
+import { Provider } from 'react-intl-redux';
+import configureStore from 'redux-mock-store';
 import '@testing-library/jest-dom/extend-expect';
+
+const mockStore = configureStore();
 
 config.blocks.blocksConfig.accordion = {
   ...config.blocks.blocksConfig.accordion,
@@ -27,6 +31,13 @@ config.blocks.blocksConfig.accordion = {
 const handleTitleChange = jest.fn();
 const handleTitleClick = jest.fn();
 
+const store = mockStore({
+  intl: {
+    locale: 'en',
+    messages: {},
+    formatMessage: () => 'Select layout',
+  },
+});
 describe('AccordionEdit', () => {
   const uid = 'uid';
   const panel = { title: 'Panel Title' };
@@ -52,14 +63,16 @@ describe('AccordionEdit', () => {
 
   it('should render correctly', () => {
     const component = renderer.create(
-      <AccordionEdit
-        handleTitleChange={handleTitleChange}
-        handleTitleClick={handleTitleClick}
-        uid={uid}
-        panel={panel}
-        data={data}
-        index={index}
-      />,
+      <Provider store={store}>
+        <AccordionEdit
+          handleTitleChange={handleTitleChange}
+          handleTitleClick={handleTitleClick}
+          uid={uid}
+          panel={panel}
+          data={data}
+          index={index}
+        />
+      </Provider>,
     );
     const json = component.toJSON();
     expect(json).toMatchSnapshot();
@@ -67,14 +80,16 @@ describe('AccordionEdit', () => {
 
   it('should render correctly', () => {
     const { getByText } = render(
-      <AccordionEdit
-        handleTitleChange={handleTitleChange}
-        handleTitleClick={handleTitleClick}
-        uid={uid}
-        panel={panel}
-        data={data1}
-        index={index}
-      />,
+      <Provider store={store}>
+        <AccordionEdit
+          handleTitleChange={handleTitleChange}
+          handleTitleClick={handleTitleClick}
+          uid={uid}
+          panel={panel}
+          data={data1}
+          index={index}
+        />
+      </Provider>,
     );
 
     expect(getByText(panel.title)).toBeInTheDocument();
@@ -82,14 +97,16 @@ describe('AccordionEdit', () => {
 
   it('should handle title click correctly', () => {
     const { getByDisplayValue } = render(
-      <AccordionEdit
-        handleTitleChange={handleTitleChange}
-        handleTitleClick={handleTitleClick}
-        uid={uid}
-        panel={panel}
-        data={data}
-        index={index}
-      />,
+      <Provider store={store}>
+        <AccordionEdit
+          handleTitleChange={handleTitleChange}
+          handleTitleClick={handleTitleClick}
+          uid={uid}
+          panel={panel}
+          data={data}
+          index={index}
+        />
+      </Provider>,
     );
 
     fireEvent.click(getByDisplayValue(panel.title));
@@ -99,14 +116,16 @@ describe('AccordionEdit', () => {
 
   it('should handle title change correctly and check the parameters the handleTitleChange function was called with', () => {
     const { getByDisplayValue } = render(
-      <AccordionEdit
-        handleTitleChange={handleTitleChange}
-        handleTitleClick={handleTitleClick}
-        uid={uid}
-        panel={panel}
-        data={data}
-        index={index}
-      />,
+      <Provider store={store}>
+        <AccordionEdit
+          handleTitleChange={handleTitleChange}
+          handleTitleClick={handleTitleClick}
+          uid={uid}
+          panel={panel}
+          data={data}
+          index={index}
+        />
+      </Provider>,
     );
 
     fireEvent.change(getByDisplayValue(panel.title), {
@@ -124,16 +143,18 @@ describe('AccordionEdit', () => {
       ...config.blocks.blocksConfig.accordion,
     };
     const { container, getByText } = render(
-      <AccordionEdit
-        handleTitleChange={handleTitleChange}
-        handleTitleClick={handleTitleClick}
-        uid={uid}
-        panel={panel}
-        data={data}
-        index={index}
-      >
-        <p>Accordion Content</p>
-      </AccordionEdit>,
+      <Provider store={store}>
+        <AccordionEdit
+          handleTitleChange={handleTitleChange}
+          handleTitleClick={handleTitleClick}
+          uid={uid}
+          panel={panel}
+          data={data}
+          index={index}
+        >
+          <p>Accordion Content</p>
+        </AccordionEdit>
+      </Provider>,
     );
     const accordionTitle = container.querySelector('.accordion-title');
     fireEvent.click(accordionTitle);
@@ -144,16 +165,18 @@ describe('AccordionEdit', () => {
 
   it('should open accordion content when title is clicked', () => {
     const { container, getByText } = render(
-      <AccordionEdit
-        handleTitleChange={handleTitleChange}
-        handleTitleClick={handleTitleClick}
-        uid={uid}
-        panel={panel}
-        data={{ ...data, non_exclusive: false }}
-        index={index}
-      >
-        <p>Accordion Content</p>
-      </AccordionEdit>,
+      <Provider store={store}>
+        <AccordionEdit
+          handleTitleChange={handleTitleChange}
+          handleTitleClick={handleTitleClick}
+          uid={uid}
+          panel={panel}
+          data={{ ...data, non_exclusive: false }}
+          index={index}
+        >
+          <p>Accordion Content</p>
+        </AccordionEdit>
+      </Provider>,
     );
     const accordionTitle = container.querySelector('.accordion-title');
     fireEvent.click(accordionTitle);

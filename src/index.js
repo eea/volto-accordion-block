@@ -15,7 +15,7 @@ import { defineMessages, createIntlCache, createIntl } from 'react-intl';
 
 const messages = defineMessages({
   accordionTitle: {
-    id: 'app.blocks.accordion',
+    id: 'Accordion',
     defaultMessage: 'Accordion',
   },
 });
