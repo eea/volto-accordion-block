@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Plone\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-27T19:30:59.079Z\n"
-"PO-Revision-Date: 2023-05-13 12:46-0400\n"
+"PO-Revision-Date: 2023-08-24 22:46-0400\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language: es\n"
 "Language-Team: ES <LL@li.org>\n"
@@ -18,11 +18,12 @@ msgstr ""
 "Language-Name: Español\n"
 "Domain: volto\n"
 "X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: A short hint that describes the expected value within this block
 msgid "A short hint that describes the expected value within this block"
-msgstr ""
+msgstr "Una breve pista que describe el valor esperado dentro de este bloque"
 
 #: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
@@ -40,12 +41,12 @@ msgstr "Tamaño del título"
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion block
 msgid "Accordion block"
-msgstr ""
+msgstr "Bloque acordeón"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Accordion block settings
 msgid "Accordion block settings"
-msgstr ""
+msgstr "Configuración de bloque de acordeón"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion theme
@@ -55,7 +56,7 @@ msgstr "Tema de acordeón"
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Accordion title
 msgid "Accordion title"
-msgstr ""
+msgstr "Título de acordeón"
 
 #: components/manage/Widgets/PanelsWidget
 # defaultMessage: Add
@@ -70,12 +71,12 @@ msgstr "Le permite tener varios paneles abiertos al mismo tiempo"
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Allow only the following blocks types
 msgid "Allow only the following blocks types"
-msgstr ""
+msgstr "Permitir solo los siguientes tipos de bloques"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Allowed blocks
 msgid "Allowed blocks"
-msgstr ""
+msgstr "Bloques permitido"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Collapsed by default
@@ -86,82 +87,82 @@ msgstr "Contraído por defecto"
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Default
 msgid "Default"
-msgstr ""
+msgstr "Por defecto"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Detailed expected value within this block
 msgid "Detailed expected value within this block"
-msgstr ""
+msgstr "Valor esperado detallado dentro de este bloque"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Disable creation of new blocks after this block
 msgid "Disable creation of new blocks after this block"
-msgstr ""
+msgstr "Deshabilitar la creación de nuevos bloques después de este bloque"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Disable drag & drop on this block
 msgid "Disable drag & drop on this block"
-msgstr ""
+msgstr "Desactivar arrastrar y soltar en este bloque"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Disable editing on accordion block settings
 msgid "Disable editing on accordion block settings"
-msgstr ""
+msgstr "Deshabilitar la edición en la configuración del bloque de acordeón"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Disable editing on accordion titles
 msgid "Disable editing on accordion titles"
-msgstr ""
+msgstr "Deshabilitar la edición en títulos de acordeón"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Disable editing on this block
 msgid "Disable editing on this block"
-msgstr ""
+msgstr "Deshabilitar la edición en este bloque"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Disable inner buttons
 msgid "Disable inner buttons"
-msgstr ""
+msgstr "Deshabilitar botones internos"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Disable new blocks
 msgid "Disable new blocks"
-msgstr ""
+msgstr "Deshabilitar nuevos bloques"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Don't allow deletion of this block
 msgid "Don't allow deletion of this block"
-msgstr ""
+msgstr "No permitir la eliminación de este bloque"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 # defaultMessage: Drag and drop
 msgid "Drag and drop"
-msgstr ""
+msgstr "Arrastre y suelte"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Enable filtering
 msgid "Enable filtering"
-msgstr ""
+msgstr "Activar el filtrado"
 
 #: components/manage/Blocks/Accordion/AccordionEdit
 # defaultMessage: Enter Title
 msgid "Enter Title"
-msgstr ""
+msgstr "Ingrese un título"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Fixed layout
 msgid "Fixed layout"
-msgstr ""
+msgstr "Diseño fijo"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Fixed layout, New panes (tabs) created by Editor within this block will be ignored
 msgid "Fixed layout, New panes (tabs) created by Editor within this block will be ignored"
-msgstr ""
+msgstr "Diseño fijo, se ignorarán los nuevos paneles (pestañas) creados por el Editor dentro de este bloque"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Fixed position
 msgid "Fixed position"
-msgstr ""
+msgstr "Posición fija"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Friendly name
@@ -171,47 +172,47 @@ msgstr "Título del elemento"
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Heading 2
 msgid "Heading 2"
-msgstr ""
+msgstr "Encabezado 2"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Heading 3
 msgid "Heading 3"
-msgstr ""
+msgstr "Encabezado 3"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Heading 4
 msgid "Heading 4"
-msgstr ""
+msgstr "Encabezado 4"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Heading 5
 msgid "Heading 5"
-msgstr ""
+msgstr "Encabezado 5"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Heading 6
 msgid "Heading 6"
-msgstr ""
+msgstr "Encabezado 6"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Headline
 msgid "Headline"
-msgstr ""
+msgstr "Encabezado"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Helper text
 msgid "Helper text"
-msgstr ""
+msgstr "Texto de ayuda"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Hide all block related buttons within this block
 msgid "Hide all block related buttons within this block"
-msgstr ""
+msgstr "Ocultar todos los botones relacionados con el bloque dentro de este bloque"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Instructions
 msgid "Instructions"
-msgstr ""
+msgstr "Instrucciones"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Non exclusive
@@ -231,27 +232,27 @@ msgstr "Primario"
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Read-only
 msgid "Read-only"
-msgstr ""
+msgstr "Solo lectura"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Read-only settings
 msgid "Read-only settings"
-msgstr ""
+msgstr "Configuración de solo lectura"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Read-only titles
 msgid "Read-only titles"
-msgstr ""
+msgstr "Títulos de solo lectura"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 # defaultMessage: Remove block
 msgid "Remove block"
-msgstr ""
+msgstr "Eliminar bloque"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Required
 msgid "Required"
-msgstr ""
+msgstr "Requerido"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Secondary
@@ -261,12 +262,12 @@ msgstr "Secundario"
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Section friendly name
 msgid "Section friendly name"
-msgstr ""
+msgstr "Nombre descriptivo de la sección"
 
 #: components/manage/Blocks/Accordion/Edit
 # defaultMessage: Section help
 msgid "Section help"
-msgstr ""
+msgstr "Sección de Ayuda"
 
 #: components/manage/Blocks/Accordion/Schema
 # defaultMessage: Tertiary
@@ -297,7 +298,7 @@ msgstr "Tamaño del título"
 #: components/manage/Blocks/Accordion/AccordionFilter
 # defaultMessage: Type to filter...
 msgid "Type to filter..."
-msgstr ""
+msgstr "Escriba para filtrar..."
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 # defaultMessage: Unknown Block {block}
@@ -307,7 +308,7 @@ msgstr "Bloque desconocido"
 #: components/manage/Blocks/Accordion/NewBlockAddButton
 # defaultMessage: Add block in position
 msgid "add_block_in_position"
-msgstr ""
+msgstr "Añadir bloque en posición"
 
 #: components/manage/Blocks/Accordion/EditBlockWrapper
 # defaultMessage: delete
@@ -317,4 +318,4 @@ msgstr "eliminar"
 #: components/manage/Widgets/PanelsWidget
 # defaultMessage: Panel {panel_index}
 msgid "panel_index"
-msgstr ""
+msgstr "Panel {panel_index}"
