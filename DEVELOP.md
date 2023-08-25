@@ -84,6 +84,8 @@ Before starting make sure your development environment is properly set. See [Vol
     cd src/addons/volto-accordion-block/
     ```
 
+---
+
 ## Cypress
 
 To run cypress locally, first make sure you don't have any Volto/Plone running on ports `8080` and `3000`.
@@ -117,3 +119,77 @@ Or run it:
   ```bash
   make cypress-run
   ```
+---
+
+## Prettier
+
+[Prettier](https://www.npmjs.com/package/prettier) is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
+
+Run ``prettier`` checkout, executing the following command:
+
+  ```bash
+  make prettier
+  ```
+
+To fix the ``prettier`` checkout, executing the following command:
+
+  ```bash
+  make prettier-fix
+
+---
+
+## Eslint
+
+[ESLint](https://www.npmjs.com/package/eslint) is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
+
+For install ``eslint``, executing the following command:
+
+  ```bash
+  yarn add --dev eslint eslint-plugin-jsx-a11y eslint-plugin-prettier eslint-plugin-react-hooks eslint-plugin-import eslint-plugin-flowtype
+  ```
+
+For setup the ``eslint``, executing the following command:
+
+  ```bash
+  cp .project.eslintrc.js .eslintrc.js
+  ```
+
+Run ``eslint`` checkout, executing the following command:
+
+  ```bash
+  make lint
+  ```
+
+To fix the ``eslint`` checkout, executing the following command:
+
+  ```bash
+  make lint-fix
+
+---
+
+## Stylelint
+
+[Stylelint](https://www.npmjs.com/package/stylelint) is a mighty CSS linter that helps you avoid errors and enforce conventions.
+
+For install ``stylelint``, executing the following command:
+
+  ```bash
+  yarn add --dev stylelint
+  ```
+
+Run ``stylelint`` checkout, executing the following command:
+
+  ```bash
+  make stylelint
+  ```
+
+If you need run ``stylelint`` checkout for overrides styles, executing the following command:
+
+  ```bash
+  make stylelint-overrides
+  ```
+
+To fix the ``stylelint`` checkout, executing the following command:
+
+  ```bash
+  make stylelint-fix
