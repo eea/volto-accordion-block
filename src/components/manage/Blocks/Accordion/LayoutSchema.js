@@ -31,7 +31,8 @@ const messages = defineMessages({
   },
   ShortHintThatDescribesExpectedValueWithinThisBlock: {
     id: 'A short hint that describes the expected value within this block',
-    defaultMessage: 'A short hint that describes the expected value within this block',
+    defaultMessage:
+      'A short hint that describes the expected value within this block',
   },
   Instructions: {
     id: 'Instructions',
@@ -63,7 +64,8 @@ const messages = defineMessages({
   },
   FixedlayoutNewPanesTabs: {
     id: 'Fixed layout, New panes (tabs) created by Editor within this block will be ignored',
-    defaultMessage: 'Fixed layout, New panes (tabs) created by Editor within this block will be ignored',
+    defaultMessage:
+      'Fixed layout, New panes (tabs) created by Editor within this block will be ignored',
   },
   DisableNewBlocks: {
     id: 'Disable new blocks',
@@ -146,14 +148,14 @@ const Schema = ({ intl }) => ({
     placeholder: {
       title: intl.formatMessage(messages.HelperText),
       description: intl.formatMessage(
-        messages.ShortHintThatDescribesExpectedValueWithinThisBlock
+        messages.ShortHintThatDescribesExpectedValueWithinThisBlock,
       ),
       type: 'string',
     },
     instructions: {
       title: intl.formatMessage(messages.Instructions),
       description: intl.formatMessage(
-        messages.DetailedExpectedValueWithinThisBlock
+        messages.DetailedExpectedValueWithinThisBlock,
       ),
       type: 'string',
       widget: 'richtext',
@@ -191,14 +193,14 @@ const Schema = ({ intl }) => ({
     readOnlySettings: {
       title: intl.formatMessage(messages.ReadOnlySettings),
       description: intl.formatMessage(
-        messages.DisableEditingOnAccordionBlockSettings
+        messages.DisableEditingOnAccordionBlockSettings,
       ),
       type: 'boolean',
     },
     disableInnerButtons: {
       title: intl.formatMessage(messages.DisableInnerButtons),
       description: intl.formatMessage(
-        messages.HideAllBlockRelatedButtonsWithinThisBlock
+        messages.HideAllBlockRelatedButtonsWithinThisBlock,
       ),
       type: 'boolean',
     },

@@ -33,14 +33,8 @@ const messages = defineMessages({
 
 class EditBlockWrapper extends React.Component {
   render() {
-    const {
-      intl,
-      blockProps,
-      draginfo,
-      extraControls,
-      disabled,
-      children,
-    } = this.props;
+    const { intl, blockProps, draginfo, extraControls, disabled, children } =
+      this.props;
 
     const {
       block,
@@ -90,7 +84,11 @@ class EditBlockWrapper extends React.Component {
                     {...draginfo.dragHandleProps}
                     className="drag handle wrapper-accordion-block"
                   >
-                    <Button icon basic title={intl.formatMessage(messages.dragAndDrop)}>
+                    <Button
+                      icon
+                      basic
+                      title={intl.formatMessage(messages.dragAndDrop)}
+                    >
                       <Icon name={dragSVG} size="19px" />
                     </Button>
                   </div>

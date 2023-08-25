@@ -70,7 +70,9 @@ const NewBlockAddButton = (props) => {
           icon
           onClick={() => setOpenMenu(true)}
           className="add-block-button"
-          aria-label={`${intl.formatMessage(messages.AddBlockInPosition)} ${index}`}
+          aria-label={`${intl.formatMessage(
+            messages.AddBlockInPosition,
+          )} ${index}`}
         >
           <Icon name={addSVG} className="circled" size="19px" />
         </Button>
