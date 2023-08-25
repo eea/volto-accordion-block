@@ -33,8 +33,14 @@ const messages = defineMessages({
 
 class EditBlockWrapper extends React.Component {
   render() {
-    const { intl, blockProps, draginfo, extraControls, disabled, children } =
-      this.props;
+    const {
+      intl,
+      blockProps,
+      draginfo,
+      extraControls,
+      disabled,
+      children,
+    } = this.props;
 
     const {
       block,
