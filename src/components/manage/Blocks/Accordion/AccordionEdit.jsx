@@ -7,8 +7,7 @@ import config from '@plone/volto/registry';
 
 export default (props) => {
   const {
-    children,
-    handleTitleChange,
+    children,handleTitleChange,
     handleTitleClick,
     uid,
     panel,
@@ -19,6 +18,8 @@ export default (props) => {
   const accordionConfig = config.blocks.blocksConfig.accordion;
   const { titleIcons } = accordionConfig;
   const isActive = activeIndex.includes(index);
+  const isActive2 = activeIndex.includes(index);
+  const test = "test";
   const iconOnRight = data.right_arrows;
   const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
 
