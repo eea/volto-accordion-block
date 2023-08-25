@@ -84,7 +84,7 @@ export default (props) => {
               fluid
               className="input-accordion-title"
               transparent
-              placeholder={intl.formatMessage(messages.EnterTitle)}
+              placeholder={this.props.intl.formatMessage(messages.EnterTitle)}
               value={panel?.title || ''}
               onClick={(e) => {
                 handleTitleClick();
