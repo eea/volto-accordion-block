@@ -135,6 +135,7 @@ To fix the ``prettier`` checkout, executing the following command:
 
   ```bash
   make prettier-fix
+  ```
 
 ---
 
@@ -164,6 +165,7 @@ To fix the ``eslint`` checkout, executing the following command:
 
   ```bash
   make lint-fix
+  ```
 
 ---
 
@@ -193,3 +195,4 @@ To fix the ``stylelint`` checkout, executing the following command:
 
   ```bash
   make stylelint-fix
+  ```
