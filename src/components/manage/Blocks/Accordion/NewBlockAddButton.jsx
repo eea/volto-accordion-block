@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Button, Ref } from 'semantic-ui-react';
 import { BlockChooser, Icon } from '@plone/volto/components';
 import { usePopper } from 'react-popper';
@@ -42,7 +42,7 @@ const OpenedBlocksChooser = (props) => {
 };
 
 const NewBlockAddButton = (props) => {
-  const { index } = props;
+  const { index, intl } = props;
   const [isOpenMenu, setOpenMenu] = React.useState(false);
 
   const [referenceElement, setReferenceElement] = React.useState(null);
@@ -93,4 +93,4 @@ const NewBlockAddButton = (props) => {
   );
 };
 
-export default NewBlockAddButton;
+export default injectIntl(NewBlockAddButton);
