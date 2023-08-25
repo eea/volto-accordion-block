@@ -11,8 +11,17 @@ import leftSVG from '@plone/volto/icons/left-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import filterSVG from '@plone/volto/icons/filter.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
+import { defineMessages, useIntl, injectIntl } from 'react-intl';
+
+const messages = defineMessages({
+  Accordion: {
+    id: 'Accordion',
+    defaultMessage: 'Accordion',
+  },
+});
 
 const extendedSchema = (config) => {
+  const intl = useIntl();
   const choices = Object.keys(config.blocks.blocksConfig)
     .map((key) => {
       if (config.blocks.blocksConfig[key]?.restricted) {
@@ -24,7 +33,7 @@ const extendedSchema = (config) => {
     })
     .filter((val) => !!val);
 
-  choices.push(['accordion', 'Accordion']);
+  choices.push(['accordion', intl.formatMessage(messages.Accordion)]);
 
   return {
     ...AccordionLayoutSchema,
@@ -43,7 +52,7 @@ const extendedSchema = (config) => {
 const applyConfig = (config) => {
   config.blocks.blocksConfig.accordion = {
     id: 'accordion',
-    title: 'Accordion',
+    title: intl.formatMessage(messages.Accordion),
     icon: accordionSVG,
     group: 'common',
     titleIcons: {
@@ -77,4 +86,4 @@ const applyConfig = (config) => {
   return config;
 };
 
-export default applyConfig;
+export default injectIntl(applyConfig);

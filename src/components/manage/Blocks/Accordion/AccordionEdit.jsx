@@ -4,6 +4,14 @@ import AnimateHeight from 'react-animate-height';
 import { Accordion, Input } from 'semantic-ui-react';
 import { Icon } from './util';
 import config from '@plone/volto/registry';
+import { defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  EnterTitle: {
+    id: 'Enter Title',
+    defaultMessage: 'Enter Title',
+  },
+});
 
 export default (props) => {
   const {
@@ -76,7 +84,7 @@ export default (props) => {
               fluid
               className="input-accordion-title"
               transparent
-              placeholder="Enter Title"
+              placeholder={intl.formatMessage(messages.EnterTitle)}
               value={panel?.title || ''}
               onClick={(e) => {
                 handleTitleClick();

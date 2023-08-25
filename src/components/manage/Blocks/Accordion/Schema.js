@@ -7,9 +7,41 @@ const messages = defineMessages({
     id: 'Accordion',
     defaultMessage: 'Accordion',
   },
+  Options: {
+    id: 'Options',
+    defaultMessage: 'Options',
+  },
+  Default: {
+    id: 'Default',
+    defaultMessage: 'Default',
+  },
+  AccordionTitle: {
+    id: 'Accordion title',
+    defaultMessage: 'Accordion title',
+  },
   AccordionBlock: {
     id: 'Accordion block',
     defaultMessage: 'Accordion block',
+  },
+  Heading2: {
+    id: 'Heading 2',
+    defaultMessage: 'Heading 2',
+  },
+  Heading3: {
+    id: 'Heading 3',
+    defaultMessage: 'Heading 3',
+  },
+  Heading4: {
+    id: 'Heading 4',
+    defaultMessage: 'Heading 4',
+  },
+  Heading5: {
+    id: 'Heading 5',
+    defaultMessage: 'Heading 5',
+  },
+  Heading6: {
+    id: 'Heading 6',
+    defaultMessage: 'Heading 6',
   },
   Options: {
     id: 'Options',
@@ -83,13 +115,13 @@ export const AccordionSchema = (intl) => {
     fieldsets: [
       {
         id: 'default',
-        title: 'Default',
+        title: intl.formatMessage(messages.Default),
         fields: ['panel_title'],
       },
     ],
     properties: {
       panel_title: {
-        title: 'Accordion title',
+        title: intl.formatMessage(messages.AccordionTitle),
       },
     },
     required: [],
@@ -101,7 +133,7 @@ export const AccordionBlockSchema = ({ intl }) => ({
   fieldsets: [
     {
       id: 'default',
-      title: 'Default',
+      title: intl.formatMessage(messages.Default),
       fields: ['data'],
     },
     {
@@ -138,11 +170,11 @@ export const AccordionBlockSchema = ({ intl }) => ({
       type: 'string',
       factory: 'Choice',
       choices: [
-        ['h2', 'Heading 2'],
-        ['h3', 'Heading 3'],
-        ['h4', 'Heading 4'],
-        ['h5', 'Heading 5'],
-        ['h6', 'Heading 6'],
+        ['h2', intl.formatMessage(messages.Heading2)],
+        ['h3', intl.formatMessage(messages.Heading3)],
+        ['h4', intl.formatMessage(messages.Heading4)],
+        ['h5', intl.formatMessage(messages.Heading5)],
+        ['h6', intl.formatMessage(messages.Heading6)],
       ],
     },
     right_arrows: {
@@ -179,7 +211,7 @@ export const AccordionStylingSchema = (props) => {
     fieldsets: [
       {
         id: 'default',
-        title: 'Default',
+        title: intl.formatMessage(messages.Default),
         fields: ['theme'],
       },
     ],
