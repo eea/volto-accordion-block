@@ -6,7 +6,7 @@
 
 1. Make sure you have `docker` and `docker compose` installed and running on your machine:
 
-    ```Bash
+    ```bash
     git clone https://github.com/eea/volto-accordion-block.git
     cd volto-accordion-block
     git checkout -b bugfix-123456 develop
@@ -20,23 +20,23 @@
 
 1.  Happy hacking!
 
-    ```Bash
+    ```bash
     cd src/addons/volto-accordion-block/
     ```
 
 ### Or add volto-accordion-block to your Volto project
 
-Before starting make sure your development environment is properly set. See [Volto Developer Documentation](https://docs.voltocms.com/getting-started/install/)
+Before starting make sure your development environment is properly set. See [Volto Developer Documentation](https://6.docs.plone.org/volto/getting-started/install.html)
 
 1.  Make sure you have installed `yo`, `@plone/generator-volto` and `mrs-developer`
 
-    ```Bash
+    ```bash
     npm install -g yo @plone/generator-volto mrs-developer
     ```
 
 1.  Create new volto app
 
-    ```Bash
+    ```bash
     yo @plone/volto my-volto-project --addon @eeacms/volto-accordion-block --skip-install
     cd my-volto-project
     ```
@@ -56,14 +56,13 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1.  Install
 
-    ```Bash
-    make develop
+    ```bash
     yarn
     ```
 
 1.  Start backend
 
-    ```Bash
+    ```bash
     docker compose up backend
     ```
 
@@ -73,7 +72,7 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1.  Start frontend
 
-    ```BASH
+    ```bash
     yarn start
     ```
 
@@ -81,7 +80,7 @@ Before starting make sure your development environment is properly set. See [Vol
 
 1.  Happy hacking!
 
-    ```BASH
+    ```bash
     cd src/addons/volto-accordion-block/
     ```
 
@@ -94,13 +93,13 @@ project where you added `volto-accordion-block` to `mrs.developer.json`
 
 Go to:
 
-  ```BASH
+  ```bash
   cd src/addons/volto-accordion-block/
   ```
 
 Start:
 
-  ```Bash
+  ```bash
   make
   make start
   ```
@@ -109,12 +108,12 @@ This will build and start with Docker a clean `Plone backend` and `Volto Fronten
 
 Open Cypress Interface:
 
-  ```Bash
+  ```bash
   make cypress-open
   ```
 
 Or run it:
 
-  ```Bash
+  ```bash
   make cypress-run
   ```

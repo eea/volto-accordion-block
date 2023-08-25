@@ -18,16 +18,21 @@
 
 ## Features
 
-![Volto Block Accordion](https://github.com/eea/volto-accordion-block/raw/docs/docs/volto-accordion-block.gif)
+- [Accordion Component Storybook](https://eea.github.io/eea-storybook/?path=/story/components-accordion--default).
+
+![Volto Block Accordion](https://raw.githubusercontent.com/eea/volto-accordion-block/docs/docs/volto-accordion-block.gif "Volto Block Accordion")
+
 
 ## Getting started
 
 ### Try volto-accordion-block with Docker
 
-      git clone https://github.com/eea/volto-accordion-block.git
-      cd volto-accordion-block
-      make
-      make start
+    ```bash
+    git clone https://github.com/eea/volto-accordion-block.git
+    cd volto-accordion-block
+    make
+    make start
+    ```
 
 Go to http://localhost:3000
 
@@ -35,7 +40,7 @@ Go to http://localhost:3000
 
 1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
 
-    ```Bash
+    ```bash
     docker compose up backend
     ```
 
@@ -43,30 +48,30 @@ Go to http://localhost:3000
 
 - If you already have a volto project, just update `package.json`:
 
-  ```JSON
-  "addons": [
-      "@eeacms/volto-accordion-block"
-  ],
+    ```json
+    "addons": [
+        "@eeacms/volto-accordion-block"
+    ],
 
-  "dependencies": {
-      "@eeacms/volto-accordion-block": "*"
-  }
-  ```
+    "dependencies": {
+        "@eeacms/volto-accordion-block": "*"
+    }
+    ```
 
 - If not, create one:
 
-  ```
-  npm install -g yo @plone/generator-volto
-  yo @plone/volto my-volto-project --addon @eeacms/volto-accordion-block
-  cd my-volto-project
-  ```
+    ```bash
+    npm install -g yo @plone/generator-volto
+    yo @plone/volto my-volto-project --addon @eeacms/volto-accordion-block
+    cd my-volto-project
+    ```
 
 1. Install new add-ons and restart Volto:
 
-   ```
-   yarn
-   yarn start
-   ```
+    ```bash
+    yarn
+    yarn start
+    ```
 
 1. Go to http://localhost:3000
 
