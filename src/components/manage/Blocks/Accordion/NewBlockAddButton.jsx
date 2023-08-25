@@ -1,9 +1,17 @@
 import React from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Button, Ref } from 'semantic-ui-react';
 import { BlockChooser, Icon } from '@plone/volto/components';
 import { usePopper } from 'react-popper';
 import { Portal } from 'react-portal';
 import addSVG from '@plone/volto/icons/add.svg';
+
+const messages = defineMessages({
+  AddBlockInPosition: {
+    id: 'add_block_in_position',
+    defaultMessage: 'Add block in position',
+  },
+});
 
 const OpenedBlocksChooser = (props) => {
   const { blocksConfig, block, onInsertBlock } = props;
@@ -34,7 +42,7 @@ const OpenedBlocksChooser = (props) => {
 };
 
 const NewBlockAddButton = (props) => {
-  const { index } = props;
+  const { index, intl } = props;
   const [isOpenMenu, setOpenMenu] = React.useState(false);
 
   const [referenceElement, setReferenceElement] = React.useState(null);
@@ -62,7 +70,9 @@ const NewBlockAddButton = (props) => {
           icon
           onClick={() => setOpenMenu(true)}
           className="add-block-button"
-          aria-label={`Add block in position ${index}`}
+          aria-label={`${intl.formatMessage(
+            messages.AddBlockInPosition,
+          )} ${index}`}
         >
           <Icon name={addSVG} className="circled" size="19px" />
         </Button>
@@ -83,4 +93,4 @@ const NewBlockAddButton = (props) => {
   );
 };
 
-export default NewBlockAddButton;
+export default injectIntl(NewBlockAddButton);
