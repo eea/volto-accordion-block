@@ -43,10 +43,6 @@ const messages = defineMessages({
     id: 'Heading 6',
     defaultMessage: 'Heading 6',
   },
-  Options: {
-    id: 'Options',
-    defaultMessage: 'Options',
-  },
   Title: {
     id: 'Title',
     defaultMessage: 'Title',
