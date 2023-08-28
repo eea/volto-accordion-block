@@ -4,8 +4,16 @@ import AnimateHeight from 'react-animate-height';
 import { Accordion, Input } from 'semantic-ui-react';
 import { Icon } from './util';
 import config from '@plone/volto/registry';
+import { defineMessages, injectIntl } from 'react-intl';
 
-export default (props) => {
+const messages = defineMessages({
+  EnterTitle: {
+    id: 'Enter Title',
+    defaultMessage: 'Enter Title',
+  },
+});
+
+const AccordionEdit = (props) => {
   const {
     children,
     handleTitleChange,
@@ -14,6 +22,7 @@ export default (props) => {
     panel,
     data,
     index,
+    intl,
   } = props;
   const [activeIndex, setActiveIndex] = React.useState([0]);
   const accordionConfig = config.blocks.blocksConfig.accordion;
@@ -76,7 +85,7 @@ export default (props) => {
               fluid
               className="input-accordion-title"
               transparent
-              placeholder="Enter Title"
+              placeholder={intl.formatMessage(messages.EnterTitle)}
               value={panel?.title || ''}
               onClick={(e) => {
                 handleTitleClick();
@@ -99,3 +108,5 @@ export default (props) => {
     </Accordion>
   );
 };
+
+export default injectIntl(AccordionEdit);
