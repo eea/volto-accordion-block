@@ -1,4 +1,4 @@
-import { defineMessages, createIntlCache, createIntl } from 'react-intl';
+import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
   AccordionBlockSettings: {
@@ -110,17 +110,7 @@ const messages = defineMessages({
   },
 });
 
-const cache = createIntlCache();
-
-const intl = createIntl(
-  {
-    locale: 'en',
-    messages: messages,
-  },
-  cache,
-);
-
-const Schema = {
+export default (intl) => ({
   title: intl.formatMessage(messages.AccordionBlockSettings),
   fieldsets: [
     {
@@ -217,6 +207,4 @@ const Schema = {
     },
   },
   required: [],
-};
-
-export default Schema;
+});

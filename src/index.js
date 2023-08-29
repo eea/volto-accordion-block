@@ -43,13 +43,14 @@ const extendedSchema = (config) => {
     .filter((val) => !!val);
 
   choices.push(['accordion', intl.formatMessage(messages.accordionTitle)]);
+  const accordionLayoutSchema = AccordionLayoutSchema(intl);
 
   return {
-    ...AccordionLayoutSchema,
+    ...accordionLayoutSchema,
     properties: {
-      ...AccordionLayoutSchema.properties,
+      ...accordionLayoutSchema.properties,
       allowedBlocks: {
-        ...AccordionLayoutSchema.properties.allowedBlocks,
+        ...accordionLayoutSchema.properties.allowedBlocks,
         items: {
           choices: choices,
         },
