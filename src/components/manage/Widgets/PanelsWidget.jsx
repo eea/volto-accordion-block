@@ -15,6 +15,10 @@ import './editor.less';
 
 const messages = defineMessages({
   add: { id: 'Add', defaultMessage: 'Add' },
+  panelIndex: {
+    id: 'panel_index',
+    defaultMessage: 'Panel {panel_index}',
+  },
 });
 
 export function moveItem(formData, source, destination) {
@@ -115,7 +119,10 @@ const PanelsWidget = (props) => {
                     <Icon name={dragSVG} size="18px" />
                   </button>
                   <div className="label">
-                    {child.title || `Panel ${index + 1}`}
+                    {child.title ||
+                      `${intl.formatMessage(messages.panelIndex, {
+                        panel_index: `${index + 1}`,
+                      })}`}
                   </div>
                   {value.blocks_layout?.items?.length > 1 ? (
                     <button

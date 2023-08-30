@@ -14,7 +14,7 @@ import helpSVG from '@plone/volto/icons/help.svg';
 import { isEmpty, without, cloneDeep, pickBy } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
-import { useIntl } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import AccordionEdit from './AccordionEdit';
 import AccordionFilter from './AccordionFilter';
 import EditBlockWrapper from './EditBlockWrapper';
@@ -22,6 +22,21 @@ import './editor.less';
 import { AccordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
 import config from '@plone/volto/registry';
+
+const messages = defineMessages({
+  SectionHelp: {
+    id: 'Section help',
+    defaultMessage: 'Section help',
+  },
+  AccordionBlock: {
+    id: 'Accordion block',
+    defaultMessage: 'Accordion block',
+  },
+  Accordion: {
+    id: 'Accordion',
+    defaultMessage: 'Accordion',
+  },
+});
 
 const Edit = (props) => {
   const [selectedBlock, setSelectedBlock] = useState({});
@@ -376,7 +391,7 @@ const Edit = (props) => {
                               <Button
                                 icon
                                 basic
-                                title="Section help"
+                                title={intl.formatMessage(messages.SectionHelp)}
                                 onClick={() => {
                                   setSelectedBlock({});
                                   const tab = manage ? 0 : 1;

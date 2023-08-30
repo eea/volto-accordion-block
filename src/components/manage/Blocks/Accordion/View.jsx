@@ -22,6 +22,12 @@ const View = (props) => {
   const history = useHistory();
   const panels = getPanels(data.data);
   const metadata = props.metadata || props.properties;
+  const diffView =
+    location?.pathname.slice(
+      location?.pathname.lastIndexOf('/'),
+      location?.pathname.length,
+    ) === '/diff';
+
   const [activeIndex, setActiveIndex] = React.useState([]);
   const [activePanel, setActivePanel] = React.useState([]);
   const [filterValue, setFilterValue] = React.useState('');
@@ -181,7 +187,7 @@ const View = (props) => {
                 <AnimateHeight
                   animateOpacity
                   duration={500}
-                  height={active ? 'auto' : 0}
+                  height={active || diffView ? 'auto' : 0}
                   onTransitionEnd={() => {
                     if (!!activePanels && id === itemToScroll) {
                       scrollToElement();
@@ -189,7 +195,7 @@ const View = (props) => {
                     }
                   }}
                 >
-                  <Accordion.Content active={active}>
+                  <Accordion.Content active={diffView ? true : active}>
                     <RenderBlocks
                       {...props}
                       location={location}

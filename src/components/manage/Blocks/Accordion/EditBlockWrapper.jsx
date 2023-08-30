@@ -21,6 +21,14 @@ const messages = defineMessages({
     id: 'delete',
     defaultMessage: 'delete',
   },
+  dragAndDrop: {
+    id: 'Drag and drop',
+    defaultMessage: 'Drag and drop',
+  },
+  removeBlock: {
+    id: 'Remove block',
+    defaultMessage: 'Remove block',
+  },
 });
 
 class EditBlockWrapper extends React.Component {
@@ -82,7 +90,11 @@ class EditBlockWrapper extends React.Component {
                     {...draginfo.dragHandleProps}
                     className="drag handle wrapper-accordion-block"
                   >
-                    <Button icon basic title="Drag and drop">
+                    <Button
+                      icon
+                      basic
+                      title={intl.formatMessage(messages.dragAndDrop)}
+                    >
                       <Icon name={dragSVG} size="19px" />
                     </Button>
                   </div>
@@ -102,7 +114,7 @@ class EditBlockWrapper extends React.Component {
                     <Button
                       icon
                       basic
-                      title="Remove block"
+                      title={intl.formatMessage(messages.removeBlock)}
                       onClick={() => onDeleteBlock(block)}
                       className="delete-button-accordion-block"
                       aria-label={intl.formatMessage(messages.delete)}

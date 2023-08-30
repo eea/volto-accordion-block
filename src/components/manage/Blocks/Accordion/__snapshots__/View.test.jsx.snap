@@ -15,9 +15,11 @@ exports[`View Component renders without crashing 1`] = `
     id="id1"
   >
     <h3
+      aria-expanded={false}
       className="title accordion-title align-arrow-right"
       onClick={[Function]}
       onKeyDown={[Function]}
+      role="button"
       tabIndex={0}
     >
       <div>

@@ -11,6 +11,24 @@ import leftSVG from '@plone/volto/icons/left-key.svg';
 import downSVG from '@plone/volto/icons/down-key.svg';
 import filterSVG from '@plone/volto/icons/filter.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
+import { defineMessages, createIntlCache, createIntl } from 'react-intl';
+
+const messages = defineMessages({
+  accordionTitle: {
+    id: 'Accordion',
+    defaultMessage: 'Accordion',
+  },
+});
+
+const cache = createIntlCache();
+
+const intl = createIntl(
+  {
+    locale: 'en',
+    messages: messages,
+  },
+  cache,
+);
 
 const extendedSchema = (config) => {
   const choices = Object.keys(config.blocks.blocksConfig)
@@ -24,14 +42,15 @@ const extendedSchema = (config) => {
     })
     .filter((val) => !!val);
 
-  choices.push(['accordion', 'Accordion']);
+  choices.push(['accordion', intl.formatMessage(messages.accordionTitle)]);
+  const accordionLayoutSchema = AccordionLayoutSchema(intl);
 
   return {
-    ...AccordionLayoutSchema,
+    ...accordionLayoutSchema,
     properties: {
-      ...AccordionLayoutSchema.properties,
+      ...accordionLayoutSchema.properties,
       allowedBlocks: {
-        ...AccordionLayoutSchema.properties.allowedBlocks,
+        ...accordionLayoutSchema.properties.allowedBlocks,
         items: {
           choices: choices,
         },
@@ -43,7 +62,7 @@ const extendedSchema = (config) => {
 const applyConfig = (config) => {
   config.blocks.blocksConfig.accordion = {
     id: 'accordion',
-    title: 'Accordion',
+    title: intl.formatMessage(messages.accordionTitle),
     icon: accordionSVG,
     group: 'common',
     titleIcons: {
