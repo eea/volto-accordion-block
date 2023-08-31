@@ -24,16 +24,32 @@
     "@cypress/code-coverage": "^3.10.0",
     "@plone/scripts": "*",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "md5": "^2.3.0",
-    "pre-push": "^0.1.4"
+    "husky": "8.0.1",
+    "md5": "^2.3.0"
   },
-  "pre-push": [
-    "prettier:fix",
-    "lint:fix",
-    "stylelint:fix",
-    "commit"
-  ],
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "npx eslint --max-warnings=0 --fix",
+      "npx prettier --single-quote --write"
+    ],
+    "src/**/*.{jsx}": [
+      "yarn i18n"
+    ],
+    "theme/**/*.{css,less}": [
+      "npx stylelint --fix"
+    ],
+    "src/**/*.{css,less}": [
+      "npx stylelint --fix"
+    ],
+    "theme/**/*.overrides": [
+      "npx stylelint --fix"
+    ],
+    "src/**/*.overrides": [
+      "npx stylelint --fix"
+    ]
+  },
   "scripts": {
+    "prepare": "husky install",
     "release": "release-it",
     "release-major-beta": "release-it major --preRelease=beta",
     "release-beta": "release-it --preRelease=beta",
