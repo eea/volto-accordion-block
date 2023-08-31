@@ -67,7 +67,6 @@
     "lint:fix": "make lint-fix",
     "i18n": "make i18n",
     "cypress:run": "make cypress-run",
-    "cypress:open": "make cypress-open",
-    "commit": "if [ $(git diff src/* themes/* | wc -l) -ne 0 ]; then git add src/* themes/*;  git commit -m 'style: Automatic code fix'; fi"
+    "cypress:open": "make cypress-open"
   }
 }
