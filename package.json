@@ -25,6 +25,7 @@
     "@plone/scripts": "*",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "husky": "8.0.1",
+    "lint-staged": "10.2.2",
     "md5": "^2.3.0"
   },
   "lint-staged": {
