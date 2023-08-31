@@ -30,23 +30,23 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
-      "npx eslint --max-warnings=0 --fix",
-      "npx prettier --single-quote --write"
+      "make lint-fix",
+      "make prettier-fix"
     ],
     "src/**/*.{jsx}": [
-      "yarn i18n"
+      "make i18n"
     ],
     "theme/**/*.{css,less}": [
-      "npx stylelint --fix"
+      "make stylelint-fix"
     ],
     "src/**/*.{css,less}": [
-      "npx stylelint --fix"
+      "make stylelint-fix"
     ],
     "theme/**/*.overrides": [
-      "npx stylelint --fix"
+      "make stylelint-fix"
     ],
     "src/**/*.overrides": [
-      "npx stylelint --fix"
+      "make stylelint-fix"
     ]
   },
   "scripts": {
