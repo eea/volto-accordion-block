@@ -66,7 +66,7 @@ pipeline {
           allOf {
             not { environment name: 'CHANGE_ID', value: '' }
             environment name: 'CHANGE_TARGET', value: 'develop'
-          }        
+          }
           allOf {
             environment name: 'CHANGE_ID', value: ''
             anyOf {
@@ -120,7 +120,7 @@ pipeline {
           allOf {
             not { environment name: 'CHANGE_ID', value: '' }
             environment name: 'CHANGE_TARGET', value: 'develop'
-          }        
+          }
           allOf {
             environment name: 'CHANGE_ID', value: ''
             anyOf {
@@ -183,7 +183,7 @@ pipeline {
           allOf {
             not { environment name: 'CHANGE_ID', value: '' }
             environment name: 'CHANGE_TARGET', value: 'develop'
-          }        
+          }
           allOf {
             environment name: 'CHANGE_ID', value: ''
             anyOf {
@@ -221,7 +221,7 @@ pipeline {
           allOf {
             not { environment name: 'CHANGE_ID', value: '' }
             environment name: 'CHANGE_TARGET', value: 'develop'
-          }        
+          }
           allOf {
             environment name: 'CHANGE_ID', value: ''
             branch 'develop'
