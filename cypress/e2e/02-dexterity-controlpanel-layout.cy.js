@@ -15,11 +15,12 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
       'have.text',
       'book',
     );
-
-    cy.visit('/controlpanel/dexterity-types/book/layout');
+    cy.navigate('/controlpanel/dexterity-types/book/layout');
     cy.get('#page-controlpanel-layout').contains(
       'Can not edit Layout for book',
     );
+    cy.wait(1000);
+
     cy.get('#page-controlpanel-layout button').click();
 
     // Wait a bit for draftjs to load, without this the title block
@@ -52,7 +53,6 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
       .type('Chapter 1')
       .should('have.value', 'Chapter 1');
 
-    cy.get('.accordion:nth-child(2) > .title > .icon').click();
     cy.wait(500);
 
     cy.get(
