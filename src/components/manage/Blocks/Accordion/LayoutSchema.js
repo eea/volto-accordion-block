@@ -110,7 +110,7 @@ const messages = defineMessages({
   },
 });
 
-export default (intl) => ({
+const layoutSchema = (intl) => ({
   title: intl.formatMessage(messages.AccordionBlockSettings),
   fieldsets: [
     {
@@ -208,3 +208,5 @@ export default (intl) => ({
   },
   required: [],
 });
+
+export default layoutSchema;
