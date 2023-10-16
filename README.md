@@ -20,7 +20,7 @@
 
 - [Accordion Component Storybook](https://eea.github.io/eea-storybook/?path=/story/components-accordion--default).
 
-![Volto Block Accordion](https://raw.githubusercontent.com/eea/volto-accordion-block/docs/docs/volto-accordion-block.gif "Volto Block Accordion")
+![Volto Block Accordion](https://raw.githubusercontent.com/eea/volto-accordion-block/master/docs/volto-accordion-block.gif "Volto Block Accordion")
 
 
 ## Getting started
