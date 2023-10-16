@@ -1,40 +1,162 @@
 @type: 'extra';
 @element: 'custom';
+@itemVerticalPadding: 0.875em;
+@itemHorizontalPadding: 1.25em;
+@themesFolderEEA: 'eea';
+@siteFolder: '../../theme';
+@menu: 'pastananga';
 
 @import (multiple) '../../theme.config';
 
+// optionally import menu variables for itemVerticalPadding values
+// loading them in a function would mean that the top variable declaration
+// would win as such we use direct imports
+// Site theme declaration of menu variables wins over default theme
+@import (optional) '~volto-themes/default/collections/menu.variables';
+@import (optional) '@{themesFolderEEA}/@{menu}/collections/menu.variables';
+@import (optional) '@{siteFolder}/collections/menu.variables';
+
+@borderColor: rgba(120, 192, 215, 0.75);
+@accordionStyledWidth: auto;
+
+// style accordion has a static width of 600px from semantic so we need to override it
+.accordion-block .ui.styled.accordion {
+  width: @accordionStyledWidth;
+}
+
 // Edit
 .block-editor-accordion {
-  margin: 0 -2.2rem;
+  .block:last-child {
+    margin-bottom: 1em;
+  }
 
-  .block-editor-accordion {
-    margin: 0 0.1rem;
+  [data-rbd-draggable-context-id] {
+    margin-bottom: 1rem;
+  }
+
+  [class^='block-editor-'] {
+    margin-bottom: 2rem;
+  }
+
+  .block-add-button {
+    display: none !important;
   }
 
   .block.accordion.selected::before,
   .block.accordion:hover::before {
     border-style: dashed;
-    border-radius: 1rem;
+  }
+
+  .add-block-button {
+    svg.circled {
+      padding: 0;
+      border: 1px solid currentColor;
+    }
+  }
+
+  fieldset {
+    border: none;
+
+    legend {
+      position: absolute;
+      z-index: 3;
+      top: -1.3em;
+      left: 0;
+      width: fit-content;
+      padding: 0 1rem;
+      margin-right: auto;
+      margin-left: auto;
+      background-color: @pageBackground;
+      color: @borderColor;
+      cursor: pointer;
+      text-align: center;
+    }
   }
 
   .accordion-block {
     padding-top: 1rem;
     padding-bottom: 0.1rem;
-    margin: 0 2rem;
+    margin: 0;
+
+    .ui.accordion {
+      .title:not(.ui) {
+        position: relative;
+      }
+    }
+  }
+
+  .power-user-menu {
+    .ui.menu {
+      .accordion {
+        // override padding and margin from semantic .ui.accordion .accordion
+        padding: @itemVerticalPadding @itemHorizontalPadding;
+        margin: 0;
+      }
+      // block chooser hover items don't have a bg color change, title block had a hover bg color
+      .title {
+        background: none;
+      }
+    }
+  }
+
+  .blocks-form {
+    margin-top: 0.5rem;
+
+    .block-editor-columnsBlock .columns-block .ui.segment {
+      border: 1px solid #e6e7e8;
+
+      .ui.seven.cards {
+        margin-top: 0.5em;
+      }
+    }
+  }
+
+  .blocks-chooser {
+    right: 0;
+    left: auto;
+    margin-top: 3rem;
+  }
+
+  .block-toolbar {
+    position: absolute;
+    z-index: 3;
+    right: -9px;
+    display: flex;
+    border: 1px solid @borderColor;
+    border-bottom: 1px solid @pageBackground;
+    margin-top: -45px;
+    background-color: @pageBackground;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
+    .ui.basic.button {
+      padding: 8px 5px;
+    }
+
+    .ui.basic.button:hover {
+      background: transparent !important;
+    }
+  }
+
+  // with z-index: -1 you don't get the hover and focused border for block child section
+  // TODO: to be removed if https://github.com/plone/volto/pull/5029 merged
+  .block .block:not(.inner)::before {
+    z-index: auto;
   }
 }
 
 // View
 .accordion-block {
-  .accordion {
+  .ui.accordion {
     margin-top: 0 !important;
+    clear: both; /* ensure floated images from content area don't spill over next accordion title */
   }
 
   .accordion-title {
     text-transform: none !important;
 
-    &.align-arrow-left {
-      padding-left: 0 !important;
+    i.icon {
+      order: unset !important;
     }
   }
 
@@ -87,16 +209,31 @@
   .input-accordion-title {
     width: 100%;
   }
+}
 
-  .block.selected {
-    z-index: 2;
+.multiSelected {
+  .block::before {
+    z-index: 1;
+    background-color: rgba(120, 192, 215, 0.375);
+  }
+}
+
+@media print {
+  div.rah-static.rah-static--height-zero {
+    overflow: visible;
+    height: auto !important;
   }
 
-  .content.active {
-    padding: 9px !important;
+  div.rah-static.rah-static--height-zero > div {
+    display: block !important;
+    opacity: 1 !important;
   }
+}
 
-  .rotate-arrow {
-    transform: rotate(180deg);
+.accordion-chooser {
+  z-index: 100;
+
+  .blocks-chooser {
+    position: static;
   }
 }

@@ -2,15 +2,24 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { omit, without } from 'lodash';
 import move from 'lodash-move';
-import { Icon, FormFieldWrapper } from '@plone/volto/components';
-import { DragDropList } from '@eeacms/volto-blocks-form/components';
-import { emptyBlocksForm } from '@eeacms/volto-blocks-form/helpers';
+import { useIntl, defineMessages } from 'react-intl';
+import { Button } from 'semantic-ui-react';
+import { Icon, FormFieldWrapper, DragDropList } from '@plone/volto/components';
+import { emptyBlocksForm } from '@plone/volto/helpers';
 
+import addSVG from '@plone/volto/icons/add.svg';
 import dragSVG from '@plone/volto/icons/drag.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
-import plusSVG from '@plone/volto/icons/circle-plus.svg';
 
 import './editor.less';
+
+const messages = defineMessages({
+  add: { id: 'Add', defaultMessage: 'Add' },
+  panelIndex: {
+    id: 'panel_index',
+    defaultMessage: 'Panel {panel_index}',
+  },
+});
 
 export function moveItem(formData, source, destination) {
   return {
@@ -26,17 +35,55 @@ const empty = () => {
 };
 
 const PanelsWidget = (props) => {
-  const { value = {}, id, onChange } = props;
+  const intl = useIntl();
+  const { fieldSet, value = {}, id, onChange, schema } = props;
   const { blocks = {} } = value;
   const itemsList = (value.blocks_layout?.items || []).map((id) => [
     id,
     blocks[id],
   ]);
 
+  const objectSchema = typeof schema === 'function' ? schema(props) : schema;
+
   return (
-    <FormFieldWrapper {...props} draggable={false} className="panels-widget">
+    <div className="panels-widget">
+      <FormFieldWrapper {...props} noForInFieldLabel draggable={false}>
+        <div className="add-item-button-wrapper">
+          <Button
+            compact
+            icon
+            aria-label={
+              objectSchema.addMessage ||
+              `${intl.formatMessage(messages.add)} ${objectSchema.title}`
+            }
+            onClick={() => {
+              const [newId, newData] = empty();
+              onChange(id, {
+                ...value,
+                blocks: {
+                  ...value.blocks,
+                  [newId]: newData,
+                },
+                blocks_layout: {
+                  ...value.blocks_layout,
+                  items: [...value.blocks_layout?.items, newId],
+                },
+              });
+            }}
+          >
+            <Icon name={addSVG} size="18px" />
+            &nbsp;
+            {/* Custom addMessage in schema, else default to english */}
+            {objectSchema.addMessage ||
+              `${intl.formatMessage(messages.add)} ${objectSchema.title}`}
+          </Button>
+        </div>
+      </FormFieldWrapper>
       <div className="items-area">
         <DragDropList
+          forwardedAriaLabelledBy={`fieldset-${
+            fieldSet || 'default'
+          }-field-label-${id}`}
           childList={itemsList}
           onMoveItem={(result) => {
             const { source, destination } = result;
@@ -53,70 +100,59 @@ const PanelsWidget = (props) => {
           }}
         >
           {(dragProps) => {
-            const { childId, index, draginfo } = dragProps;
+            const { child, childId, index, draginfo } = dragProps;
             return (
-              <div ref={draginfo.innerRef} {...draginfo.draggableProps}>
-                <div style={{ position: 'relative' }}>
-                  <div
+              <div
+                ref={draginfo.innerRef}
+                {...draginfo.draggableProps}
+                key={childId}
+              >
+                <div className="panel-item" style={{ position: 'relative' }}>
+                  <button
                     style={{
                       visibility: 'visible',
                       display: 'inline-block',
                     }}
                     {...draginfo.dragHandleProps}
-                    className="drag handle wrapper"
+                    className="drag handle"
                   >
                     <Icon name={dragSVG} size="18px" />
+                  </button>
+                  <div className="label">
+                    {child.title ||
+                      `${intl.formatMessage(messages.panelIndex, {
+                        panel_index: `${index + 1}`,
+                      })}`}
                   </div>
-                  <div className="item-area">
-                    <div className="label">Panel {index + 1}</div>
-                    {value.blocks_layout?.items?.length > 1 ? (
-                      <button
-                        onClick={() => {
-                          const newFormData = {
-                            ...value,
-                            blocks: omit({ ...value.blocks }, [childId]),
-                            blocks_layout: {
-                              ...value.blocks_layout,
-                              items: without(
-                                [...value.blocks_layout?.items],
-                                childId,
-                              ),
-                            },
-                          };
-                          onChange(id, newFormData);
-                        }}
-                      >
-                        <Icon name={trashSVG} size="18px" />
-                      </button>
-                    ) : (
-                      ''
-                    )}
-                  </div>
+                  {value.blocks_layout?.items?.length > 1 ? (
+                    <button
+                      onClick={() => {
+                        const newFormData = {
+                          ...value,
+                          blocks: omit({ ...value.blocks }, [childId]),
+                          blocks_layout: {
+                            ...value.blocks_layout,
+                            items: without(
+                              [...value.blocks_layout?.items],
+                              childId,
+                            ),
+                          },
+                        };
+                        onChange(id, newFormData);
+                      }}
+                    >
+                      <Icon name={trashSVG} size="18px" color="#e40166" />
+                    </button>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
             );
           }}
         </DragDropList>
-        <button
-          onClick={() => {
-            const [newId, newData] = empty();
-            onChange(id, {
-              ...value,
-              blocks: {
-                ...value.blocks,
-                [newId]: newData,
-              },
-              blocks_layout: {
-                ...value.blocks_layout,
-                items: [...value.blocks_layout?.items, newId],
-              },
-            });
-          }}
-        >
-          <Icon name={plusSVG} size="18px" />
-        </button>
       </div>
-    </FormFieldWrapper>
+    </div>
   );
 };
 

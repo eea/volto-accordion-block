@@ -1,13 +1,19 @@
-import React from 'react';
-import { Accordion, Input } from 'semantic-ui-react';
-
 import cx from 'classnames';
-import { Icon } from '@plone/volto/components';
-import rightSVG from '@plone/volto/icons/right-key.svg';
-import downSVG from '@plone/volto/icons/down-key.svg';
-
+import React from 'react';
 import AnimateHeight from 'react-animate-height';
-export default (props) => {
+import { Accordion, Input } from 'semantic-ui-react';
+import { Icon } from './util';
+import config from '@plone/volto/registry';
+import { defineMessages, injectIntl } from 'react-intl';
+
+const messages = defineMessages({
+  EnterTitle: {
+    id: 'Enter Title',
+    defaultMessage: 'Enter Title',
+  },
+});
+
+const AccordionEdit = (props) => {
   const {
     children,
     handleTitleChange,
@@ -16,8 +22,14 @@ export default (props) => {
     panel,
     data,
     index,
+    intl,
   } = props;
   const [activeIndex, setActiveIndex] = React.useState([0]);
+  const accordionConfig = config.blocks.blocksConfig.accordion;
+  const { titleIcons } = accordionConfig;
+  const isActive = activeIndex.includes(index);
+  const iconOnRight = data.right_arrows;
+  const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
 
   const handleClick = (e, itemProps) => {
     const { index } = itemProps;
@@ -38,43 +50,43 @@ export default (props) => {
     }
   };
 
-  const isExclusive = (index) => {
-    return activeIndex.includes(index);
-  };
-
   React.useEffect(() => {
     return data.collapsed ? setActiveIndex([]) : setActiveIndex([0]);
   }, [data.collapsed]);
 
   return (
-    <Accordion fluid styled>
+    <Accordion
+      className={
+        data.styles ? data.styles.theme : accordionConfig?.defaults?.theme
+      }
+      {...accordionConfig.options}
+    >
       <React.Fragment>
         <Accordion.Title
           as={data.title_size}
-          active={isExclusive(index)}
+          active={isActive}
           index={index}
           onClick={handleClick}
           className={cx('accordion-title', {
-            'align-arrow-left': !props?.data?.right_arrows,
-            'align-arrow-right': props?.data?.right_arrows,
+            'align-arrow-left': !iconOnRight,
+            'align-arrow-right': iconOnRight,
           })}
         >
-          {isExclusive(index) ? (
-            <Icon name={downSVG} size="24px" />
-          ) : (
-            <Icon
-              size="24px"
-              name={rightSVG}
-              className={cx({ 'rotate-arrow': data?.right_arrows })}
-            />
-          )}
+          <Icon
+            options={titleIcons}
+            name={
+              isActive
+                ? titleIcons.opened[iconPosition]
+                : titleIcons.closed[iconPosition]
+            }
+          />
           {!data.readOnlyTitles ? (
             <Input
               fluid
               className="input-accordion-title"
               transparent
-              placeholder="Enter Title"
-              value={panel?.title}
+              placeholder={intl.formatMessage(messages.EnterTitle)}
+              value={panel?.title || ''}
               onClick={(e) => {
                 handleTitleClick();
                 e.stopPropagation();
@@ -85,16 +97,16 @@ export default (props) => {
             <span>{panel?.title}</span>
           )}
         </Accordion.Title>
-        <Accordion.Content active={isExclusive(index)}>
-          <AnimateHeight
-            animateOpacity
-            duration={500}
-            height={isExclusive(index) ? 'auto' : 0}
-          >
-            {children}
-          </AnimateHeight>
-        </Accordion.Content>
+        <AnimateHeight
+          animateOpacity
+          duration={500}
+          height={isActive ? 'auto' : 0}
+        >
+          <Accordion.Content active={isActive}>{children}</Accordion.Content>
+        </AnimateHeight>
       </React.Fragment>
     </Accordion>
   );
 };
+
+export default injectIntl(AccordionEdit);
