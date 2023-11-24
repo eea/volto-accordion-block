@@ -10,8 +10,9 @@ import {
   getBlocksLayoutFieldname,
   withBlockExtensions,
 } from '@plone/volto/helpers';
+import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
 import helpSVG from '@plone/volto/icons/help.svg';
-import { isEmpty, without, cloneDeep, pickBy } from 'lodash';
+import { isEmpty, without, pickBy } from 'lodash';
 import React, { useState } from 'react';
 import { Button, Segment } from 'semantic-ui-react';
 import { defineMessages, useIntl } from 'react-intl';
@@ -131,8 +132,12 @@ const Edit = (props) => {
     schemaEnhancer = activeItem?.['schemaEnhancer'];
 
     schema = schemaEnhancer
-      ? schemaEnhancer({ schema: cloneDeep(originalSchema), formData, intl })
-      : cloneDeep(originalSchema);
+      ? schemaEnhancer({
+          schema: cloneDeepSchema(originalSchema),
+          formData,
+          intl,
+        })
+      : cloneDeepSchema(originalSchema);
 
     return schema;
   };
