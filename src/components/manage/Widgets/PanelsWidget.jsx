@@ -66,7 +66,7 @@ const PanelsWidget = (props) => {
                 },
                 blocks_layout: {
                   ...value.blocks_layout,
-                  items: [...value.blocks_layout?.items, newId],
+                  items: [...(value.blocks_layout?.items || []), newId],
                 },
               });
             }}
@@ -133,7 +133,7 @@ const PanelsWidget = (props) => {
                           blocks_layout: {
                             ...value.blocks_layout,
                             items: without(
-                              [...value.blocks_layout?.items],
+                              [...(value.blocks_layout?.items || [])],
                               childId,
                             ),
                           },
