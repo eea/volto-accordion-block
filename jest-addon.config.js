@@ -13,6 +13,8 @@ module.exports = {
     '@root/(.*)$': '<rootDir>/node_modules/@plone/volto/src/$1',
     '@plone/volto-quanta/(.*)$': '<rootDir>/src/addons/volto-quanta/src/$1',
     '@eeacms/(.*?)/(.*)$': '<rootDir>/node_modules/@eeacms/$1/src/$2',
+    '@plone/volto-slate$':
+      '<rootDir>/node_modules/@plone/volto/packages/volto-slate/src',
     '@plone/volto-slate/(.*)$':
       '<rootDir>/node_modules/@plone/volto/packages/volto-slate/src/$1',
     '~/(.*)$': '<rootDir>/src/$1',
