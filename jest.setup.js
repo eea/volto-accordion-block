@@ -34,11 +34,7 @@ jest.doMock('@plone/volto/components', () => {
   return {
     __esModule: true,
     ...mockComponents,
-    Toast: ({ children }) => <div className="toast">{children}</div>,
     SidebarPortal: ({ children }) => <div id="sidebar">{children}</div>,
-    UniversalLink: ({ children, href }) => {
-      return <a href={href}>{children}</a>;
-    },
   };
 });
 
