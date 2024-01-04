@@ -1,12 +1,17 @@
 import { jest } from '@jest/globals';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import config from '@plone/volto/registry';
 import { blocksConfig } from '@plone/volto/config/Blocks';
 import installSlate from '@plone/volto-slate/index';
 
 var mockSemanticComponents = jest.requireActual('semantic-ui-react');
 var mockComponents = jest.requireActual('@plone/volto/components');
+var config = jest.requireActual('@plone/volto/registry').default;
+
+config.blocks.blocksConfig = {
+  ...blocksConfig,
+  ...config.blocks.blocksConfig,
+};
 
 jest.doMock('semantic-ui-react', () => ({
   __esModule: true,
@@ -29,14 +34,11 @@ jest.doMock('@plone/volto/components', () => {
   };
 });
 
+jest.doMock('@plone/volto/registry', () =>
+  [installSlate].reduce((acc, apply) => apply(acc), config),
+);
+
 const mockStore = configureStore([thunk]);
-
-config.blocks.blocksConfig = {
-  ...blocksConfig,
-  ...config.blocks.blocksConfig,
-};
-
-[installSlate].reduce((acc, apply) => apply(acc), config);
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
