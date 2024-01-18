@@ -4,15 +4,19 @@ import config from '@plone/volto/registry';
 describe('emptyAccordion', () => {
   it('should create an accordion with a given count of empty blocks', () => {
     const result = emptyAccordion(2);
+    const {
+      blocks,
+      blocks_layout: { items },
+    } = result;
 
-    expect(Object.keys(result.blocks)).toHaveLength(2);
-    expect(result.blocks_layout.items).toHaveLength(2);
+    expect(Object.keys(blocks)).toHaveLength(2);
+    expect(items).toHaveLength(2);
 
-    for (const blockId in result.blocks) {
-      expect(result.blocks[blockId]['@type']).toEqual(
-        config.settings.defaultBlockType,
-      );
-    }
+    Object.values(blocks).forEach((block) => {
+      Object.values(block.blocks).forEach((innerBlock) => {
+        expect(innerBlock['@type']).toEqual(config.settings.defaultBlockType);
+      });
+    });
   });
 });
 
