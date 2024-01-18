@@ -162,10 +162,16 @@ pipeline {
                 script {
                   try {
                     sh '''docker run --pull always --rm -d --name="$IMAGE_NAME-plone" -e SITE="Plone" -e PROFILES="$BACKEND_PROFILES" -e ADDONS="$BACKEND_ADDONS" eeacms/plone-backend'''
-                    sh '''docker run -d --shm-size=3g --link $IMAGE_NAME-plone:plone --name="$IMAGE_NAME-cypress" -e "RAZZLE_INTERNAL_API_PATH=http://plone:8080/Plone" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME $IMAGE_NAME-frontend start-ci'''
+                    sh '''docker run -d --shm-size=4g --link $IMAGE_NAME-plone:plone --name="$IMAGE_NAME-cypress" -e "RAZZLE_INTERNAL_API_PATH=http://plone:8080/Plone" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME $IMAGE_NAME-frontend start-ci'''
+                    frontend = sh script:'''docker exec --workdir=/app/src/addons/${GIT_NAME} $IMAGE_NAME-cypress make check-ci''', returnStatus: true
+                    if ( frontend != 0 ) {
+                      sh '''docker logs $IMAGE_NAME-cypress; exit 1'''
+                    }
+
                     sh '''timeout -s 9 1800 docker exec --workdir=/app/src/addons/${GIT_NAME} $IMAGE_NAME-cypress make cypress-ci'''
                   } finally {
                     try {
+                      if ( frontend == 0 ) {
                       sh '''rm -rf cypress-videos cypress-results cypress-coverage cypress-screenshots'''
                       sh '''mkdir -p cypress-videos cypress-results cypress-coverage cypress-screenshots'''
                       videos = sh script: '''docker cp $IMAGE_NAME-cypress:/app/src/addons/$GIT_NAME/cypress/videos cypress-videos/''', returnStatus: true
@@ -188,6 +194,7 @@ pipeline {
                       if ( videos == 0 ) {
                         sh '''for file in $(find cypress-results -name *.xml); do if [ $(grep -E 'failures="[1-9].*"' $file | wc -l) -eq 0 ]; then testname=$(grep -E 'file=.*failures="0"' $file | sed 's#.* file=".*\\/\\(.*\\.[jsxt]\\+\\)" time.*#\\1#' );  rm -f cypress-videos/videos/$testname.mp4; fi; done'''
                         archiveArtifacts artifacts: 'cypress-videos/**/*.mp4', fingerprint: true, allowEmptyArchive: true
+                      }
                       }
                     } finally {
                       catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
