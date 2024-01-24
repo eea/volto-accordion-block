@@ -1,3 +1,5 @@
+require('dotenv').config({ path: __dirname + '/.env' })
+
 module.exports = {
   testMatch: ['**/src/addons/**/?(*.)+(spec|test).[jt]s?(x)'],
   collectCoverageFrom: [
@@ -38,7 +40,9 @@ module.exports = {
       statements: 5,
     },
   },
-  setupFilesAfterEnv: [
-    '<rootDir>/node_modules/@eeacms/volto-accordion-block/jest.setup.js',
-  ],
-};
+  ...(process.env.JEST_USE_SETUP === 'ON' && {
+    setupFilesAfterEnv: [
+      '<rootDir>/node_modules/@eeacms/volto-accordion-block/jest.setup.js',
+    ],
+  }),
+}
