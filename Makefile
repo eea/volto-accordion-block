@@ -98,7 +98,7 @@ test-update:	## Update jest tests snapshots
 
 .PHONY: stylelint
 stylelint:		## Stylelint
-	$(NODE_MODULES)/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}'
+	$(NODE_MODULES)/.bin/stylelint --allow-empty-input 'src/**/*.{css,less}'
 
 .PHONY: stylelint-overrides
 stylelint-overrides:
@@ -106,7 +106,7 @@ stylelint-overrides:
 
 .PHONY: stylelint-fix
 stylelint-fix:	## Fix stylelint
-	$(NODE_MODULES)/stylelint/bin/stylelint.js --allow-empty-input 'src/**/*.{css,less}' --fix
+	$(NODE_MODULES)/.bin/stylelint --allow-empty-input 'src/**/*.{css,less}' --fix
 	$(NODE_MODULES)/.bin/stylelint --custom-syntax less --allow-empty-input 'theme/**/*.overrides' 'src/**/*.overrides' --fix
 
 .PHONY: prettier
@@ -119,11 +119,11 @@ prettier-fix:	## Fix prettier
 
 .PHONY: lint
 lint:			## ES Lint
-	$(NODE_MODULES)/eslint/bin/eslint.js --max-warnings=0 'src/**/*.{js,jsx}'
+	$(NODE_MODULES)/.bin/eslint --max-warnings=0 'src/**/*.{js,jsx}'
 
 .PHONY: lint-fix
 lint-fix:		## Fix ES Lint
-	$(NODE_MODULES)/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'
+	$(NODE_MODULES)/.bin/eslint --fix 'src/**/*.{js,jsx}'
 
 .PHONY: i18n
 i18n:			## i18n
