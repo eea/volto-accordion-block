@@ -231,7 +231,7 @@ pipeline {
                     sh '''docker run --name="$IMAGE_NAME-volto16" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME $IMAGE_NAME-frontend16 test-ci'''
                     sh '''rm -rf xunit-reports16'''
                     sh '''mkdir -p xunit-reports16'''
-                    sh '''docker cp $IMAGE_NAME-volto:/app/junit.xml xunit-reports16/'''
+                    sh '''docker cp $IMAGE_NAME-volto16:/app/junit.xml xunit-reports16/'''
                 } finally {
                     catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
                         junit testResults: 'xunit-reports16/junit.xml', allowEmptyResults: true
