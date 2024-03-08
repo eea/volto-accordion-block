@@ -72,29 +72,24 @@ pipeline {
           }
         }
       }
-      stages {
-        stage('Build test image') {
-          parallel {
-            stage('Volto17') {
-              steps {
-                sh '''docker build --pull --build-arg="VOLTO_VERSION=$VOLTO" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend'''
-              }
+      parallel {
+
+      stage('Volto 17') {
+        agent { node { label 'docker-1.13'} }
+        stages {
+      	  stage('Build test image') {
+            steps {
+              sh '''docker build --pull --build-arg="VOLTO_VERSION=$VOLTO" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend'''
             }
-            stage('Volto16') {
-              steps {
-                sh '''docker build --pull --build-arg="VOLTO_VERSION=16" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend16'''
-              }
-            }
-          }  
-        }
-        
-        stage('Fix code') {
-          when {
+          }
+
+          stage('Fix code') {
+            when {
               environment name: 'CHANGE_ID', value: ''
               not { branch 'master' }
-          }
-          steps {
-            script {
+            }
+            steps {
+              script {
               fix_result = sh(script: '''docker run --name="$IMAGE_NAME-fix" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME  $IMAGE_NAME-frontend ci-fix''', returnStatus: true)
               sh '''docker cp $IMAGE_NAME-fix:/app/src/addons/$GIT_NAME/src .'''
               sh '''docker rm -v $IMAGE_NAME-fix'''
@@ -112,35 +107,31 @@ pipeline {
                 sh '''exit 1'''
               }
             }
+            }
           }
-        }
 
-        stage('ES lint') {
-          when { environment name: 'SKIP_TESTS', value: '' }
-          steps {
-            sh '''docker run --rm --name="$IMAGE_NAME-eslint" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME $IMAGE_NAME-frontend lint'''
+          stage('ES lint') {
+            when { environment name: 'SKIP_TESTS', value: '' }
+            steps {
+              sh '''docker run --rm --name="$IMAGE_NAME-eslint" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME $IMAGE_NAME-frontend lint'''
+            }
           }
-        }
 
-        stage('Style lint') {
-          when { environment name: 'SKIP_TESTS', value: '' }
-          steps {
-            sh '''docker run --rm --name="$IMAGE_NAME-stylelint" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME  $IMAGE_NAME-frontend stylelint'''
+          stage('Style lint') {
+            when { environment name: 'SKIP_TESTS', value: '' }
+            steps {
+              sh '''docker run --rm --name="$IMAGE_NAME-stylelint" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME  $IMAGE_NAME-frontend stylelint'''
+            }
           }
-        }
 
-        stage('Prettier') {
-          when { environment name: 'SKIP_TESTS', value: '' }
-          steps {
-            sh '''docker run --rm --name="$IMAGE_NAME-prettier" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME  $IMAGE_NAME-frontend prettier'''
+          stage('Prettier') {
+            when { environment name: 'SKIP_TESTS', value: '' }
+            steps {
+              sh '''docker run --rm --name="$IMAGE_NAME-prettier" --entrypoint=make --workdir=/app/src/addons/$GIT_NAME  $IMAGE_NAME-frontend prettier'''
+            }
           }
-        }
-
-        stage('Coverage Tests') {
-          when { environment name: 'SKIP_TESTS', value: '' }
-          parallel {
-            
-            stage('Unit tests') {
+          stage('Unit tests') {
+              when { environment name: 'SKIP_TESTS', value: '' }
               steps {
                 script {
                   try {
@@ -166,9 +157,10 @@ pipeline {
                   }
                 }
               }
-            }
+          }
             
-            stage('Integration tests') {
+          stage('Integration tests') {
+              when { environment name: 'SKIP_TESTS', value: '' }
               steps {
                 script {
                   try {
@@ -222,9 +214,57 @@ pipeline {
                   }
                 }
               }
-            }
+          }
 
-            stage('Unit tests Volto 16') {
+    stage('Report to SonarQube') {
+      when {
+        anyOf {
+          allOf {
+            not { environment name: 'CHANGE_ID', value: '' }
+            environment name: 'CHANGE_TARGET', value: 'develop'
+            environment name: 'SKIP_TESTS', value: ''
+          }
+          allOf {
+            environment name: 'CHANGE_ID', value: ''
+            environment name: 'SKIP_TESTS', value: ''
+            anyOf {
+              allOf {
+                branch 'develop'
+                not { changelog '.*^Automated release [0-9\\.]+$' }
+              }
+              branch 'master'
+            }
+          }
+        }
+      }
+      steps {
+        script {
+          def scannerHome = tool 'SonarQubeScanner'
+          def nodeJS = tool 'NodeJS'
+          withSonarQubeEnv('Sonarqube') {
+            sh '''sed -i "s#/app/src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
+            sh '''sed -i "s#src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
+            sh "export PATH=${scannerHome}/bin:${nodeJS}/bin:$PATH; sonar-scanner -Dsonar.javascript.lcov.reportPaths=./xunit-reports/coverage/lcov.info,./cypress-coverage/coverage/lcov.info -Dsonar.sources=./src -Dsonar.projectKey=$GIT_NAME-$BRANCH_NAME -Dsonar.projectVersion=$BRANCH_NAME-$BUILD_NUMBER"
+            sh '''try=5; while [ \$try -gt 0 ]; do curl -s -XPOST -u "${SONAR_AUTH_TOKEN}:" "${SONAR_HOST_URL}api/project_tags/set?project=${GIT_NAME}-${BRANCH_NAME}&tags=${SONARQUBE_TAGS},${BRANCH_NAME}" > set_tags_result; if [ \$(grep -ic error set_tags_result ) -eq 0 ]; then try=0; else cat set_tags_result; echo "... Will retry"; sleep 15; try=\$(( \$try - 1 )); fi; done'''
+          }
+        }
+      }
+    }
+
+
+        }
+      }
+
+      stage('Volto 16') { 
+        agent { node { label 'integration'} }
+        stages {
+      		stage('Build test image') {
+            steps {
+              sh '''docker build --pull --build-arg="VOLTO_VERSION=16" --build-arg="ADDON_NAME=$NAMESPACE/$GIT_NAME"  --build-arg="ADDON_PATH=$GIT_NAME" . -t $IMAGE_NAME-frontend16'''
+            }
+          }
+
+             stage('Unit tests Volto 16') {
               steps {
                 script {
                   try {
@@ -252,7 +292,6 @@ pipeline {
                     if ( frontend != 0 ) {
                       sh '''docker logs $IMAGE_NAME-cypress16; exit 1'''
                     }
-
                     sh '''timeout -s 9 1800 docker exec --workdir=/app/src/addons/${GIT_NAME} $IMAGE_NAME-cypress16 make cypress-ci'''
                   } finally {
                     try {
@@ -287,9 +326,8 @@ pipeline {
               }
             }
 
-
-          }
         }
+      }
       }
       post {
         always {
@@ -299,40 +337,6 @@ pipeline {
       }
     }
 
-    stage('Report to SonarQube') {
-      when {
-        anyOf {
-          allOf {
-            not { environment name: 'CHANGE_ID', value: '' }
-            environment name: 'CHANGE_TARGET', value: 'develop'
-            environment name: 'SKIP_TESTS', value: '' 
-          }
-          allOf {
-            environment name: 'CHANGE_ID', value: ''
-            environment name: 'SKIP_TESTS', value: '' 
-            anyOf {
-              allOf {
-                branch 'develop'
-                not { changelog '.*^Automated release [0-9\\.]+$' }
-              }
-              branch 'master'
-            }
-          }
-        }
-      }
-      steps {
-        script {
-          def scannerHome = tool 'SonarQubeScanner'
-          def nodeJS = tool 'NodeJS'
-          withSonarQubeEnv('Sonarqube') {
-            sh '''sed -i "s#/app/src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
-            sh '''sed -i "s#src/addons/${GIT_NAME}/##g" xunit-reports/coverage/lcov.info'''
-            sh "export PATH=${scannerHome}/bin:${nodeJS}/bin:$PATH; sonar-scanner -Dsonar.javascript.lcov.reportPaths=./xunit-reports/coverage/lcov.info,./cypress-coverage/coverage/lcov.info -Dsonar.sources=./src -Dsonar.projectKey=$GIT_NAME-$BRANCH_NAME -Dsonar.projectVersion=$BRANCH_NAME-$BUILD_NUMBER"
-            sh '''try=5; while [ \$try -gt 0 ]; do curl -s -XPOST -u "${SONAR_AUTH_TOKEN}:" "${SONAR_HOST_URL}api/project_tags/set?project=${GIT_NAME}-${BRANCH_NAME}&tags=${SONARQUBE_TAGS},${BRANCH_NAME}" > set_tags_result; if [ \$(grep -ic error set_tags_result ) -eq 0 ]; then try=0; else cat set_tags_result; echo "... Will retry"; sleep 15; try=\$(( \$try - 1 )); fi; done'''
-          }
-        }
-      }
-    }
 
     stage('SonarQube compare to master') {
       when {
