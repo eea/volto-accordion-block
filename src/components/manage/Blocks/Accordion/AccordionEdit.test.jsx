@@ -1,7 +1,6 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import AccordionEdit from './AccordionEdit';
-import renderer from 'react-test-renderer';
 import config from '@plone/volto/registry';
 import { Provider } from 'react-intl-redux';
 import configureStore from 'redux-mock-store';
@@ -60,23 +59,6 @@ describe('AccordionEdit', () => {
     readOnlyTitles: true,
   };
   const index = 0;
-
-  it('should render correctly', () => {
-    const component = renderer.create(
-      <Provider store={store}>
-        <AccordionEdit
-          handleTitleChange={handleTitleChange}
-          handleTitleClick={handleTitleClick}
-          uid={uid}
-          panel={panel}
-          data={data}
-          index={index}
-        />
-      </Provider>,
-    );
-    const json = component.toJSON();
-    expect(json).toMatchSnapshot();
-  });
 
   it('should render correctly', () => {
     const { getByText } = render(
@@ -183,5 +165,77 @@ describe('AccordionEdit', () => {
 
     const contentElement = getByText('Accordion Content');
     expect(contentElement).toBeInTheDocument();
+  });
+
+  it('should toggle the accordion content when the title is clicked', async () => {
+    const { container } = render(
+      <Provider store={store}>
+        <AccordionEdit uid={uid} panel={panel} data={data} index={index}>
+          <div>Accordion Content</div>
+        </AccordionEdit>
+      </Provider>,
+    );
+
+    const accordionTitle = container.querySelector('.accordion-title');
+    const accordionContent = container.querySelector('.content');
+
+    fireEvent.click(accordionTitle);
+
+    await waitFor(() => {
+      expect(accordionContent).not.toBeVisible();
+    });
+
+    fireEvent.click(accordionTitle);
+
+    await waitFor(() => {
+      expect(accordionContent).toBeVisible();
+    });
+  });
+
+  it('should render the title as read-only when readOnlyTitles is true', () => {
+    render(
+      <Provider store={store}>
+        <AccordionEdit
+          uid={uid}
+          panel={panel}
+          data={{ ...data, readOnlyTitles: true }}
+          index={index}
+        />
+      </Provider>,
+    );
+
+    const titleSpan = screen.getByText('Panel Title');
+    expect(titleSpan.tagName).toBe('SPAN');
+    expect(screen.queryByDisplayValue('Panel Title')).not.toBeInTheDocument();
+  });
+
+  it('should apply the correct alignment class based on right_arrows prop', () => {
+    const { container, rerender } = render(
+      <Provider store={store}>
+        <AccordionEdit
+          uid={uid}
+          panel={panel}
+          data={{ ...data, right_arrows: false }}
+          index={index}
+        />
+      </Provider>,
+    );
+
+    let accordionTitle = container.querySelector('.accordion-title');
+    expect(accordionTitle).toHaveClass('align-arrow-left');
+
+    rerender(
+      <Provider store={store}>
+        <AccordionEdit
+          uid={uid}
+          panel={panel}
+          data={{ ...data, right_arrows: true }}
+          index={index}
+        />
+      </Provider>,
+    );
+
+    accordionTitle = container.querySelector('.accordion-title');
+    expect(accordionTitle).toHaveClass('align-arrow-right');
   });
 });
