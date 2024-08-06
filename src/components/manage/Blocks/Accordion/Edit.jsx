@@ -331,6 +331,7 @@ const Edit = (props) => {
               key={`accordion-${index}`}
             >
               <BlocksForm
+                errors={props.errors}
                 key={uid}
                 title={data.placeholder}
                 description={instructions}
