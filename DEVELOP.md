@@ -26,7 +26,8 @@
 
 ### Or add @eeacms/volto-accordion-block to your Volto project
 
-Before starting make sure your development environment is properly set. See [Volto Developer Documentation](https://docs.voltocms.com/getting-started/install/)
+Before starting make sure your development environment is properly set.
+See [Install](https://6.docs.plone.org/install/).
 
 1.  Make sure you have installed `yo`, `@plone/generator-volto` and `mrs-developer`
 
@@ -186,3 +187,8 @@ To auto fix the found issues by ``stylelint``, execute the following command:
   ```bash
   make stylelint-fix
   ```
+
+
+## Internationalization (i18) and localization (l10n)
+
+See [Internationalization](https://6.docs.plone.org/volto/development/i18n.html) and [Translate Volto](https://6.docs.plone.org/i18n-l10n/contributing-translations.html#translate-volto).
