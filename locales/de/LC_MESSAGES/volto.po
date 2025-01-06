@@ -143,7 +143,7 @@ msgstr "Filterung aktivieren"
 #: components/manage/Blocks/Accordion/AccordionEdit
 # defaultMessage: Enter Title
 msgid "Enter Title"
-msgstr ""
+msgstr "Titel eingeben"
 
 #: components/manage/Blocks/Accordion/LayoutSchema
 # defaultMessage: Fixed layout
