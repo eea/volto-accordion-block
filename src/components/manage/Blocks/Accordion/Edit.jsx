@@ -299,7 +299,7 @@ const Edit = (props) => {
           }}
           aria-hidden="true"
         >
-          {data.title || 'Accordion'}
+          {data.title || schema.properties.data.title}
         </legend>
         {data.filtering && (
           <AccordionFilter
