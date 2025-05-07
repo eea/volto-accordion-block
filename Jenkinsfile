@@ -6,7 +6,7 @@ pipeline {
   environment {
     GIT_NAME = "volto-accordion-block"
     NAMESPACE = "@eeacms"
-    SONARQUBE_TAGS = "volto.eea.europa.eu,forest.eea.europa.eu,www.eea.europa.eu-ims,climate-energy.eea.europa.eu,biodiversity.europa.eu,clms.land.copernicus.eu,industry.eea.europa.eu,water.europa.eu-freshwater,demo-www.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu,water.europa.eu-marine,climate-adapt.eea.europa.eu,climate-advisory-board.devel4cph.eea.europa.eu,climate-advisory-board.europa.eu,www.eea.europa.eu-en,insitu-frontend.eionet.europa.eu,insitu.copernicus.eu,www.industry.eea.europa.eu"
+    SONARQUBE_TAGS = "volto.eea.europa.eu,forest.eea.europa.eu,www.eea.europa.eu-ims,climate-energy.eea.europa.eu,biodiversity.europa.eu,clms.land.copernicus.eu,industry.eea.europa.eu,water.europa.eu-freshwater,demo-www.eea.europa.eu,clmsdemo.devel6cph.eea.europa.eu,water.europa.eu-marine,climate-adapt.eea.europa.eu,climate-advisory-board.devel4cph.eea.europa.eu,climate-advisory-board.europa.eu,www.eea.europa.eu-en,insitu-frontend.eionet.europa.eu,insitu.copernicus.eu,www.industry.eea.europa.eu,ask.copernicus.eu"
     DEPENDENCIES = ""
     BACKEND_PROFILES = "eea.kitkat:testing"
     BACKEND_ADDONS = ""
