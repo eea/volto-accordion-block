@@ -340,6 +340,8 @@ const Edit = (props) => {
                 metadata={metadata}
                 properties={isEmpty(panel) ? emptyBlocksForm() : panel}
                 selectedBlock={selected ? selectedBlock[uid] : null}
+                isMainForm={false}
+                stopPropagation={selectedBlock[uid]}
                 onSelectBlock={(id, l, e) => {
                   const isMultipleSelection = e
                     ? e.shiftKey || e.ctrlKey || e.metaKey
