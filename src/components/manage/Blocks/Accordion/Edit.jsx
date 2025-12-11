@@ -463,7 +463,9 @@ const Edit = (props) => {
               }}
               formData={data}
               block={block}
-              blocksConfig={blocksConfig}
+              // The accordion block itself is a container block so it needs the "main"
+              // not the nested blocksConfig one
+              blocksConfig={config.blocks.blocksConfig}
               onChangeBlock={onChangeBlock}
             />
           )}
