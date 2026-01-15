@@ -40,13 +40,19 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.get('.block-editor-accordion').last().as('accordionBlock');
 
     cy.get('#field-allowedBlocks.react-select-container').click();
-    cy.get('#field-allowedBlocks.react-select-container input').type('Image{enter}', {
-      force: true,
-    });
+    cy.get('#field-allowedBlocks.react-select-container input').type(
+      'Image{enter}',
+      {
+        force: true,
+      },
+    );
     cy.get('#field-allowedBlocks.react-select-container').click();
-    cy.get('#field-allowedBlocks.react-select-container input').type('Text{enter}', {
-      force: true,
-    });
+    cy.get('#field-allowedBlocks.react-select-container input').type(
+      'Text{enter}',
+      {
+        force: true,
+      },
+    );
 
     cy.get('@accordionBlock')
       .find('input[placeholder="Enter Title"]')
@@ -63,25 +69,56 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
       .first()
       .click({ position: 'left', force: true });
 
-    cy.get('@chapter1Title').parents('.ui.accordion').first().as('chapter1Panel');
+    cy.get('@chapter1Title')
+      .parents('.ui.accordion')
+      .first()
+      .as('chapter1Panel');
 
-    cy.get('@chapter1Panel')
-      .find('.content .slate-editor [contenteditable=true]')
-      .should('have.length.at.least', 1)
-      .last()
-      .focus()
-      .click({ force: true })
-      .type('Once upon a time...{enter}', { force: true });
+    cy.wait(1000);
+    cy.getIfExists(
+      '.block-editor-accordion .ui.accordion:first-of-type .rah-static--height-auto',
+      () => {
+        // Volto 18: accordion is open
+        cy.get('@chapter1Panel')
+          .find('.content .slate-editor [contenteditable=true]')
+          .should('have.length.at.least', 1)
+          .last()
+          .focus()
+          .click({ force: true })
+          .type('Once upon a time...{enter}', { force: true });
 
-    cy.get('@chapter1Panel')
-      .find('.content .slate-editor [contenteditable=true]')
-      .should('have.length.at.least', 1)
-      .last()
-      .focus()
-      .click({ force: true })
-      .type('/', { force: true });
-    cy.wait(500);
-    cy.get('.power-user-menu a.item').should('have.length', 1);
+        cy.get('@chapter1Panel')
+          .find('.content .slate-editor [contenteditable=true]')
+          .should('have.length.at.least', 1)
+          .last()
+          .focus()
+          .click({ force: true })
+          .type('/', { force: true });
+        cy.wait(500);
+        cy.get('.power-user-menu a.item').should('have.length', 1);
+      },
+      () => {
+        // Volto 17: accordion is closed
+        cy.get('@chapter1Panel').find('svg').click();
+        cy.get('@chapter1Panel')
+          .find('.content .slate-editor [contenteditable=true]')
+          .should('have.length.at.least', 1)
+          .last()
+          .focus()
+          .click({ force: true })
+          .type('Once upon a time...{enter}', { force: true });
+
+        cy.get('@chapter1Panel')
+          .find('.content .slate-editor [contenteditable=true]')
+          .should('have.length.at.least', 1)
+          .last()
+          .focus()
+          .click({ force: true })
+          .type('/', { force: true });
+        cy.wait(500);
+        cy.get('.power-user-menu a.item').should('have.length', 1);
+      },
+    );
 
     cy.get('@accordionBlock')
       .find('input[placeholder="Enter Title"]')
@@ -131,20 +168,25 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     cy.wait(1000);
 
     // The image block was just inserted - enter URL
-    const url = 'https://eea.github.io/volto-eea-design-system/img/eea_icon.png';
+    const url =
+      'https://eea.github.io/volto-eea-design-system/img/eea_icon.png';
 
     // In Volto, the image block has buttons for browse/upload/URL
     // The third button (link icon) enables URL input mode
     // Look in the image block for buttons and click the last one (link/URL)
-    cy.get('.accordion:nth-child(3) .content').first().within(() => {
-      // The image block has multiple buttons - click the link/URL button (usually last or has link icon)
-      cy.get('button.ui.button, button.icon').last().click({ force: true });
-    });
+    cy.get('.accordion:nth-child(3) .content')
+      .first()
+      .within(() => {
+        // The image block has multiple buttons - click the link/URL button (usually last or has link icon)
+        cy.get('button.ui.button, button.icon').last().click({ force: true });
+      });
 
     cy.wait(500);
 
     // Now the URL input should be visible - find and fill it
-    cy.get('.accordion:nth-child(3) .content input[type="text"], .accordion:nth-child(3) .content .ui.input input')
+    cy.get(
+      '.accordion:nth-child(3) .content input[type="text"], .accordion:nth-child(3) .content .ui.input input',
+    )
       .first()
       .click({ force: true })
       .clear({ force: true })
