@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 import AccordionFilter from './AccordionFilter';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-intl-redux';
