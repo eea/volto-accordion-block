@@ -320,20 +320,34 @@ Cypress.Commands.add(
 );
 
 // --- waitForResourceToLoad ----------------------------------------------------------
-Cypress.Commands.add('waitForResourceToLoad', (fileName, type) => {
+Cypress.Commands.add('waitForResourceToLoad', (fileName, type, timeout = 10000) => {
   const resourceCheckInterval = 40;
+  const start = Date.now();
 
-  return new Cypress.Promise((resolve) => {
+  return new Cypress.Promise((resolve, reject) => {
     const checkIfResourceHasBeenLoaded = () => {
-      const resource = cy
-        .state('window')
-        .performance.getEntriesByType('resource')
+      const perf = cy.state('window').performance;
+      const candidates = [
+        ...perf.getEntriesByType('resource'),
+        ...perf.getEntriesByType('navigation'),
+        ...perf.getEntriesByType('paint'),
+      ];
+
+      const resource = candidates
         .filter((entry) => !type || entry.initiatorType === type)
         .find((entry) => entry.name.includes(fileName));
 
       if (resource) {
         resolve();
+        return;
+      }
 
+      if (Date.now() - start > timeout) {
+        reject(
+          new Error(
+            `waitForResourceToLoad: ${fileName} not seen after ${timeout}ms`,
+          ),
+        );
         return;
       }
 
