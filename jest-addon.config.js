@@ -18,9 +18,9 @@ module.exports = {
     '@eeacms/search': '<rootDir>/src/addons/volto-searchlib/searchlib',
     '@eeacms/(.*?)/(.*)$': '<rootDir>/node_modules/@eeacms/$1/src/$2',
     '@plone/volto-slate$':
-      '<rootDir>/node_modules/@plone/volto/packages/volto-slate/src',
+      '<rootDir>/node_modules/@plone/volto-slate/src',
     '@plone/volto-slate/(.*)$':
-      '<rootDir>/node_modules/@plone/volto/packages/volto-slate/src/$1',
+      '<rootDir>/node_modules/@plone/volto-slate/src/$1',
     '~/(.*)$': '<rootDir>/src/$1',
     'load-volto-addons':
       '<rootDir>/node_modules/@plone/volto/jest-addons-loader.js',

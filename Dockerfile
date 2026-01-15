@@ -5,11 +5,11 @@ FROM plone/frontend-builder:${VOLTO_VERSION}
 ARG ADDON_NAME
 ARG ADDON_PATH
 
-# Install Cypress dependencies (Xvfb, etc.) for integration tests
+# Install Cypress dependencies (matching eeacms/frontend-builder)
 USER root
 RUN apt-get update -q \
     && apt-get install -qy --no-install-recommends \
-       libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb \
+       chromium libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb \
     && rm -rf /var/lib/apt/lists/*
 USER node
 
