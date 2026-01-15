@@ -526,7 +526,15 @@ function setBaseAndExtent(...args) {
 }
 
 Cypress.Commands.add('navigate', (route = '') => {
-  return cy.window().its('appHistory').invoke('push', route);
+  return cy.window().then((win) => {
+    if (win.appHistory && typeof win.appHistory.push === 'function') {
+      win.appHistory.push(route);
+    } else {
+      // Fall back to hard navigation when appHistory is not yet available
+      cy.log('navigate: appHistory missing, falling back to cy.visit');
+      return cy.visit(route);
+    }
+  });
 });
 
 Cypress.Commands.add('store', () => {
