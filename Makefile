@@ -82,11 +82,11 @@ shell:			## Start a shell in the frontend container
 
 .PHONY: cypress-open
 cypress-open:		## Open cypress integration tests
-	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH:-${RAZZLE_INTERNAL_API_PATH}}" NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress open
+	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH}" NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress open
 
 .PHONY: cypress-run
 cypress-run:	## Run cypress integration tests
-	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH:-${RAZZLE_INTERNAL_API_PATH}}" NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress run
+	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH}" NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress run
 
 .PHONY: test
 test:			## Run jest tests
@@ -161,5 +161,6 @@ check-ci:
 
 .PHONY: cypress-ci
 cypress-ci:
+	$(NODE_MODULES)/.bin/wait-on -t 240000  ${RAZZLE_DEV_PROXY_API_PATH}/@types
 	$(NODE_MODULES)/.bin/wait-on -t 240000  http://localhost:3000
-	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH:-${RAZZLE_INTERNAL_API_PATH}}" NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress run --browser chromium
+	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH}" NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress run --browser chromium
