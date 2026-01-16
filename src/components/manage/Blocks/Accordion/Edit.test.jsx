@@ -3,7 +3,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { Provider } from 'react-intl-redux';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
 

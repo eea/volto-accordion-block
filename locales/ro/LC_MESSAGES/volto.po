@@ -11,302 +11,302 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. Default: "A short hint that describes the expected value within this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: A short hint that describes the expected value within this block
 msgid "A short hint that describes the expected value within this block"
 msgstr ""
 
+#. Default: "Accordion"
 #: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 #: index
-# defaultMessage: Accordion
 msgid "Accordion"
 msgstr "Acordeon"
 
+#. Default: "Accordion Title size"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Accordion Title size
 msgid "Accordion Title size"
 msgstr "Mărimea titlului acordeonului"
 
+#. Default: "Accordion block"
 #: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Accordion block
 msgid "Accordion block"
 msgstr "Bloc Accordeon"
 
+#. Default: "Accordion block settings"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Accordion block settings
 msgid "Accordion block settings"
 msgstr ""
 
+#. Default: "Accordion theme"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Accordion theme
 msgid "Accordion theme"
 msgstr "Tema acordeonului"
 
+#. Default: "Accordion title"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Accordion title
 msgid "Accordion title"
 msgstr ""
 
+#. Default: "Add"
 #: components/manage/Widgets/PanelsWidget
-# defaultMessage: Add
 msgid "Add"
 msgstr "Adaugă"
 
+#. Default: "Allow multiple panels open at a time"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Allow multiple panels open at a time
 msgid "Allow multiple panels open at a time"
 msgstr "Permite deschiderea mai multor panouri simultan"
 
+#. Default: "Allow only the following blocks types"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Allow only the following blocks types
 msgid "Allow only the following blocks types"
 msgstr ""
 
+#. Default: "Allowed blocks"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Allowed blocks
 msgid "Allowed blocks"
 msgstr ""
 
+#. Default: "Collapsed by default"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Collapsed by default
 msgid "Collapsed by default"
 msgstr "Închis implicit"
 
+#. Default: "Default"
 #: components/manage/Blocks/Accordion/LayoutSchema
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Default
 msgid "Default"
 msgstr ""
 
+#. Default: "Detailed expected value within this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Detailed expected value within this block
 msgid "Detailed expected value within this block"
 msgstr ""
 
+#. Default: "Disable creation of new blocks after this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Disable creation of new blocks after this block
 msgid "Disable creation of new blocks after this block"
 msgstr ""
 
+#. Default: "Disable drag & drop on this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Disable drag & drop on this block
 msgid "Disable drag & drop on this block"
 msgstr ""
 
+#. Default: "Disable editing on accordion block settings"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Disable editing on accordion block settings
 msgid "Disable editing on accordion block settings"
 msgstr ""
 
+#. Default: "Disable editing on accordion titles"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Disable editing on accordion titles
 msgid "Disable editing on accordion titles"
 msgstr ""
 
+#. Default: "Disable editing on this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Disable editing on this block
 msgid "Disable editing on this block"
 msgstr ""
 
+#. Default: "Disable inner buttons"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Disable inner buttons
 msgid "Disable inner buttons"
 msgstr ""
 
+#. Default: "Disable new blocks"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Disable new blocks
 msgid "Disable new blocks"
 msgstr ""
 
+#. Default: "Don't allow deletion of this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Don't allow deletion of this block
 msgid "Don't allow deletion of this block"
 msgstr ""
 
+#. Default: "Drag and drop"
 #: components/manage/Blocks/Accordion/EditBlockWrapper
-# defaultMessage: Drag and drop
 msgid "Drag and drop"
 msgstr ""
 
+#. Default: "Enable filtering"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Enable filtering
 msgid "Enable filtering"
 msgstr "Filtrare"
 
+#. Default: "Enter Title"
 #: components/manage/Blocks/Accordion/AccordionEdit
-# defaultMessage: Enter Title
 msgid "Enter Title"
 msgstr ""
 
+#. Default: "Fixed layout"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Fixed layout
 msgid "Fixed layout"
 msgstr ""
 
+#. Default: "Fixed layout, New panes (tabs) created by Editor within this block will be ignored"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Fixed layout, New panes (tabs) created by Editor within this block will be ignored
 msgid "Fixed layout, New panes (tabs) created by Editor within this block will be ignored"
 msgstr ""
 
+#. Default: "Fixed position"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Fixed position
 msgid "Fixed position"
 msgstr ""
 
+#. Default: "Friendly name"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Friendly name
 msgid "Friendly name"
 msgstr "Nume"
 
+#. Default: "Heading 2"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Heading 2
 msgid "Heading 2"
 msgstr ""
 
+#. Default: "Heading 3"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Heading 3
 msgid "Heading 3"
 msgstr ""
 
+#. Default: "Heading 4"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Heading 4
 msgid "Heading 4"
 msgstr ""
 
+#. Default: "Heading 5"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Heading 5
 msgid "Heading 5"
 msgstr ""
 
+#. Default: "Heading 6"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Heading 6
 msgid "Heading 6"
 msgstr ""
 
+#. Default: "Headline"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Headline
 msgid "Headline"
 msgstr "Mărime title"
 
+#. Default: "Helper text"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Helper text
 msgid "Helper text"
 msgstr ""
 
+#. Default: "Hide all block related buttons within this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Hide all block related buttons within this block
 msgid "Hide all block related buttons within this block"
 msgstr ""
 
+#. Default: "Instructions"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Instructions
 msgid "Instructions"
 msgstr ""
 
+#. Default: "Non exclusive"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Non exclusive
 msgid "Non exclusive"
 msgstr "Non exclusiv"
 
+#. Default: "Options"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Options
 msgid "Options"
 msgstr "Opțiuni"
 
+#. Default: "Primary"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Primary
 msgid "Primary"
 msgstr "Primară"
 
+#. Default: "Read-only"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Read-only
 msgid "Read-only"
 msgstr ""
 
+#. Default: "Read-only settings"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Read-only settings
 msgid "Read-only settings"
 msgstr ""
 
+#. Default: "Read-only titles"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Read-only titles
 msgid "Read-only titles"
 msgstr ""
 
+#. Default: "Remove block"
 #: components/manage/Blocks/Accordion/EditBlockWrapper
-# defaultMessage: Remove block
 msgid "Remove block"
 msgstr ""
 
+#. Default: "Required"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Required
 msgid "Required"
 msgstr ""
 
+#. Default: "Secondary"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Secondary
 msgid "Secondary"
 msgstr "Secundară"
 
+#. Default: "Section friendly name"
 #: components/manage/Blocks/Accordion/LayoutSchema
-# defaultMessage: Section friendly name
 msgid "Section friendly name"
 msgstr ""
 
+#. Default: "Section help"
 #: components/manage/Blocks/Accordion/Edit
-# defaultMessage: Section help
 msgid "Section help"
 msgstr ""
 
+#. Default: "Tertiary"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Tertiary
 msgid "Tertiary"
 msgstr "Terțiară"
 
+#. Default: "Theme"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Theme
 msgid "Theme"
 msgstr "Tema"
 
+#. Default: "Title"
 #: components/manage/Blocks/Accordion/LayoutSchema
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Title
 msgid "Title"
 msgstr "Titlu"
 
+#. Default: "Title Icon on the right"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Title Icon on the right
 msgid "Title Icon on the right"
 msgstr "Pictograma în dreapta titlului"
 
+#. Default: "Title size"
 #: components/manage/Blocks/Accordion/Schema
-# defaultMessage: Title size
 msgid "Title size"
 msgstr "Mărime titlu"
 
+#. Default: "Type to filter..."
 #: components/manage/Blocks/Accordion/AccordionFilter
-# defaultMessage: Type to filter...
 msgid "Type to filter..."
 msgstr "Filtrează..."
 
+#. Default: "Unknown Block {block}"
 #: components/manage/Blocks/Accordion/EditBlockWrapper
-# defaultMessage: Unknown Block {block}
 msgid "Unknown Block"
 msgstr "Block necunoscut"
 
+#. Default: "Add block in position"
 #: components/manage/Blocks/Accordion/NewBlockAddButton
-# defaultMessage: Add block in position
 msgid "add_block_in_position"
 msgstr ""
 
+#. Default: "delete"
 #: components/manage/Blocks/Accordion/EditBlockWrapper
-# defaultMessage: delete
 msgid "delete"
 msgstr "Șterge"
 
+#. Default: "Panel {panel_index}"
 #: components/manage/Widgets/PanelsWidget
-# defaultMessage: Panel {panel_index}
 msgid "panel_index"
 msgstr ""
