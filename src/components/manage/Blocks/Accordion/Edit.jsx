@@ -340,6 +340,8 @@ const Edit = (props) => {
                 metadata={metadata}
                 properties={isEmpty(panel) ? emptyBlocksForm() : panel}
                 selectedBlock={selected ? selectedBlock[uid] : null}
+                isMainForm={false}
+                stopPropagation={selectedBlock[uid]}
                 onSelectBlock={(id, l, e) => {
                   const isMultipleSelection = e
                     ? e.shiftKey || e.ctrlKey || e.metaKey
@@ -461,7 +463,9 @@ const Edit = (props) => {
               }}
               formData={data}
               block={block}
-              blocksConfig={blocksConfig}
+              // The accordion block itself is a container block so it needs the "main"
+              // not the nested blocksConfig one
+              blocksConfig={config.blocks.blocksConfig}
               onChangeBlock={onChangeBlock}
             />
           )}

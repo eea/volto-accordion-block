@@ -6,7 +6,7 @@ import { Provider } from 'react-intl-redux';
 import { MemoryRouter, Route } from 'react-router-dom';
 import config from '@plone/volto/registry';
 import * as utils from './util';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 config.blocks.blocksConfig.accordion = {
   ...config.blocks.blocksConfig.accordion,
