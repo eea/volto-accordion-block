@@ -4,6 +4,7 @@ FROM plone/frontend-builder:${VOLTO_VERSION}
 
 ARG ADDON_NAME
 ARG ADDON_PATH
+ENV HOST="0.0.0.0"
 
 # Install Cypress dependencies (matching eeacms/frontend-builder)
 USER root

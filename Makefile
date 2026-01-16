@@ -161,6 +161,5 @@ check-ci:
 
 .PHONY: cypress-ci
 cypress-ci:
-	$(NODE_MODULES)/.bin/wait-on -t 240000  ${RAZZLE_DEV_PROXY_API_PATH}/@types
 	$(NODE_MODULES)/.bin/wait-on -t 240000  http://localhost:3000
 	CYPRESS_API_PATH="${RAZZLE_DEV_PROXY_API_PATH}" NODE_ENV=development  $(NODE_MODULES)/cypress/bin/cypress run --browser chromium
