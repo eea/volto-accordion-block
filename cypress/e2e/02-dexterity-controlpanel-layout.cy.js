@@ -88,14 +88,8 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
           .type('Once upon a time...{enter}', { force: true });
 
         cy.get('@chapter1Panel')
-          .find('.content .slate-editor [contenteditable=true]')
-          .should('have.length.at.least', 1)
-          .last()
-          .focus()
-          .click({ force: true })
-          .type('/', { force: true });
-        cy.wait(500);
-        cy.get('.power-user-menu a.item').should('have.length', 1);
+          .find('.content .ui.basic.icon.button.block-add-button:visible')
+          .should('have.length', 1);
       },
       () => {
         // Volto 17: accordion is closed
@@ -109,14 +103,8 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
           .type('Once upon a time...{enter}', { force: true });
 
         cy.get('@chapter1Panel')
-          .find('.content .slate-editor [contenteditable=true]')
-          .should('have.length.at.least', 1)
-          .last()
-          .focus()
-          .click({ force: true })
-          .type('/', { force: true });
-        cy.wait(500);
-        cy.get('.power-user-menu a.item').should('have.length', 1);
+          .find('.content .ui.basic.icon.button.block-add-button:visible')
+          .should('have.length', 1);
       },
     );
 
@@ -153,16 +141,13 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
       .type('The quick brown fox jumps over the lazy dog{enter}');
 
     cy.get(
-      '.accordion:nth-child(3) .content .slate-editor [contenteditable=true]',
+      '.accordion:nth-child(3) .content .ui.basic.icon.button.block-add-button:visible',
     )
       .last()
-      .focus()
-      .click()
-      .type('/');
-    cy.wait(500);
-    cy.get('.power-user-menu a.item').should('have.length', 1);
-    // Click directly on the menu item to insert the image block
-    cy.get('.power-user-menu a.item').first().click();
+      .click({ force: true });
+    cy.get('.blocks-chooser').contains('button', 'Image').click({
+      force: true,
+    });
 
     // Wait for the image block to be inserted and visible
     cy.wait(1000);
@@ -172,13 +157,14 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
       'https://eea.github.io/volto-eea-design-system/img/eea_icon.png';
 
     // In Volto, the image block has buttons for browse/upload/URL
-    // The third button (link icon) enables URL input mode
-    // Look in the image block for buttons and click the last one (link/URL)
+    // Use the dedicated "URL" image control instead of relying on button order,
+    // because the Volto 18 nested block actions add their own buttons too.
     cy.get('.accordion:nth-child(3) .content')
       .first()
       .within(() => {
-        // The image block has multiple buttons - click the link/URL button (usually last or has link icon)
-        cy.get('button.ui.button, button.icon').last().click({ force: true });
+        cy.get('button[aria-label="Enter a URL to an image"]').click({
+          force: true,
+        });
       });
 
     cy.wait(500);
