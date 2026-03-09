@@ -38,20 +38,9 @@
     margin-bottom: 2rem;
   }
 
-  .blocks-form .block-add-button {
-    display: none !important;
-  }
-
   .block.accordion.selected::before,
   .block.accordion:hover::before {
     border-style: dashed;
-  }
-
-  .add-block-button {
-    svg.circled {
-      padding: 0;
-      border: 1px solid currentColor;
-    }
   }
 
   fieldset {
@@ -111,31 +100,9 @@
     }
   }
 
-  .blocks-chooser {
-    right: 0;
-    left: auto;
-    margin-top: 3rem;
-  }
-
-  .block-toolbar {
-    position: absolute;
-    z-index: 3;
-    right: -9px;
-    display: flex;
-    border: 1px solid @borderColor;
-    border-bottom: 1px solid @pageBackground;
-    margin-top: -45px;
-    background-color: @pageBackground;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-
-    .ui.basic.button {
-      padding: 8px 5px;
-    }
-
-    .ui.basic.button:hover {
-      background: transparent !important;
-    }
+  .rah-static.rah-static--height-auto,
+  .ui.accordion .content.active {
+    overflow: visible;
   }
 
   // with z-index: -1 you don't get the hover and focused border for block child section
@@ -227,13 +194,5 @@
   div.rah-static.rah-static--height-zero > div {
     display: block !important;
     opacity: 1 !important;
-  }
-}
-
-.accordion-chooser {
-  z-index: 100;
-
-  .blocks-chooser {
-    position: static;
   }
 }

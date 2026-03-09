@@ -1,140 +1,179 @@
 import React from 'react';
-import { Icon } from '@plone/volto/components';
+import Icon from '@plone/volto/components/theme/Icon/Icon';
+import BlockChooserButton from '@plone/volto/components/manage/BlockChooser/BlockChooserButton';
 import {
+  applyBlockDefaults,
+  applyBlockInitialValue,
+  getBlocksFieldname,
   blockHasValue,
   buildStyleClassNamesFromData,
-} from '@plone/volto/helpers';
+  buildStyleClassNamesExtenders,
+  buildStyleObjectFromData,
+} from '@plone/volto/helpers/Blocks/Blocks';
 import config from '@plone/volto/registry';
 import { Button } from 'semantic-ui-react';
 import includes from 'lodash/includes';
 import isBoolean from 'lodash/isBoolean';
 import { defineMessages, injectIntl } from 'react-intl';
 import cx from 'classnames';
-import NewBlockAddButton from './NewBlockAddButton';
 
 import dragSVG from '@plone/volto/icons/drag.svg';
 import trashSVG from '@plone/volto/icons/delete.svg';
 
 const messages = defineMessages({
-  unknownBlock: {
-    id: 'Unknown Block',
-    defaultMessage: 'Unknown Block {block}',
+  deleteBlock: {
+    id: 'delete_block',
+    defaultMessage: 'delete {type} block',
   },
-  delete: {
-    id: 'delete',
-    defaultMessage: 'delete',
-  },
-  dragAndDrop: {
-    id: 'Drag and drop',
-    defaultMessage: 'Drag and drop',
-  },
-  removeBlock: {
-    id: 'Remove block',
-    defaultMessage: 'Remove block',
+  dragBlock: {
+    id: 'drag_block',
+    defaultMessage: 'drag {type} block',
   },
 });
 
 class EditBlockWrapper extends React.Component {
   render() {
-    const { intl, blockProps, draginfo, extraControls, disabled, children } =
-      this.props;
+    const { intl, blockProps, draginfo, disabled, children } = this.props;
 
     const {
+      allowedBlocks,
+      showRestricted,
       block,
-      data,
+      blocksConfig,
+      selected,
+      type,
+      onChangeBlock,
       onDeleteBlock,
       onInsertBlock,
       onSelectBlock,
-      selected,
-      index,
-      blocksConfig,
+      onMutateBlock,
+      data: originalData,
+      editable,
+      properties,
+      showBlockChooser,
+      navRoot,
+      contentType,
     } = blockProps;
-    const type = data['@type'];
-    const { disableNewBlocks } = data;
-    const dragVisible = !data.fixed;
-    const visible = selected;
+
+    const data = applyBlockDefaults({
+      data: originalData,
+      ...blockProps,
+      intl,
+    });
+    const visible =
+      selected &&
+      !disabled &&
+      !(
+        !!data.fixed ||
+        (!config.experimental.addBlockButton.enabled &&
+          !(blockHasValue(data) && editable))
+      );
 
     const required = isBoolean(data.required)
       ? data.required
       : includes(config.blocks.requiredBlocks, type);
 
-    const styles = buildStyleClassNamesFromData(data.styles);
+    let classNames = buildStyleClassNamesFromData(data.styles);
+    classNames = buildStyleClassNamesExtenders({
+      block,
+      content: properties,
+      data,
+      classNames,
+    });
+    const style = buildStyleObjectFromData(data);
+    const styleMergedWithDragProps = {
+      ...draginfo.draggableProps,
+      style: { ...style, ...draginfo.draggableProps.style },
+    };
 
     return (
-      <div>
-        <div
-          ref={draginfo?.innerRef}
-          {...(selected ? draginfo?.draggableProps : null)}
-          className={cx(`block-editor-${data['@type']}`, styles, {
-            [data.align]: data.align,
-          })}
-        >
-          {(!selected || !visible || disabled) && (
+      <div
+        ref={draginfo.innerRef}
+        {...styleMergedWithDragProps}
+        className={cx(`block-editor-${data['@type']}`, classNames, {
+          [data.align]: data.align,
+        })}
+      >
+        <div style={{ position: 'relative' }}>
+          <div
+            style={{
+              visibility: visible ? 'visible' : 'hidden',
+              display: 'inline-block',
+            }}
+            {...(!disabled ? draginfo.dragHandleProps : {})}
+            className="drag handle wrapper"
+            aria-label={intl.formatMessage(messages.dragBlock, { type })}
+          >
+            <Icon name={dragSVG} size="18px" />
+          </div>
+          <div
+            className={cx('ui drag block inner', type, {
+              multiSelected: this.props.multiSelected,
+            })}
+          >
+            {children}
+            {!disabled && selected && !required && editable && (
+              <Button
+                type="button"
+                icon
+                basic
+                onClick={() => onDeleteBlock(block, true)}
+                className="delete-button"
+                aria-label={intl.formatMessage(messages.deleteBlock, {
+                  type,
+                })}
+              >
+                <Icon name={trashSVG} size="18px" />
+              </Button>
+            )}
+            {!disabled &&
+              config.experimental.addBlockButton.enabled &&
+              showBlockChooser && (
+                <BlockChooserButton
+                  data={data}
+                  block={block}
+                  onInsertBlock={(id, value) => {
+                    if (blockHasValue(data)) {
+                      onSelectBlock(onInsertBlock(id, value));
+                    } else {
+                      const blocksFieldname = getBlocksFieldname(properties);
+                      const newFormData = applyBlockInitialValue({
+                        id,
+                        value,
+                        blocksConfig,
+                        formData: {
+                          ...properties,
+                          [blocksFieldname]: {
+                            ...properties[blocksFieldname],
+                            [id]: value || null,
+                          },
+                        },
+                        intl,
+                      });
+                      const newValue = newFormData[blocksFieldname][id];
+                      onChangeBlock(id, newValue);
+                    }
+                  }}
+                  onMutateBlock={onMutateBlock}
+                  allowedBlocks={allowedBlocks}
+                  showRestricted={showRestricted}
+                  blocksConfig={blocksConfig}
+                  size="24px"
+                  properties={properties}
+                  navRoot={navRoot}
+                  contentType={contentType}
+                />
+              )}
+          </div>
+          {disabled && (
             <div
               style={{
                 display: 'none',
                 // keep react-beautiful-dnd happy
               }}
               {...draginfo.dragHandleProps}
-            ></div>
+            />
           )}
-          {visible && (
-            <div className="block-toolbar">
-              {extraControls}
-
-              {!disabled && (
-                <>
-                  <div
-                    style={{
-                      display: dragVisible ? 'inline-block' : 'none',
-                    }}
-                    {...draginfo.dragHandleProps}
-                    className="drag handle wrapper-accordion-block"
-                  >
-                    <Button
-                      icon
-                      basic
-                      title={intl.formatMessage(messages.dragAndDrop)}
-                    >
-                      <Icon name={dragSVG} size="19px" />
-                    </Button>
-                  </div>
-
-                  {!disableNewBlocks && !blockHasValue(data) && (
-                    <NewBlockAddButton
-                      block={block}
-                      index={index}
-                      blocksConfig={blocksConfig}
-                      onInsertBlock={(id, value) => {
-                        onSelectBlock(onInsertBlock(id, value));
-                      }}
-                    />
-                  )}
-
-                  {!required && (
-                    <Button
-                      icon
-                      basic
-                      title={intl.formatMessage(messages.removeBlock)}
-                      onClick={() => onDeleteBlock(block)}
-                      className="delete-button-accordion-block"
-                      aria-label={intl.formatMessage(messages.delete)}
-                    >
-                      <Icon name={trashSVG} size="19px" color="#e40166" />
-                    </Button>
-                  )}
-                </>
-              )}
-            </div>
-          )}
-
-          <div
-            className={cx('ui drag block wrapper inner', type, {
-              multiSelected: this.props.multiSelected,
-            })}
-          >
-            {children}
-          </div>
         </div>
       </div>
     );
