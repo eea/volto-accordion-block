@@ -16,7 +16,6 @@ import { Segment } from 'semantic-ui-react';
 import { useIntl } from 'react-intl';
 import AccordionEdit from './AccordionEdit';
 import AccordionFilter from './AccordionFilter';
-import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
 import { AccordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
@@ -86,10 +85,6 @@ const Edit = (props) => {
     setSelectedBlock({ [uid]: selected });
     setCurrentUid(uid);
     setMultiSelected(newMultiSelected);
-  };
-
-  const searchElementInMultiSelection = (uid, blockprops) => {
-    return !!multiSelected.find((el) => el === blockprops.block);
   };
 
   const applySchemaEnhancer = (originalSchema) => {
@@ -274,7 +269,11 @@ const Edit = (props) => {
   return (
     <>
       {data.headline && <h2 className="headline">{data.headline}</h2>}
-      <fieldset className="accordion-block">
+      <fieldset
+        className={`accordion-block${
+          data.disableInnerButtons ? ' disable-inner-buttons' : ''
+        }`}
+      >
         <legend
           onClick={() => {
             setSelectedBlock({});
@@ -323,6 +322,7 @@ const Edit = (props) => {
                 metadata={metadata}
                 properties={isEmpty(panel) ? emptyBlocksForm() : panel}
                 selectedBlock={selected ? selectedBlock[uid] : null}
+                multiSelected={multiSelected}
                 isMainForm={false}
                 stopPropagation={selectedBlock[uid]}
                 onSelectBlock={(id, l, e) => {
@@ -364,23 +364,7 @@ const Edit = (props) => {
                   }
                 }}
                 pathname={pathname}
-              >
-                {({ draginfo }, editBlock, blockProps) => {
-                  return (
-                    <EditBlockWrapper
-                      draginfo={draginfo}
-                      blockProps={blockProps}
-                      disabled={data.disableInnerButtons}
-                      multiSelected={searchElementInMultiSelection(
-                        uid,
-                        blockProps,
-                      )}
-                    >
-                      {editBlock}
-                    </EditBlockWrapper>
-                  );
-                }}
-              </BlocksForm>
+              />
             </AccordionEdit>
           ))}
         {selected ? (

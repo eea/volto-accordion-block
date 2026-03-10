@@ -72,6 +72,18 @@
         position: relative;
       }
     }
+
+    &.disable-inner-buttons {
+      .block-add-button,
+      .delete-button {
+        display: none !important;
+      }
+
+      .drag.handle.wrapper {
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
   }
 
   .power-user-menu {
@@ -176,10 +188,7 @@
   .input-accordion-title {
     width: 100%;
   }
-}
-
-.multiSelected {
-  .block::before {
+  .block.multiSelected::before {
     z-index: 1;
     background-color: rgba(120, 192, 215, 0.375);
   }
