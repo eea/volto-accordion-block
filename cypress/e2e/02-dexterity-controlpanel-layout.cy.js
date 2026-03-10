@@ -93,7 +93,7 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
       },
       () => {
         // Volto 17: accordion is closed
-        cy.get('@chapter1Panel').find('svg').click();
+        cy.get('@chapter1Panel').find('.title svg').first().click();
         cy.get('@chapter1Panel')
           .find('.content .slate-editor [contenteditable=true]')
           .should('have.length.at.least', 1)
@@ -156,27 +156,35 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
     const url =
       'https://eea.github.io/volto-eea-design-system/img/eea_icon.png';
 
-    // In Volto, the image block has buttons for browse/upload/URL
-    // Use the dedicated "URL" image control instead of relying on button order,
-    // because the Volto 18 nested block actions add their own buttons too.
-    cy.get('.accordion:nth-child(3) .content')
-      .first()
-      .within(() => {
-        cy.get('button[aria-label="Enter a URL to an image"]').click({
-          force: true,
-        });
-      });
-
-    cy.wait(500);
-
-    // Now the URL input should be visible - find and fill it
-    cy.get(
-      '.accordion:nth-child(3) .content input[type="text"], .accordion:nth-child(3) .content .ui.input input',
-    )
-      .first()
-      .click({ force: true })
-      .clear({ force: true })
-      .type(`${url}{enter}`, { force: true });
+    // Volto 18 has a dedicated "link" button to enter URL, while Volto 17
+    // shows an input field directly.
+    cy.getIfExists(
+      '.accordion:nth-child(3) .content button[aria-label="Enter a URL to an image"]',
+      () => {
+        // Volto 18: click the link button then type URL in the link editor
+        cy.get(
+          '.accordion:nth-child(3) .content button[aria-label="Enter a URL to an image"]',
+        ).click({ force: true });
+        cy.wait(500);
+        cy.get(
+          '.accordion:nth-child(3) .content input[type="text"]',
+        )
+          .first()
+          .click({ force: true })
+          .clear({ force: true })
+          .type(`${url}{enter}`, { force: true });
+      },
+      () => {
+        // Volto 17: input field is directly visible
+        cy.get(
+          '.accordion:nth-child(3) .content .ui.input input, .accordion:nth-child(3) .content input[type="text"]',
+        )
+          .first()
+          .click({ force: true })
+          .clear({ force: true })
+          .type(`${url}{enter}`, { force: true });
+      },
+    );
 
     cy.get('.accordion:nth-child(4) > .title input')
       .click()
