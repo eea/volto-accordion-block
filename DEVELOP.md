@@ -28,9 +28,9 @@
 
 ### Or add @eeacms/volto-accordion-block to your Volto project
 
-Before starting make sure your development environment is properly set. See the official Plone documentation for [creating a project with Cookieplone](https://6.docs.plone.org/install/create-project-cookieplone.html) and [installing an add-on in development mode in Volto 18 and 19](https://6.docs.plone.org/volto/development/addons/install-an-add-on-in-development-mode-volto-18.html).
+Before starting make sure your development environment is properly set. See the official Plone documentation for [creating a project with Cookieplone](https://6.docs.plone.org/install/create-project-cookieplone.html) and [installing an add-on in development mode in Volto 18 and 19](https://6.docs.plone.org/volto/development/add-ons/install-an-add-on-dev-18.html).
 
-For new Volto 18+ projects, use Cookieplone. The official Plone documentation deprecated `@plone/volto-generator` in Volto 18, and Cookieplone includes `mrs-developer` by default.
+For new Volto 18+ projects, use Cookieplone. It includes `mrs-developer` by default.
 
 1.  Create a new Volto project with Cookieplone
 
@@ -73,7 +73,7 @@ For new Volto 18+ projects, use Cookieplone. The official Plone documentation de
 
         cd packages/volto-accordion-block
 
-For legacy Volto 17 projects, keep using the yarn-based workflow from the Volto 17 documentation, but do not use `@plone/volto-generator` for new projects.
+For legacy Volto 17 projects, keep using the yarn-based workflow from the Volto 17 documentation.
 
 ## Cypress
 
