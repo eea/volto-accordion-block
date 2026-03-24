@@ -89,6 +89,18 @@ Go to http://localhost:3000
 
 1. Happy editing!
 
+## Upgrade
+
+### Upgrading to 13.x
+
+> This version requires `Volto >= 17.18` or `Volto 18+`. It removes the custom `EditBlockWrapper` and `NewBlockAddButton` components in favor of Volto's built-in block chrome provided by `BlocksForm`.
+
+#### Breaking changes
+
+- **Removed the "Section help" button.** The `?` icon that appeared in the inner block toolbar and opened the sidebar to display editing instructions has been removed. The `instructions` field is still available in the accordion schema and still rendered in the sidebar panel, but there is no longer a per-block shortcut button to reveal it.
+- **Removed `EditBlockWrapper.jsx` and `NewBlockAddButton.jsx`.** Any code importing these from `@eeacms/volto-accordion-block` will break. Use Volto's built-in `EditBlockWrapper` from `@plone/volto/components/manage/Blocks/Block/EditBlockWrapper` if you need a custom wrapper.
+- **`disableInnerButtons`** is now implemented via a CSS class (`.disable-inner-buttons`) instead of a JS-level `disabled` prop on the removed wrapper.
+
 ## Release
 
 See [RELEASE.md](https://github.com/eea/volto-accordion-block/blob/master/RELEASE.md).
