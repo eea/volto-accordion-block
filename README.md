@@ -39,6 +39,11 @@ Go to http://localhost:3000
       VOLTO_VERSION=17 make
       VOLTO_VERSION=17 make start
 
+To reproduce the Volto Light Theme integration, set `VLT_ENABLED` to any non-empty value, for example:
+
+      VLT_ENABLED=1 make
+      VLT_ENABLED=1 make start
+
 ### Add volto-accordion-block to your Volto project
 
 1. Make sure you have a [Plone backend](https://plone.org/download) up-and-running at http://localhost:8080/Plone
