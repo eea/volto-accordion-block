@@ -1,6 +1,5 @@
 import {
   BlocksForm,
-  Icon,
   SidebarPortal,
   BlocksToolbar,
   BlockDataForm,
@@ -11,33 +10,16 @@ import {
   withBlockExtensions,
 } from '@plone/volto/helpers';
 import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
-import helpSVG from '@plone/volto/icons/help.svg';
 import { isEmpty, without, pickBy } from 'lodash';
 import React, { useState } from 'react';
-import { Button, Segment } from 'semantic-ui-react';
-import { defineMessages, useIntl } from 'react-intl';
+import { Segment } from 'semantic-ui-react';
+import { useIntl } from 'react-intl';
 import AccordionEdit from './AccordionEdit';
 import AccordionFilter from './AccordionFilter';
-import EditBlockWrapper from './EditBlockWrapper';
 import './editor.less';
 import { AccordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
 import config from '@plone/volto/registry';
-
-const messages = defineMessages({
-  SectionHelp: {
-    id: 'Section help',
-    defaultMessage: 'Section help',
-  },
-  AccordionBlock: {
-    id: 'Accordion block',
-    defaultMessage: 'Accordion block',
-  },
-  Accordion: {
-    id: 'Accordion',
-    defaultMessage: 'Accordion',
-  },
-});
 
 const Edit = (props) => {
   const [selectedBlock, setSelectedBlock] = useState({});
@@ -103,10 +85,6 @@ const Edit = (props) => {
     setSelectedBlock({ [uid]: selected });
     setCurrentUid(uid);
     setMultiSelected(newMultiSelected);
-  };
-
-  const searchElementInMultiSelection = (uid, blockprops) => {
-    return !!multiSelected.find((el) => el === blockprops.block);
   };
 
   const applySchemaEnhancer = (originalSchema) => {
@@ -291,7 +269,11 @@ const Edit = (props) => {
   return (
     <>
       {data.headline && <h2 className="headline">{data.headline}</h2>}
-      <fieldset className="accordion-block">
+      <fieldset
+        className={`accordion-block${
+          data.disableInnerButtons ? ' disable-inner-buttons' : ''
+        }`}
+      >
         <legend
           onClick={() => {
             setSelectedBlock({});
@@ -340,6 +322,7 @@ const Edit = (props) => {
                 metadata={metadata}
                 properties={isEmpty(panel) ? emptyBlocksForm() : panel}
                 selectedBlock={selected ? selectedBlock[uid] : null}
+                multiSelected={multiSelected}
                 isMainForm={false}
                 stopPropagation={selectedBlock[uid]}
                 onSelectBlock={(id, l, e) => {
@@ -381,43 +364,7 @@ const Edit = (props) => {
                   }
                 }}
                 pathname={pathname}
-              >
-                {({ draginfo }, editBlock, blockProps) => {
-                  return (
-                    <EditBlockWrapper
-                      draginfo={draginfo}
-                      blockProps={blockProps}
-                      disabled={data.disableInnerButtons}
-                      multiSelected={searchElementInMultiSelection(
-                        uid,
-                        blockProps,
-                      )}
-                      extraControls={
-                        <>
-                          {instructions && (
-                            <>
-                              <Button
-                                icon
-                                basic
-                                title={intl.formatMessage(messages.SectionHelp)}
-                                onClick={() => {
-                                  setSelectedBlock({});
-                                  const tab = manage ? 0 : 1;
-                                  props.setSidebarTab(tab);
-                                }}
-                              >
-                                <Icon name={helpSVG} className="" size="19px" />
-                              </Button>
-                            </>
-                          )}
-                        </>
-                      }
-                    >
-                      {editBlock}
-                    </EditBlockWrapper>
-                  );
-                }}
-              </BlocksForm>
+              />
             </AccordionEdit>
           ))}
         {selected ? (

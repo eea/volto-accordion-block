@@ -9,35 +9,53 @@ import config from '@plone/volto/registry';
 
 jest.mock('@plone/volto/components', () => ({
   BlocksForm: jest.fn(
-    ({ children, onSelectBlock, onChangeFormData, properties }) => {
+    ({
+      children,
+      multiSelected,
+      onSelectBlock,
+      onChangeFormData,
+      properties,
+    }) => {
       const blockList = properties.blocks
         ? Object.entries(properties.blocks)
         : [];
       return (
-        <div>
+        <div
+          data-testid={`blocks-form-${properties.title || 'untitled'}`}
+          data-multi-selected={(multiSelected || []).join(',')}
+        >
           {blockList.map(([blockId, blockData], index) => (
             <div key={blockId}>
-              {children(
-                {
-                  child: blockData,
-                  childId: blockId,
-                  index,
-                },
-                <div>EditBlock</div>,
-                {
-                  allowedBlocks: [],
-                  block: blockId,
-                  data: blockData,
-                  id: blockId,
-                  index,
-                  onChangeBlock: jest.fn(),
-                  onSelectBlock,
-                  onChangeFormData,
-                  properties,
-                  selected: false,
-                  type: blockData['@type'],
-                },
-              )}
+              <button
+                type="button"
+                aria-label={`Select ${blockId}`}
+                onClick={(e) => onSelectBlock?.(blockId, null, e)}
+              >
+                Select {blockId}
+              </button>
+              {typeof children === 'function'
+                ? children(
+                    {
+                      child: blockData,
+                      childId: blockId,
+                      index,
+                    },
+                    <div>EditBlock</div>,
+                    {
+                      allowedBlocks: [],
+                      block: blockId,
+                      data: blockData,
+                      id: blockId,
+                      index,
+                      onChangeBlock: jest.fn(),
+                      onSelectBlock,
+                      onChangeFormData,
+                      properties,
+                      selected: false,
+                      type: blockData['@type'],
+                    },
+                  )
+                : null}
             </div>
           ))}
         </div>
@@ -95,6 +113,14 @@ const mockData = {
       1: {
         '@type': 'accordionPanel',
         title: 'Panel 1',
+        blocks: {
+          block1: {
+            '@type': 'text',
+          },
+          block2: {
+            '@type': 'text',
+          },
+        },
         blocks_layout: {
           items: ['block1', 'block2'],
         },
@@ -102,6 +128,14 @@ const mockData = {
       2: {
         '@type': 'accordionPanel',
         title: 'Panel 2',
+        blocks: {
+          block3: {
+            '@type': 'text',
+          },
+          block4: {
+            '@type': 'text',
+          },
+        },
         blocks_layout: {
           items: ['block3', 'block4'],
         },
@@ -114,6 +148,10 @@ const mockData = {
 };
 
 describe('Edit Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders the accordion title correctly', () => {
     const onChangeBlock = jest.fn();
     render(
@@ -197,5 +235,44 @@ describe('Edit Component', () => {
       </Provider>,
     );
     expect(screen.getByText('BlockDataForm')).toBeInTheDocument();
+  });
+
+  it('adds the disable-inner-buttons modifier when configured', () => {
+    const onChangeBlock = jest.fn();
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit
+            data={{ ...mockData, disableInnerButtons: true }}
+            onChangeBlock={onChangeBlock}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    expect(screen.getByText('Accordion').closest('fieldset')).toHaveClass(
+      'disable-inner-buttons',
+    );
+  });
+
+  it('forwards nested multi-selected blocks to BlocksForm', () => {
+    const onChangeBlock = jest.fn();
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={mockData} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Select block1' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Select block2' }), {
+      shiftKey: true,
+    });
+
+    expect(screen.getByTestId('blocks-form-Panel 1')).toHaveAttribute(
+      'data-multi-selected',
+      'block1,block2',
+    );
   });
 });
