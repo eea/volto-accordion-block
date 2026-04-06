@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
-import { map } from 'lodash';
+import map from 'lodash/map';
 
-import { Icon as VoltoIcon } from '@plone/volto/components';
+import VoltoIcon from '@plone/volto/components/theme/Icon/Icon';
 import { Icon as SemanticIcon } from 'semantic-ui-react';
 
 import {
@@ -9,7 +9,7 @@ import {
   getBlocksLayoutFieldname,
   blockHasValue,
   emptyBlocksForm,
-} from '@plone/volto/helpers';
+} from '@plone/volto/helpers/Blocks/Blocks';
 
 export const emptyAccordion = (count) => {
   const blocks = {};
