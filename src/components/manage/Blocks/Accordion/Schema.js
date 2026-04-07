@@ -1,6 +1,6 @@
 import config from '@plone/volto/registry';
 import { defineMessages } from 'react-intl';
-import { addStyling } from '@plone/volto/helpers';
+import { addStyling } from '@plone/volto/helpers//Extensions';
 
 const messages = defineMessages({
   Accordion: {

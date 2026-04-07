@@ -1,16 +1,16 @@
-import {
-  BlocksForm,
-  SidebarPortal,
-  BlocksToolbar,
-  BlockDataForm,
-} from '@plone/volto/components';
+import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal';
+import BlocksForm from '@plone/volto/components/manage/Blocks/Block/BlocksForm';
+import BlocksToolbar from '@plone/volto/components/manage/Form/BlocksToolbar';
+import BlockDataForm from '@plone/volto/components/manage/Form/BlockDataForm';
 import {
   emptyBlocksForm,
   getBlocksLayoutFieldname,
-  withBlockExtensions,
-} from '@plone/volto/helpers';
+} from '@plone/volto/helpers/Blocks/Blocks';
+import { withBlockExtensions } from '@plone/volto/helpers//Extensions';
 import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
-import { isEmpty, without, pickBy } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import without from 'lodash/without';
+import pickBy from 'lodash/pickBy';
 import React, { useState } from 'react';
 import { Segment } from 'semantic-ui-react';
 import { useIntl } from 'react-intl';
