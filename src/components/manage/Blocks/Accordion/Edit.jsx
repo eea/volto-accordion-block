@@ -1,9 +1,7 @@
 import SidebarPortal from '@plone/volto/components/manage/Sidebar/SidebarPortal';
-import {
-  BlocksForm,
-  BlocksToolbar,
-  BlockDataForm,
-} from '@plone/volto/components/manage/Form';
+import BlocksForm from '@plone/volto/components/manage/Blocks/Block/BlocksForm';
+import BlocksToolbar from '@plone/volto/components/manage/Form/BlocksToolbar';
+import BlockDataForm from '@plone/volto/components/manage/Form/BlockDataForm';
 import {
   emptyBlocksForm,
   getBlocksLayoutFieldname,
