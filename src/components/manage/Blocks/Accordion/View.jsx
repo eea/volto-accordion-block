@@ -1,11 +1,11 @@
 import React from 'react';
 import { getPanels, accordionBlockHasValue, Icon } from './util';
 import { Accordion } from 'semantic-ui-react';
-import { withBlockExtensions } from '@plone/volto/helpers';
+import { withBlockExtensions } from '@plone/volto/helpers//Extensions';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import cx from 'classnames';
-import { RenderBlocks } from '@plone/volto/components';
+import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
 import AnimateHeight from 'react-animate-height';
 import config from '@plone/volto/registry';
 import './editor.less';

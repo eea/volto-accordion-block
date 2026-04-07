@@ -7,8 +7,9 @@ import '@testing-library/jest-dom';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
 
-jest.mock('@plone/volto/components', () => ({
-  BlocksForm: jest.fn(
+jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
+  __esModule: true,
+  default: jest.fn(
     ({
       children,
       multiSelected,
@@ -62,14 +63,28 @@ jest.mock('@plone/volto/components', () => ({
       );
     },
   ),
-  Icon: () => <div>Icon</div>,
-  SidebarPortal: ({ children }) => <div>{children}</div>,
-  BlocksToolbar: () => <div>BlocksToolbar</div>,
-  BlockDataForm: () => <div>BlockDataForm</div>,
 }));
 
-jest.mock('@plone/volto/helpers', () => ({
+jest.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
+  __esModule: true,
+  default: () => <div>BlocksToolbar</div>,
+}));
+
+jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
+  __esModule: true,
+  default: () => <div>BlockDataForm</div>,
+}));
+
+jest.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
+  __esModule: true,
+  default: ({ children }) => <div>{children}</div>,
+}));
+
+jest.mock('@plone/volto/helpers//Extensions', () => ({
   withBlockExtensions: jest.fn((Component) => Component),
+}));
+
+jest.mock('@plone/volto/helpers/Blocks/Blocks', () => ({
   emptyBlocksForm: jest.fn(),
   getBlocksLayoutFieldname: () => 'blocks_layout',
 }));
@@ -107,6 +122,7 @@ const store = mockStore({
 });
 
 const mockData = {
+  '@type': 'accordion',
   title: 'Accordion',
   data: {
     blocks: {

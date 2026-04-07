@@ -40,13 +40,13 @@ const store = mockStore({
   },
 });
 
-jest.mock('@plone/volto/helpers', () => ({
+jest.mock('@plone/volto/helpers//Extensions', () => ({
   withBlockExtensions: jest.fn((Component) => Component),
 }));
 
-jest.mock('@plone/volto/components', () => ({
-  RenderBlocks: jest.fn(() => <div>RenderBlocks</div>),
-  Icon: () => <div>Icon</div>,
+jest.mock('@plone/volto/components/theme/View/RenderBlocks', () => ({
+  __esModule: true,
+  default: jest.fn(() => <div>RenderBlocks</div>),
 }));
 
 jest.mock('./util', () => ({
@@ -56,6 +56,7 @@ jest.mock('./util', () => ({
 }));
 
 const mockData = {
+  '@type': 'accordion',
   title_size: 'h3',
   right_arrows: true,
   collapsed: false,
@@ -67,6 +68,7 @@ const mockData = {
 };
 
 const mockData1 = {
+  '@type': 'accordion',
   title_size: 'h3',
   right_arrows: false,
   collapsed: true,
@@ -75,6 +77,7 @@ const mockData1 = {
 };
 
 const mockData2 = {
+  '@type': 'accordion',
   data: {
     blocks: {
       1: {
