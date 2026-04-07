@@ -7,7 +7,7 @@ import { useIntl, defineMessages } from 'react-intl';
 import { Button } from 'semantic-ui-react';
 import Icon from '@plone/volto/components/theme/Icon/Icon';
 import DragDropList from '@plone/volto/components/manage/DragDropList/DragDropList';
-import { FormFieldWrapper } from '@plone/volto/components/manage/Widgets';
+import FormFieldWrapper from '@plone/volto/components/manage/Widgets/FormFieldWrapper';
 import { emptyBlocksForm } from '@plone/volto/helpers/Blocks/Blocks';
 
 import addSVG from '@plone/volto/icons/add.svg';
