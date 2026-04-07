@@ -7,66 +7,63 @@ import '@testing-library/jest-dom';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
 
-jest.mock(
-  '@plone/volto/components/manage/Blocks/Block/BlocksForm',
-  () => ({
-    __esModule: true,
-    default: jest.fn(
-      ({
-        children,
-        multiSelected,
-        onSelectBlock,
-        onChangeFormData,
-        properties,
-      }) => {
-        const blockList = properties.blocks
-          ? Object.entries(properties.blocks)
-          : [];
-        return (
-          <div
-            data-testid={`blocks-form-${properties.title || 'untitled'}`}
-            data-multi-selected={(multiSelected || []).join(',')}
-          >
-            {blockList.map(([blockId, blockData], index) => (
-              <div key={blockId}>
-                <button
-                  type="button"
-                  aria-label={`Select ${blockId}`}
-                  onClick={(e) => onSelectBlock?.(blockId, null, e)}
-                >
-                  Select {blockId}
-                </button>
-                {typeof children === 'function'
-                  ? children(
-                      {
-                        child: blockData,
-                        childId: blockId,
-                        index,
-                      },
-                      <div>EditBlock</div>,
-                      {
-                        allowedBlocks: [],
-                        block: blockId,
-                        data: blockData,
-                        id: blockId,
-                        index,
-                        onChangeBlock: jest.fn(),
-                        onSelectBlock,
-                        onChangeFormData,
-                        properties,
-                        selected: false,
-                        type: blockData['@type'],
-                      },
-                    )
-                  : null}
-              </div>
-            ))}
-          </div>
-        );
-      },
-    ),
-  }),
-);
+jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
+  __esModule: true,
+  default: jest.fn(
+    ({
+      children,
+      multiSelected,
+      onSelectBlock,
+      onChangeFormData,
+      properties,
+    }) => {
+      const blockList = properties.blocks
+        ? Object.entries(properties.blocks)
+        : [];
+      return (
+        <div
+          data-testid={`blocks-form-${properties.title || 'untitled'}`}
+          data-multi-selected={(multiSelected || []).join(',')}
+        >
+          {blockList.map(([blockId, blockData], index) => (
+            <div key={blockId}>
+              <button
+                type="button"
+                aria-label={`Select ${blockId}`}
+                onClick={(e) => onSelectBlock?.(blockId, null, e)}
+              >
+                Select {blockId}
+              </button>
+              {typeof children === 'function'
+                ? children(
+                    {
+                      child: blockData,
+                      childId: blockId,
+                      index,
+                    },
+                    <div>EditBlock</div>,
+                    {
+                      allowedBlocks: [],
+                      block: blockId,
+                      data: blockData,
+                      id: blockId,
+                      index,
+                      onChangeBlock: jest.fn(),
+                      onSelectBlock,
+                      onChangeFormData,
+                      properties,
+                      selected: false,
+                      type: blockData['@type'],
+                    },
+                  )
+                : null}
+            </div>
+          ))}
+        </div>
+      );
+    },
+  ),
+}));
 
 jest.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
   __esModule: true,
