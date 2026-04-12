@@ -91,10 +91,10 @@ describe('Accordion Block: Edge Cases Tests', () => {
     cy.get('.blocks-chooser .title').contains('Common').click();
     cy.get('.content.active.common .button.accordion').click({ force: true });
 
-    // Add multiple panels
-    for (let i = 2; i <= 6; i++) {
-      cy.get(`.accordion:nth-child(${i}) > .title input`).type(`Panel ${i-1}`);
-    }
+    // Add multiple panels (3 panels - accordion creates 3 by default)
+    cy.get('.accordion:nth-child(2) > .title input').type('Panel One');
+    cy.get('.accordion:nth-child(3) > .title input').type('Panel Two');
+    cy.get('.accordion:nth-child(4) > .title input').type('Panel Three');
 
     // Save
     cy.get('#toolbar-save').click();
