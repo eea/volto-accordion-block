@@ -1,138 +1,93 @@
 import { slateBeforeEach, slateAfterEach } from '../support/e2e';
 
+const setPageTitle = (title) => {
+  cy.clearSlateTitle();
+  cy.getSlateTitle().type(title);
+  cy.get('.documentFirstHeading').contains(title);
+};
+
+const addAccordionBlock = () => {
+  cy.getSlate().click();
+  cy.get('.ui.basic.icon.button.block-add-button').first().click();
+  cy.get('.blocks-chooser .title').contains('Common').click();
+  cy.get('.content.active.common .button.accordion')
+    .contains('Accordion')
+    .click({ force: true });
+};
+
+const addPanelTitles = (titles) => {
+  titles.forEach((title, index) => {
+    cy.get(`.accordion:nth-child(${index + 2}) > .title input`).type(title);
+  });
+};
+
+const setCheckbox = (field, checked) => {
+  cy.get(`input#field-${field}`).then(($input) => {
+    const isChecked = $input.prop('checked');
+    if (isChecked !== checked) {
+      cy.wrap($input)[checked ? 'check' : 'uncheck']({ force: true });
+    }
+  });
+};
+
 describe('Accordion Block: Settings Tests', () => {
   beforeEach(slateBeforeEach);
   afterEach(slateAfterEach);
 
-  it('Accordion Block: Multiple panels open', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Multiple Panels');
+  it('keeps panels collapsed by default', () => {
+    setPageTitle('Accordion Collapsed Default');
+    addAccordionBlock();
+    addPanelTitles(['First Panel', 'Second Panel']);
 
-    cy.getSlate().click();
+    cy.get('.accordion-block legend').click();
+    setCheckbox('collapsed', true);
 
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion')
-      .contains('Accordion')
-      .click({ force: true });
-
-    // Add panel titles
-    cy.get('.accordion:nth-child(2) > .title input').type('First Panel');
-    cy.get('.accordion:nth-child(3) > .title input').type('Second Panel');
-    cy.get('.accordion:nth-child(4) > .title input').type('Third Panel');
-
-    // Save
     cy.get('#toolbar-save').click();
-    cy.contains('Accordion Multiple Panels');
-    cy.contains('First Panel');
-    cy.contains('Second Panel');
-    cy.contains('Third Panel');
+    cy.url().should('eq', `${Cypress.config().baseUrl}/cypress/my-page`);
+
+    cy.get('.accordion .content.active').should('have.length', 0);
+    cy.get('.accordion').eq(0).find('.accordion-title').click();
+    cy.get('.accordion').eq(0).find('.content').should('have.class', 'active');
   });
 
-  it('Accordion Block: Panel with different title lengths', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Title Lengths');
+  it('allows multiple open panels when non-exclusive is enabled', () => {
+    setPageTitle('Accordion Non Exclusive');
+    addAccordionBlock();
+    addPanelTitles(['Panel A', 'Panel B', 'Panel C']);
 
-    cy.getSlate().click();
+    cy.get('.accordion-block legend').click();
+    setCheckbox('collapsed', true);
+    setCheckbox('non_exclusive', true);
 
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panels with different title lengths
-    cy.get('.accordion:nth-child(2) > .title input').type('Short');
-    cy.get('.accordion:nth-child(3) > .title input').type('Medium length panel title');
-    cy.get('.accordion:nth-child(4) > .title input').type('This is a very long panel title that tests how the accordion handles longer text content');
-
-    // Save
     cy.get('#toolbar-save').click();
-    cy.contains('Accordion Title Lengths');
+    cy.url().should('eq', `${Cypress.config().baseUrl}/cypress/my-page`);
+
+    cy.get('.accordion').eq(0).find('.accordion-title').click();
+    cy.get('.accordion').eq(1).find('.accordion-title').click();
+
+    cy.get('.accordion').eq(0).find('.content').should('have.class', 'active');
+    cy.get('.accordion').eq(1).find('.content').should('have.class', 'active');
   });
 
-  it('Accordion Block: Default collapsed state', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Default State');
+  it('closes previous panel when non-exclusive is disabled', () => {
+    setPageTitle('Accordion Exclusive');
+    addAccordionBlock();
+    addPanelTitles(['Panel A', 'Panel B']);
 
-    cy.getSlate().click();
+    cy.get('.accordion-block legend').click();
+    setCheckbox('collapsed', true);
+    setCheckbox('non_exclusive', false);
 
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel
-    cy.get('.accordion:nth-child(2) > .title input').type('Default Panel');
-
-    // Verify panels exist (collapsed by default is expected behavior)
-    cy.get('.accordion').should('exist');
-
-    // Save
     cy.get('#toolbar-save').click();
-    cy.contains('Accordion Default State');
-  });
+    cy.url().should('eq', `${Cypress.config().baseUrl}/cypress/my-page`);
 
-  it('Accordion Block: Title size via sidebar', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Title Size');
+    cy.get('.accordion').eq(0).find('.accordion-title').click();
+    cy.get('.accordion').eq(1).find('.accordion-title').click();
 
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel
-    cy.get('.accordion:nth-child(2) > .title input').type('H2 Panel Title');
-
-    // Set title size via sidebar (using the pattern from 01-blocks-accordion.cy.js)
-    cy.get('[id="field-title_size"] .react-select__value-container')
-      .click()
-      .type('h2{enter}');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Title Size');
-    cy.get('h2.accordion-title').contains('H2 Panel Title');
-  });
-
-  it('Accordion Block: Custom headline', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Headline');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel
-    cy.get('.accordion:nth-child(2) > .title input').type('Panel with Headline');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Headline');
-  });
-
-  it('Accordion Block: Block title field', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Block Title');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel
-    cy.get('.accordion:nth-child(2) > .title input').type('Panel Content');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Block Title');
+    cy.get('.accordion')
+      .eq(0)
+      .find('.content')
+      .should('not.have.class', 'active');
+    cy.get('.accordion').eq(1).find('.content').should('have.class', 'active');
   });
 });

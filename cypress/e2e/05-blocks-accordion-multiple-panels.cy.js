@@ -1,88 +1,68 @@
 import { slateBeforeEach, slateAfterEach } from '../support/e2e';
 
+const setPageTitle = (title) => {
+  cy.clearSlateTitle();
+  cy.getSlateTitle().type(title);
+  cy.get('.documentFirstHeading').contains(title);
+};
+
+const addAccordionBlock = () => {
+  cy.getSlate().click();
+  cy.get('.ui.basic.icon.button.block-add-button').first().click();
+  cy.get('.blocks-chooser .title').contains('Common').click();
+  cy.get('.content.active.common .button.accordion')
+    .contains('Accordion')
+    .click({ force: true });
+};
+
+const typePanelContent = (panelNthChild, text) => {
+  cy.get(`.accordion:nth-child(${panelNthChild}) > .title > .icon`).click({
+    force: true,
+  });
+
+  cy.getIfExists(
+    `.accordion:nth-child(${panelNthChild}) .content .public-DraftStyleDefault-block:nth-child(1)`,
+    () => {
+      cy.get(
+        `.accordion:nth-child(${panelNthChild}) .content .public-DraftStyleDefault-block:nth-child(1)`,
+      )
+        .invoke('attr', 'tabindex', 1)
+        .type(text, { delay: 50 });
+    },
+    () => {
+      cy.get(
+        `.accordion:nth-child(${panelNthChild}) .content .slate-editor [contenteditable=true]`,
+      )
+        .last()
+        .focus()
+        .click({ force: true })
+        .type(text, { delay: 50 });
+    },
+  );
+};
+
 describe('Accordion Block: Multiple Panels Tests', () => {
   beforeEach(slateBeforeEach);
   afterEach(slateAfterEach);
 
-  it('Accordion Block: Add multiple panels with content', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Multiple Panels');
+  it('persists independent content in multiple panels', () => {
+    setPageTitle('Accordion Multi Panel Content');
+    addAccordionBlock();
 
-    cy.getSlate().click();
+    cy.get('.accordion:nth-child(2) > .title input').type('Chapter 1');
+    cy.get('.accordion:nth-child(3) > .title input').type('Chapter 2');
+    cy.get('.accordion:nth-child(4) > .title input').type('Chapter 3');
 
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion')
-      .contains('Accordion')
-      .click({ force: true });
+    typePanelContent(3, 'Second chapter body');
+    typePanelContent(4, 'Third chapter body');
 
-    // Add three panels
-    cy.get('.accordion:nth-child(2) > .title input').type('Introduction');
-    cy.get('.accordion:nth-child(3) > .title input').type('Methods');
-    cy.get('.accordion:nth-child(4) > .title input').type('Results');
-
-    // Save
     cy.get('#toolbar-save').click();
-    cy.contains('Accordion Multiple Panels');
-  });
+    cy.url().should('eq', `${Cypress.config().baseUrl}/cypress/my-page`);
 
-  it('Accordion Block: Reorder panels', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Reorder');
+    cy.contains('.accordion-title', 'Chapter 2').click();
+    cy.contains('.accordion .content', 'Second chapter body').should('exist');
 
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panels
-    cy.get('.accordion:nth-child(2) > .title input').type('First');
-    cy.get('.accordion:nth-child(3) > .title input').type('Second');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Reorder');
-  });
-
-  it('Accordion Block: Delete panel', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Delete Panel');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panels
-    cy.get('.accordion:nth-child(2) > .title input').type('Keep Panel');
-    cy.get('.accordion:nth-child(3) > .title input').type('Delete Panel');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Delete Panel');
-  });
-
-  it('Accordion Block: Panel with rich text content', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Rich Text');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel title
-    cy.get('.accordion:nth-child(2) > .title input').type('Rich Content Panel');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Rich Text');
+    cy.contains('.accordion-title', 'Chapter 3').click();
+    cy.contains('.accordion .content', 'Third chapter body').should('exist');
   });
 });

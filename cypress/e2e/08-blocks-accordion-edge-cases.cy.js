@@ -1,161 +1,64 @@
 import { slateBeforeEach, slateAfterEach } from '../support/e2e';
 
+const setPageTitle = (title) => {
+  cy.clearSlateTitle();
+  cy.getSlateTitle().type(title);
+  cy.get('.documentFirstHeading').contains(title);
+};
+
+const addAccordionBlock = () => {
+  cy.getSlate().click();
+  cy.get('.ui.basic.icon.button.block-add-button').first().click();
+  cy.get('.blocks-chooser .title').contains('Common').click();
+  cy.get('.content.active.common .button.accordion')
+    .contains('Accordion')
+    .click({ force: true });
+};
+
 describe('Accordion Block: Edge Cases Tests', () => {
   beforeEach(slateBeforeEach);
   afterEach(slateAfterEach);
 
-  it('Accordion Block: Empty accordion (no panels)', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Empty');
+  it('does not render empty accordion panels in view mode', () => {
+    setPageTitle('Accordion Empty Panels');
+    addAccordionBlock();
 
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion')
-      .contains('Accordion')
-      .click({ force: true });
-
-    // Don't add any panels, just save
     cy.get('#toolbar-save').click();
-    cy.contains('Accordion Empty');
+    cy.url().should('eq', `${Cypress.config().baseUrl}/cypress/my-page`);
+
+    cy.get('.accordion').should('have.length', 0);
+    cy.get('.accordion-title').should('not.exist');
   });
 
-  it('Accordion Block: Very long panel title', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Long Title');
+  it('renders all duplicate panel titles', () => {
+    setPageTitle('Accordion Duplicate Titles');
+    addAccordionBlock();
 
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel with long title
-    const longTitle = 'This is a very long panel title that extends beyond normal length'.repeat(3);
-    cy.get('.accordion:nth-child(2) > .title input').type(longTitle);
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Long Title');
-  });
-
-  it('Accordion Block: Special characters in title', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Special Chars');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel with special characters
-    cy.get('.accordion:nth-child(2) > .title input').type('Title with ñ, é, ü, 中文, 🎉');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Special Chars');
-  });
-
-  it('Accordion Block: Single panel accordion', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Single Panel');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add only one panel
-    cy.get('.accordion:nth-child(2) > .title input').type('Only Panel');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Single Panel');
-  });
-
-  it('Accordion Block: Many panels', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Many Panels');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add multiple panels (3 panels - accordion creates 3 by default)
-    cy.get('.accordion:nth-child(2) > .title input').type('Panel One');
-    cy.get('.accordion:nth-child(3) > .title input').type('Panel Two');
-    cy.get('.accordion:nth-child(4) > .title input').type('Panel Three');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Many Panels');
-  });
-
-  it('Accordion Block: Panel with only whitespace title', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Whitespace Title');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel with whitespace title
-    cy.get('.accordion:nth-child(2) > .title input').type('   ');
-
-    // Save
-    cy.get('#toolbar-save').click();
-    cy.contains('Accordion Whitespace Title');
-  });
-
-  it('Accordion Block: Duplicate panel titles', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Duplicate Titles');
-
-    cy.getSlate().click();
-
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panels with same title
     cy.get('.accordion:nth-child(2) > .title input').type('Same Title');
     cy.get('.accordion:nth-child(3) > .title input').type('Same Title');
+    cy.get('.accordion:nth-child(4) > .title input').type('Different Title');
 
-    // Save
     cy.get('#toolbar-save').click();
-    cy.contains('Accordion Duplicate Titles');
+    cy.url().should('eq', `${Cypress.config().baseUrl}/cypress/my-page`);
+
+    cy.get('.accordion-title span').then(($titles) => {
+      const duplicates = [...$titles].filter(
+        (el) => el.textContent.trim() === 'Same Title',
+      );
+      expect(duplicates).to.have.length(2);
+    });
   });
 
-  it('Accordion Block: Rapid expand/collapse', () => {
-    cy.clearSlateTitle();
-    cy.getSlateTitle().type('Accordion Rapid Click');
+  it('renders very long panel titles', () => {
+    setPageTitle('Accordion Long Title');
+    addAccordionBlock();
 
-    cy.getSlate().click();
+    const longTitle = 'This is a very long panel title '.repeat(8).trim();
+    cy.get('.accordion:nth-child(2) > .title input').type(longTitle);
 
-    // Add accordion block
-    cy.get('.ui.basic.icon.button.block-add-button').first().click();
-    cy.get('.blocks-chooser .title').contains('Common').click();
-    cy.get('.content.active.common .button.accordion').click({ force: true });
-
-    // Add panel
-    cy.get('.accordion:nth-child(2) > .title input').type('Rapid Panel');
-
-    // Save
     cy.get('#toolbar-save').click();
-    cy.contains('Accordion Rapid Click');
+    cy.url().should('eq', `${Cypress.config().baseUrl}/cypress/my-page`);
+
+    cy.contains('.accordion-title span', longTitle).should('exist');
   });
 });
