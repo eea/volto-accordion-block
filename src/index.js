@@ -12,6 +12,7 @@ import downSVG from '@plone/volto/icons/down-key.svg';
 import filterSVG from '@plone/volto/icons/filter.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import { defineMessages, createIntlCache, createIntl } from 'react-intl';
+import { cloneData } from './utils';
 
 const messages = defineMessages({
   accordionTitle: {
@@ -77,6 +78,7 @@ const applyConfig = (config) => {
     edit: AccordionBlockEdit,
     restricted: false,
     mostUsed: false,
+    cloneData,
     blockHasOwnFocusManagement: true,
     sidebarTab: 1,
     schema: extendedSchema(config),

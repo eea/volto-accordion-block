@@ -47,7 +47,7 @@ export const accordionBlockHasValue = (content) => {
 };
 
 export const Icon = (props) => {
-  const { name, options, ...rest } = props;
+  const { name, options = {}, ...rest } = props;
   const componentToRender = options.iconComponent;
 
   // Map component names to their actual components
@@ -57,6 +57,15 @@ export const Icon = (props) => {
   };
   // Get the component from the map based on the configuration
   const IconComponent = componentMap[componentToRender] || VoltoIcon;
+
+  // Remix icon tokens are CSS classes, not semantic-ui `name` values.
+  // Render them via className to avoid semantic-ui prop validation warnings.
+  if (IconComponent === SemanticIcon && typeof name === 'string') {
+    if (name.startsWith('ri-')) {
+      return <SemanticIcon size={options.size} className={name} {...rest} />;
+    }
+    return <SemanticIcon size={options.size} name={name} {...rest} />;
+  }
 
   return <IconComponent size={options.size} name={name} {...rest} />;
 };
