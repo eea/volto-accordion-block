@@ -50,9 +50,10 @@ module.exports = {
       statements: 5,
     },
   },
-  ...(process.env.JEST_USE_SETUP === 'ON' && {
-    setupFilesAfterEnv: [
-      '<rootDir>/node_modules/@eeacms/volto-accordion-block/jest.setup.js',
-    ],
-  }),
+  setupFilesAfterEnv: [
+    '<rootDir>/node_modules/@eeacms/volto-accordion-block/jest.uuid.setup.js',
+    ...(process.env.JEST_USE_SETUP === 'ON'
+      ? ['<rootDir>/node_modules/@eeacms/volto-accordion-block/jest.setup.js']
+      : []),
+  ],
 }
