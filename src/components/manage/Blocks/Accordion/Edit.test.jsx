@@ -7,6 +7,10 @@ import '@testing-library/jest-dom';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
 
+jest.mock('uuid', () => ({ v4: jest.fn(() => 'generated-uuid') }), {
+  virtual: true,
+});
+
 jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   __esModule: true,
   default: jest.fn(
@@ -65,9 +69,14 @@ jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   ),
 }));
 
+const mockBlocksToolbar = jest.fn();
+
 jest.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
   __esModule: true,
-  default: () => <div>BlocksToolbar</div>,
+  default: (props) => {
+    mockBlocksToolbar(props);
+    return <div>BlocksToolbar</div>;
+  },
 }));
 
 jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
@@ -239,6 +248,23 @@ describe('Edit Component', () => {
       </Provider>,
     );
     expect(screen.getByText('BlocksToolbar')).toBeInTheDocument();
+  });
+
+  it('passes the selected child ID to BlocksToolbar', () => {
+    const onChangeBlock = jest.fn();
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={mockData} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Select block1' }));
+
+    expect(mockBlocksToolbar).toHaveBeenLastCalledWith(
+      expect.objectContaining({ selectedBlock: 'block1' }),
+    );
   });
 
   it('renders the block data form in the sidebar portal', () => {
