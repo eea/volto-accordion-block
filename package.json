@@ -1,6 +1,6 @@
 {
   "name": "@eeacms/volto-accordion-block",
-  "version": "13.0.3",
+  "version": "13.1.0",
   "description": "volto-accordion-block: Volto accordion block",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
@@ -28,7 +28,8 @@
     "dotenv": "^16.3.2",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
-    "md5": "^2.3.0"
+    "md5": "^2.3.0",
+    "uuid": "^8.3.2"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
