@@ -1,23 +1,14 @@
 const fs = require('fs');
-const path = require('path');
-const projectRootPath = fs.realpathSync(__dirname + '/../../../');
-
-let voltoPath = path.join(projectRootPath, 'node_modules/@plone/volto');
-let configFile;
-if (fs.existsSync(`${projectRootPath}/tsconfig.json`))
-  configFile = `${projectRootPath}/tsconfig.json`;
-else if (fs.existsSync(`${projectRootPath}/jsconfig.json`))
-  configFile = `${projectRootPath}/jsconfig.json`;
-
-if (configFile) {
-  const jsConfig = require(configFile).compilerOptions;
-  const pathsConfig = jsConfig.paths;
-  if (pathsConfig['@plone/volto'])
-    voltoPath = `./${jsConfig.baseUrl}/${pathsConfig['@plone/volto'][0]}`;
-}
-
+const projectRootPath = __dirname;
 const { AddonRegistry } = require('@plone/registry/addon-registry');
-const { registry } = AddonRegistry.init(projectRootPath);
+
+let coreLocation;
+if (fs.existsSync(`${projectRootPath}/core`))
+  coreLocation = `${projectRootPath}/core`;
+else if (fs.existsSync(`${projectRootPath}/../../core`))
+  coreLocation = `${projectRootPath}/../../core`;
+
+const { registry } = AddonRegistry.init(`${coreLocation}/packages/volto`);
 
 // Extends ESlint configuration for adding the aliases to `src` directories in Volto addons
 const addonAliases = Object.keys(registry.packages).map((o) => [
@@ -25,65 +16,26 @@ const addonAliases = Object.keys(registry.packages).map((o) => [
   registry.packages[o].modulePath,
 ]);
 
-const addonExtenders = registry.getEslintExtenders().map((m) => require(m));
-
-const defaultConfig = {
-  extends: `${voltoPath}/.eslintrc`,
+module.exports = {
+  extends: `${coreLocation}/packages/volto/.eslintrc`,
   rules: {
     'import/no-unresolved': 1,
-    'import/named': 'error',
-    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
-    'no-restricted-imports': [
-      'error',
-      {
-        name: '@plone/volto/components',
-        message:
-          'Importing from barrel files is not allowed. Please use direct imports of the modules instead.',
-      },
-      {
-        name: '@plone/volto/helpers',
-        message:
-          'Importing from barrel files is not allowed. Please use direct imports of the modules instead.',
-      },
-      {
-        name: '@plone/volto/actions',
-        message:
-          'Importing from barrel files is not allowed. Please use direct imports of the modules instead.',
-      },
-    ],
-    'react/jsx-key': [2, { checkFragmentShorthand: true }],
   },
   settings: {
     'import/resolver': {
       alias: {
         map: [
-          ['@plone/volto', '@plone/volto/src'],
-          ['@plone/volto-slate', '@plone/volto-slate/src'],
+          ['@plone/volto', `${coreLocation}/packages/volto/src`],
+          ['@plone/volto-slate', `${coreLocation}/packages/volto-slate/src`],
+          ['@plone/registry', `${coreLocation}/packages/registry/src`],
+          [
+            '@eeacms/volto-accordion-block',
+            './packages/volto-accordion-block/src',
+          ],
           ...addonAliases,
-          ['@package', `${__dirname}/src`],
-          ['@root', `${__dirname}/src`],
-          ['~', `${__dirname}/src`],
         ],
-        extensions: ['.js', '.jsx', '.json'],
-      },
-      'babel-plugin-root-import': {
-        rootPathSuffix: 'src',
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       },
     },
   },
-  rules: {
-    'react/jsx-no-target-blank': [
-      'error',
-      {
-        allowReferrer: true,
-      },
-    ],
-  }
 };
-
-const config = addonExtenders.reduce(
-  (acc, extender) => extender.modify(acc),
-  defaultConfig,
-);
-
-module.exports = config;

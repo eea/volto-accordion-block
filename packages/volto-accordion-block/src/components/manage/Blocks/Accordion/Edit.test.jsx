@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import { Provider } from 'react-intl-redux';
@@ -7,9 +8,9 @@ import '@testing-library/jest-dom';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
 
-jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
+vi.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   __esModule: true,
-  default: jest.fn(
+  default: vi.fn(
     ({
       children,
       multiSelected,
@@ -48,7 +49,7 @@ jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
                       data: blockData,
                       id: blockId,
                       index,
-                      onChangeBlock: jest.fn(),
+                      onChangeBlock: vi.fn(),
                       onSelectBlock,
                       onChangeFormData,
                       properties,
@@ -65,27 +66,27 @@ jest.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   ),
 }));
 
-jest.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
+vi.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
   __esModule: true,
   default: () => <div>BlocksToolbar</div>,
 }));
 
-jest.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
+vi.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
   __esModule: true,
   default: () => <div>BlockDataForm</div>,
 }));
 
-jest.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
+vi.mock('@plone/volto/components/manage/Sidebar/SidebarPortal', () => ({
   __esModule: true,
   default: ({ children }) => <div>{children}</div>,
 }));
 
-jest.mock('@plone/volto/helpers//Extensions', () => ({
-  withBlockExtensions: jest.fn((Component) => Component),
+vi.mock('@plone/volto/helpers//Extensions', () => ({
+  withBlockExtensions: vi.fn((Component) => Component),
 }));
 
-jest.mock('@plone/volto/helpers/Blocks/Blocks', () => ({
-  emptyBlocksForm: jest.fn(),
+vi.mock('@plone/volto/helpers/Blocks/Blocks', () => ({
+  emptyBlocksForm: vi.fn(),
   getBlocksLayoutFieldname: () => 'blocks_layout',
 }));
 
@@ -165,11 +166,11 @@ const mockData = {
 
 describe('Edit Component', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('renders the accordion title correctly', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -182,7 +183,7 @@ describe('Edit Component', () => {
   });
 
   it('renders the accordion panels correctly', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -195,7 +196,7 @@ describe('Edit Component', () => {
   });
 
   it('calls onChangeBlock when the title changes', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -209,7 +210,7 @@ describe('Edit Component', () => {
   });
 
   it('filters the accordion panels based on the filter value', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -230,7 +231,7 @@ describe('Edit Component', () => {
   });
 
   it('renders the block toolbar when a block is selected', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -242,7 +243,7 @@ describe('Edit Component', () => {
   });
 
   it('renders the block data form in the sidebar portal', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -254,7 +255,7 @@ describe('Edit Component', () => {
   });
 
   it('adds the disable-inner-buttons modifier when configured', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -272,7 +273,7 @@ describe('Edit Component', () => {
   });
 
   it('forwards nested multi-selected blocks to BlocksForm', () => {
-    const onChangeBlock = jest.fn();
+    const onChangeBlock = vi.fn();
     render(
       <Provider store={store}>
         <MemoryRouter>
