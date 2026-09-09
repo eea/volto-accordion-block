@@ -66,9 +66,14 @@ vi.mock('@plone/volto/components/manage/Blocks/Block/BlocksForm', () => ({
   ),
 }));
 
+const mockBlocksToolbar = vi.fn();
+
 vi.mock('@plone/volto/components/manage/Form/BlocksToolbar', () => ({
   __esModule: true,
-  default: () => <div>BlocksToolbar</div>,
+  default: (props) => {
+    mockBlocksToolbar(props);
+    return <div>BlocksToolbar</div>;
+  },
 }));
 
 vi.mock('@plone/volto/components/manage/Form/BlockDataForm', () => ({
@@ -240,6 +245,23 @@ describe('Edit Component', () => {
       </Provider>,
     );
     expect(screen.getByText('BlocksToolbar')).toBeInTheDocument();
+  });
+
+  it('passes the selected child ID to BlocksToolbar', () => {
+    const onChangeBlock = vi.fn();
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={mockData} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Select block1' }));
+
+    expect(mockBlocksToolbar).toHaveBeenLastCalledWith(
+      expect.objectContaining({ selectedBlock: 'block1' }),
+    );
   });
 
   it('renders the block data form in the sidebar portal', () => {
