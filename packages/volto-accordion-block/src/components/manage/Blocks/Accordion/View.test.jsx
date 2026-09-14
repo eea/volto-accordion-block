@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import React from 'react';
 import View from './View';
 import { render, fireEvent, screen } from '@testing-library/react';
@@ -40,18 +41,18 @@ const store = mockStore({
   },
 });
 
-jest.mock('@plone/volto/helpers//Extensions', () => ({
-  withBlockExtensions: jest.fn((Component) => Component),
+vi.mock('@plone/volto/helpers//Extensions', () => ({
+  withBlockExtensions: vi.fn((Component) => Component),
 }));
 
-jest.mock('@plone/volto/components/theme/View/RenderBlocks', () => ({
+vi.mock('@plone/volto/components/theme/View/RenderBlocks', () => ({
   __esModule: true,
-  default: jest.fn(() => <div>RenderBlocks</div>),
+  default: vi.fn(() => <div>RenderBlocks</div>),
 }));
 
-jest.mock('./util', () => ({
+vi.mock('./util', () => ({
   getPanels: () => [['id1', { title: 'Panel 1' }]],
-  accordionBlockHasValue: jest.fn(),
+  accordionBlockHasValue: vi.fn(),
   Icon: () => <div>Icon</div>,
 }));
 
