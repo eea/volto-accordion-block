@@ -123,6 +123,18 @@ importers:
       mrs-developer:
         specifier: ^2.2.0
         version: 2.3.2
+      react-animate-height:
+        specifier: 2.0.17
+        version: 2.0.17(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react-intl:
+        specifier: 3.12.1
+        version: 3.12.1(@types/react@18.3.31)(react@18.2.0)
+      react-router-dom:
+        specifier: 5.2.0
+        version: 5.2.0(react@18.2.0)
+      semantic-ui-react:
+        specifier: 2.1.5
+        version: 2.1.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
   core/packages/components:
     dependencies:

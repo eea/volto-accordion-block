@@ -39,7 +39,11 @@
     "@eeacms/volto-accordion-block": "workspace:*"
   },
   "devDependencies": {
-    "mrs-developer": "^2.2.0"
+    "mrs-developer": "^2.2.0",
+    "react-intl": "3.12.1",
+    "semantic-ui-react": "2.1.5",
+    "react-animate-height": "2.0.17",
+    "react-router-dom": "5.2.0"
   },
   "pnpm": {
     "overrides": {
