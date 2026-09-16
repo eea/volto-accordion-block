@@ -73,12 +73,13 @@ const Edit = (props) => {
         }
       }
       if ((event.ctrlKey || event.metaKey) && !event.shiftKey) {
-        if (multiSelected.includes(id)) {
-          selected = null;
-          newMultiSelected = without(multiSelected, id);
-        } else {
-          newMultiSelected = [...(multiSelected || []), id];
+        const selection = [...multiSelected];
+        if (activeBlock && !selection.includes(activeBlock)) {
+          selection.push(activeBlock);
         }
+        newMultiSelected = selection.includes(id)
+          ? without(selection, id)
+          : [...selection, id];
       }
     }
 
@@ -213,43 +214,17 @@ const Edit = (props) => {
   }
 
   const changeBlockData = (newBlockData) => {
-    const selectedIndex =
-      data.data.blocks[currentUid].blocks_layout.items.indexOf(
-        Object.values(selectedBlock)[0],
-      ) + 1;
-    let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
-      let key = block[0];
-
-      return !data?.data?.blocks[currentUid].blocks_layout.items.find(
-        (x) => x === key,
-      );
-    });
-
-    let blockLayout = pastedBlocks.map((el) => el[0]);
-
     onChangeBlock(block, {
       ...data,
       data: {
+        ...data.data,
         blocks: {
           ...data.data.blocks,
           [currentUid]: {
             ...data.data.blocks[currentUid],
             ...newBlockData,
-            blocks_layout: {
-              items: [
-                ...data.data.blocks[currentUid].blocks_layout.items.slice(
-                  0,
-                  selectedIndex,
-                ),
-                ...blockLayout,
-                ...data.data.blocks[currentUid].blocks_layout.items.slice(
-                  selectedIndex,
-                ),
-              ],
-            },
           },
         },
-        blocks_layout: data.data.blocks_layout,
       },
     });
   };
@@ -380,7 +355,13 @@ const Edit = (props) => {
                 ? e.shiftKey || e.ctrlKey || e.metaKey
                 : false;
 
-              onSelectBlock(id, isMultipleSelection, e, selectedBlock);
+              onSelectBlock(
+                currentUid,
+                id,
+                isMultipleSelection,
+                e,
+                selectedBlock,
+              );
             }}
             onChangeBlocks={(newBlockData) => {
               changeBlockData(newBlockData);
