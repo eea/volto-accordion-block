@@ -9,7 +9,6 @@ import {
 import { withBlockExtensions } from '@plone/volto/helpers//Extensions';
 import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
 import isEmpty from 'lodash/isEmpty';
-import without from 'lodash/without';
 import pickBy from 'lodash/pickBy';
 import React, { useState } from 'react';
 import { Segment } from 'semantic-ui-react';
@@ -19,6 +18,7 @@ import AccordionFilter from './AccordionFilter';
 import './editor.less';
 import { AccordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
+import { getSelectedBlocks } from './selection';
 import config from '@plone/volto/registry';
 
 const Edit = (props) => {
@@ -58,29 +58,13 @@ const Edit = (props) => {
 
       const blocks_layout = data.data.blocks[uid][blocksLayoutFieldname].items;
 
-      if (event.shiftKey) {
-        const anchor =
-          multiSelected.length > 0
-            ? blocks_layout.indexOf(multiSelected[0])
-            : blocks_layout.indexOf(activeBlock);
-        const focus = blocks_layout.indexOf(id);
-        if (anchor === focus) {
-          newMultiSelected = [id];
-        } else if (focus > anchor) {
-          newMultiSelected = [...blocks_layout.slice(anchor, focus + 1)];
-        } else {
-          newMultiSelected = [...blocks_layout.slice(focus, anchor + 1)];
-        }
-      }
-      if ((event.ctrlKey || event.metaKey) && !event.shiftKey) {
-        const selection = [...multiSelected];
-        if (activeBlock && !selection.includes(activeBlock)) {
-          selection.push(activeBlock);
-        }
-        newMultiSelected = selection.includes(id)
-          ? without(selection, id)
-          : [...selection, id];
-      }
+      newMultiSelected = getSelectedBlocks(
+        blocks_layout,
+        multiSelected,
+        activeBlock,
+        id,
+        event,
+      );
     }
 
     setSelectedBlock({ [uid]: selected });
