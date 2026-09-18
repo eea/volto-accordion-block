@@ -9,7 +9,6 @@ import {
 import { withBlockExtensions } from '@plone/volto/helpers//Extensions';
 import { cloneDeepSchema } from '@plone/volto/helpers/Utils/Utils';
 import isEmpty from 'lodash/isEmpty';
-import without from 'lodash/without';
 import pickBy from 'lodash/pickBy';
 import React, { useState } from 'react';
 import { Segment } from 'semantic-ui-react';
@@ -19,6 +18,7 @@ import AccordionFilter from './AccordionFilter';
 import './editor.less';
 import { AccordionBlockSchema } from './Schema';
 import { emptyAccordion, getPanels } from './util';
+import { getSelectedBlocks } from './selection';
 import config from '@plone/volto/registry';
 
 const Edit = (props) => {
@@ -58,28 +58,13 @@ const Edit = (props) => {
 
       const blocks_layout = data.data.blocks[uid][blocksLayoutFieldname].items;
 
-      if (event.shiftKey) {
-        const anchor =
-          multiSelected.length > 0
-            ? blocks_layout.indexOf(multiSelected[0])
-            : blocks_layout.indexOf(activeBlock);
-        const focus = blocks_layout.indexOf(id);
-        if (anchor === focus) {
-          newMultiSelected = [id];
-        } else if (focus > anchor) {
-          newMultiSelected = [...blocks_layout.slice(anchor, focus + 1)];
-        } else {
-          newMultiSelected = [...blocks_layout.slice(focus, anchor + 1)];
-        }
-      }
-      if ((event.ctrlKey || event.metaKey) && !event.shiftKey) {
-        if (multiSelected.includes(id)) {
-          selected = null;
-          newMultiSelected = without(multiSelected, id);
-        } else {
-          newMultiSelected = [...(multiSelected || []), id];
-        }
-      }
+      newMultiSelected = getSelectedBlocks(
+        blocks_layout,
+        multiSelected,
+        activeBlock,
+        id,
+        event,
+      );
     }
 
     setSelectedBlock({ [uid]: selected });
@@ -213,43 +198,17 @@ const Edit = (props) => {
   }
 
   const changeBlockData = (newBlockData) => {
-    const selectedIndex =
-      data.data.blocks[currentUid].blocks_layout.items.indexOf(
-        Object.values(selectedBlock)[0],
-      ) + 1;
-    let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
-      let key = block[0];
-
-      return !data?.data?.blocks[currentUid].blocks_layout.items.find(
-        (x) => x === key,
-      );
-    });
-
-    let blockLayout = pastedBlocks.map((el) => el[0]);
-
     onChangeBlock(block, {
       ...data,
       data: {
+        ...data.data,
         blocks: {
           ...data.data.blocks,
           [currentUid]: {
             ...data.data.blocks[currentUid],
             ...newBlockData,
-            blocks_layout: {
-              items: [
-                ...data.data.blocks[currentUid].blocks_layout.items.slice(
-                  0,
-                  selectedIndex,
-                ),
-                ...blockLayout,
-                ...data.data.blocks[currentUid].blocks_layout.items.slice(
-                  selectedIndex,
-                ),
-              ],
-            },
           },
         },
-        blocks_layout: data.data.blocks_layout,
       },
     });
   };
@@ -380,7 +339,13 @@ const Edit = (props) => {
                 ? e.shiftKey || e.ctrlKey || e.metaKey
                 : false;
 
-              onSelectBlock(id, isMultipleSelection, e, selectedBlock);
+              onSelectBlock(
+                currentUid,
+                id,
+                isMultipleSelection,
+                e,
+                selectedBlock,
+              );
             }}
             onChangeBlocks={(newBlockData) => {
               changeBlockData(newBlockData);
