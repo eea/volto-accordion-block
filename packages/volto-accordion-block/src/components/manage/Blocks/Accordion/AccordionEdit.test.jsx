@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import AccordionEdit from './AccordionEdit';
@@ -27,8 +28,8 @@ config.blocks.blocksConfig.accordion = {
   },
 };
 
-const handleTitleChange = jest.fn();
-const handleTitleClick = jest.fn();
+const handleTitleChange = vi.fn();
+const handleTitleClick = vi.fn();
 
 const store = mockStore({
   intl: {
