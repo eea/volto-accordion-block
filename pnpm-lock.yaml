@@ -120,6 +120,9 @@ importers:
         specifier: workspace:*
         version: link:core/packages/volto
     devDependencies:
+      babel-plugin-istanbul:
+        specifier: ^6.1.1
+        version: 6.1.1
       mrs-developer:
         specifier: ^2.2.0
         version: 2.3.2
@@ -1392,7 +1395,7 @@ importers:
       '@vitejs/plugin-react':
         specifier: 4.7.0
         version: 4.7.0(vite@6.4.3(@types/node@24.13.3)(jiti@2.7.0)(less@3.13.1)(lightningcss@1.33.0)(sass@1.58.0)(terser@5.51.2))
-      '@vitest/coverage-v8':
+      '@vitest/coverage-istanbul':
         specifier: 3.2.7
         version: 3.2.7(vitest@3.2.7)
       babel-plugin-transform-class-properties:
@@ -4656,6 +4659,11 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
 
+  '@vitest/coverage-istanbul@3.2.7':
+    resolution: {integrity: sha512-/o+QIJBJCBZm7FdyAMqYKvr8Cd0YsqPt9UwVT6bAA+U9Ae8AR39ZAjq7xnmKCO64TkzPm0Vvi7jzYZWLdu6Y5A==}
+    peerDependencies:
+      vitest: 3.2.7
+
   '@vitest/coverage-v8@3.2.7':
     resolution: {integrity: sha512-NEGWJS2XNu2PfRLQwOO3CTKj1tTETxNBdk454vDxVBhxJYhPaA/eS0nAI0c+1El1P7a60z8+i+ZrQoGESweGKg==}
     peerDependencies:
@@ -5130,6 +5138,10 @@ packages:
 
   babel-plugin-add-module-exports@0.2.1:
     resolution: {integrity: sha512-3AN/9V/rKuv90NG65m4tTHsI04XrCKsWbztIcW7a8H5iIN7WlvWucRtVV0V/rT4QvtA11n5Vmp20fLwfMWqp6g==}
+
+  babel-plugin-istanbul@6.1.1:
+    resolution: {integrity: sha512-Y1IQok9821cC9onCx5otgFfRm7Lm+I+wwxOx738M/WLPZ9Q42m4IG5W0FNX8WLL2gYMZo3JkuXIH2DOpWM+qwA==}
+    engines: {node: '>=8'}
 
   babel-plugin-lodash@3.3.4:
     resolution: {integrity: sha512-yDZLjK7TCkWl1gpBeBGmuaDIFhZKmkoL+Cu2MUUjv5VxUZx/z7tBGBCBcQs5RI1Bkz5LLmNdjx7paOyQtMovyg==}
@@ -7681,6 +7693,14 @@ packages:
   istanbul-lib-instrument@4.0.3:
     resolution: {integrity: sha512-BXgQl9kf4WTCPCCpmFGoJkz/+uhvm7h7PFKUYxh7qarQd3ER33vHG//qaE8eN25l07YqZPpHXU9I09l/RD5aGQ==}
     engines: {node: '>=8'}
+
+  istanbul-lib-instrument@5.2.1:
+    resolution: {integrity: sha512-pzqtp31nLv/XFOzXGuvhCb8qhjmTVo5vjVk19XE4CRlSWz0KoeJ3bw9XsA7nOp9YBf4qHjwBxkDzKcME/J29Yg==}
+    engines: {node: '>=8'}
+
+  istanbul-lib-instrument@6.0.3:
+    resolution: {integrity: sha512-Vtgk7L/R2JHyyGW07spoFlB8/lpjiOLTjMdms6AFMraYt3BaJauod/NGrfnVG/y4Ix1JEuMRPDPEj2ua+zz1/Q==}
+    engines: {node: '>=10'}
 
   istanbul-lib-processinfo@2.0.3:
     resolution: {integrity: sha512-NkwHbo3E00oybX6NGJi6ar0B29vxyvNwoC7eJ4G4Yq28UfY758Hgn/heV8VRFhevPED4LXfFz0DQ8z/0kw9zMg==}
@@ -15151,6 +15171,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@vitest/coverage-istanbul@3.2.7(vitest@3.2.7)':
+    dependencies:
+      '@istanbuljs/schema': 0.1.6
+      debug: 4.4.3
+      istanbul-lib-coverage: 3.2.2
+      istanbul-lib-instrument: 6.0.3
+      istanbul-lib-report: 3.0.1
+      istanbul-lib-source-maps: 5.0.6
+      istanbul-reports: 3.2.0
+      magicast: 0.3.5
+      test-exclude: 7.0.2
+      tinyrainbow: 2.0.0
+      vitest: 3.2.7(@types/debug@4.1.13)(@types/node@24.13.3)(@vitest/ui@3.2.7)(jiti@2.7.0)(jsdom@23.0.0)(less@3.13.1)(lightningcss@1.33.0)(sass@1.58.0)(terser@5.51.2)
+    transitivePeerDependencies:
+      - supports-color
+
   '@vitest/coverage-v8@3.2.7(vitest@3.2.7)':
     dependencies:
       '@ampproject/remapping': 2.3.0
@@ -15746,6 +15782,16 @@ snapshots:
       babel-runtime: 6.26.0
 
   babel-plugin-add-module-exports@0.2.1: {}
+
+  babel-plugin-istanbul@6.1.1:
+    dependencies:
+      '@babel/helper-plugin-utils': 7.29.7
+      '@istanbuljs/load-nyc-config': 1.1.0
+      '@istanbuljs/schema': 0.1.6
+      istanbul-lib-instrument: 5.2.1
+      test-exclude: 6.0.0
+    transitivePeerDependencies:
+      - supports-color
 
   babel-plugin-lodash@3.3.4:
     dependencies:
@@ -18774,6 +18820,26 @@ snapshots:
       '@istanbuljs/schema': 0.1.6
       istanbul-lib-coverage: 3.2.2
       semver: 6.3.1
+    transitivePeerDependencies:
+      - supports-color
+
+  istanbul-lib-instrument@5.2.1:
+    dependencies:
+      '@babel/core': 7.29.7
+      '@babel/parser': 7.29.8
+      '@istanbuljs/schema': 0.1.6
+      istanbul-lib-coverage: 3.2.2
+      semver: 6.3.1
+    transitivePeerDependencies:
+      - supports-color
+
+  istanbul-lib-instrument@6.0.3:
+    dependencies:
+      '@babel/core': 7.29.7
+      '@babel/parser': 7.29.8
+      '@istanbuljs/schema': 0.1.6
+      istanbul-lib-coverage: 3.2.2
+      semver: 7.8.5
     transitivePeerDependencies:
       - supports-color
 

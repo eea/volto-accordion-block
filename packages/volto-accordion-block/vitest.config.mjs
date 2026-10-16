@@ -259,7 +259,10 @@ export default defineConfig({
       printBasicPrototype: false,
     },
     coverage: {
-      provider: 'v8',
+      // Istanbul (same line model as the Cypress instrumentation) so the
+      // unit and end-to-end lcov reports can be merged meaningfully by
+      // SonarQube.
+      provider: 'istanbul',
       reporter: ['text', 'lcov', 'html', 'cobertura'],
       reportsDirectory: process.env.COVERAGE_DIR ?? 'coverage',
       include: [
