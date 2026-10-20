@@ -6,6 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
+import { emptyBlocksForm } from '@plone/volto/helpers/Blocks/Blocks';
 
 jest.mock('uuid', () => ({ v4: jest.fn(() => 'generated-uuid') }), {
   virtual: true,
@@ -316,5 +317,90 @@ describe('Edit Component', () => {
       'data-multi-selected',
       'block1,block2',
     );
+  });
+
+  it('keeps the panel title when all its blocks are deleted', () => {
+    const onChangeBlock = jest.fn();
+    const emptyForm = {
+      blocks: { empty: { '@type': 'slate' } },
+      blocks_layout: { items: ['empty'] },
+    };
+    emptyBlocksForm.mockReturnValue(emptyForm);
+    const data = {
+      ...mockData,
+      data: {
+        ...mockData.data,
+        blocks: {
+          ...mockData.data.blocks,
+          1: {
+            ...mockData.data.blocks[1],
+            blocks: {},
+            blocks_layout: { items: [] },
+          },
+        },
+      },
+    };
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={data} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const panel = onChangeBlock.mock.calls[0][1].data.blocks[1];
+    expect(panel.title).toBe('Panel 1');
+    expect(panel['@type']).toBe('accordionPanel');
+    expect(panel.blocks).toEqual(emptyForm.blocks);
+    expect(panel.blocks_layout).toEqual(emptyForm.blocks_layout);
+  });
+
+  it('uses the toolbar layout so deleted blocks do not come back', () => {
+    const onChangeBlock = jest.fn();
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={mockData} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Select block1' }));
+    onChangeBlock.mockClear();
+
+    mockBlocksToolbar.mock.calls.at(-1)[0].onChangeBlocks({
+      blocks: { block2: { '@type': 'text' } },
+      blocks_layout: { items: ['block2'] },
+    });
+
+    const panel = onChangeBlock.mock.calls[0][1].data.blocks[1];
+    expect(panel.title).toBe('Panel 1');
+    expect(panel.blocks_layout.items).toEqual(['block2']);
+  });
+
+  it('fills a panel emptied from the toolbar in the same change', () => {
+    const onChangeBlock = jest.fn();
+    emptyBlocksForm.mockReturnValue({
+      blocks: { empty: { '@type': 'slate' } },
+      blocks_layout: { items: ['empty'] },
+    });
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={mockData} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Select block1' }));
+    onChangeBlock.mockClear();
+
+    mockBlocksToolbar.mock.calls.at(-1)[0].onChangeBlocks({
+      blocks: {},
+      blocks_layout: { items: [] },
+    });
+
+    const panel = onChangeBlock.mock.calls[0][1].data.blocks[1];
+    expect(panel.title).toBe('Panel 1');
+    expect(panel.blocks_layout.items).toEqual(['empty']);
   });
 });

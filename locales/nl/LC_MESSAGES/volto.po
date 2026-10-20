@@ -22,7 +22,6 @@ msgid "A short hint that describes the expected value within this block"
 msgstr "Een korte hint die de verwachte waarde binnen dit blok beschrijft"
 
 #. Default: "Accordion"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 #: index
 msgid "Accordion"
@@ -34,7 +33,6 @@ msgid "Accordion Title size"
 msgstr "Grootte van titel van accordeon"
 
 #. Default: "Accordion block"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 msgid "Accordion block"
 msgstr "Accordeonblok"
@@ -129,11 +127,6 @@ msgstr "Sta toevoegen nieuwe blokken niet toe"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Don't allow deletion of this block"
 msgstr "Sta niet toe dit blok te verwijderen"
-
-#. Default: "Drag and drop"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Drag and drop"
-msgstr "Verplaatsen"
 
 #. Default: "Enable filtering"
 #: components/manage/Blocks/Accordion/Schema
@@ -240,11 +233,6 @@ msgstr ""
 msgid "Read-only titles"
 msgstr ""
 
-#. Default: "Remove block"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Remove block"
-msgstr "Verwijder blok"
-
 #. Default: "Required"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Required"
@@ -258,11 +246,6 @@ msgstr ""
 #. Default: "Section friendly name"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Section friendly name"
-msgstr ""
-
-#. Default: "Section help"
-#: components/manage/Blocks/Accordion/Edit
-msgid "Section help"
 msgstr ""
 
 #. Default: "Tertiary"
@@ -295,21 +278,6 @@ msgstr ""
 #: components/manage/Blocks/Accordion/AccordionFilter
 msgid "Type to filter..."
 msgstr ""
-
-#. Default: "Unknown Block {block}"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Unknown Block"
-msgstr "Onbekend blok {block}"
-
-#. Default: "Add block in position"
-#: components/manage/Blocks/Accordion/NewBlockAddButton
-msgid "add_block_in_position"
-msgstr ""
-
-#. Default: "delete"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "delete"
-msgstr "verwijderen"
 
 #. Default: "Panel {panel_index}"
 #: components/manage/Widgets/PanelsWidget
