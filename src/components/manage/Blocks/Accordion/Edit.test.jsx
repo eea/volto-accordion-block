@@ -6,6 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Edit from './Edit';
 import config from '@plone/volto/registry';
+import { emptyBlocksForm } from '@plone/volto/helpers/Blocks/Blocks';
 
 jest.mock('uuid', () => ({ v4: jest.fn(() => 'generated-uuid') }), {
   virtual: true,
@@ -316,5 +317,42 @@ describe('Edit Component', () => {
       'data-multi-selected',
       'block1,block2',
     );
+  });
+
+  it('keeps the panel title when all its blocks are deleted', () => {
+    const onChangeBlock = jest.fn();
+    const emptyForm = {
+      blocks: { empty: { '@type': 'slate' } },
+      blocks_layout: { items: ['empty'] },
+    };
+    emptyBlocksForm.mockReturnValue(emptyForm);
+    const data = {
+      ...mockData,
+      data: {
+        ...mockData.data,
+        blocks: {
+          ...mockData.data.blocks,
+          1: {
+            ...mockData.data.blocks[1],
+            blocks: {},
+            blocks_layout: { items: [] },
+          },
+        },
+      },
+    };
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={data} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const panel = onChangeBlock.mock.calls[0][1].data.blocks[1];
+    expect(panel.title).toBe('Panel 1');
+    expect(panel['@type']).toBe('accordionPanel');
+    expect(panel.blocks).toEqual(emptyForm.blocks);
+    expect(panel.blocks_layout).toEqual(emptyForm.blocks_layout);
   });
 });

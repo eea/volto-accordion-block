@@ -163,7 +163,12 @@ const Edit = (props) => {
             ...properties,
             blocks: {
               ...properties.blocks,
-              [item]: emptyBlocksForm(),
+              // Keep the panel's own fields (e.g. title) when all its blocks
+              // were removed, only reset its blocks
+              [item]: {
+                ...properties.blocks[item],
+                ...emptyBlocksForm(),
+              },
             },
           },
         });
