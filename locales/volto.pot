@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
-"POT-Creation-Date: 2026-01-15T12:26:04.360Z\n"
+"POT-Creation-Date: 2026-10-20T06:08:35.157Z\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -19,7 +19,6 @@ msgid "A short hint that describes the expected value within this block"
 msgstr ""
 
 #. Default: "Accordion"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 #: index
 msgid "Accordion"
@@ -31,7 +30,6 @@ msgid "Accordion Title size"
 msgstr ""
 
 #. Default: "Accordion block"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 msgid "Accordion block"
 msgstr ""
@@ -125,11 +123,6 @@ msgstr ""
 #. Default: "Don't allow deletion of this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Don't allow deletion of this block"
-msgstr ""
-
-#. Default: "Drag and drop"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Drag and drop"
 msgstr ""
 
 #. Default: "Enable filtering"
@@ -237,11 +230,6 @@ msgstr ""
 msgid "Read-only titles"
 msgstr ""
 
-#. Default: "Remove block"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Remove block"
-msgstr ""
-
 #. Default: "Required"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Required"
@@ -255,11 +243,6 @@ msgstr ""
 #. Default: "Section friendly name"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Section friendly name"
-msgstr ""
-
-#. Default: "Section help"
-#: components/manage/Blocks/Accordion/Edit
-msgid "Section help"
 msgstr ""
 
 #. Default: "Tertiary"
@@ -291,21 +274,6 @@ msgstr ""
 #. Default: "Type to filter..."
 #: components/manage/Blocks/Accordion/AccordionFilter
 msgid "Type to filter..."
-msgstr ""
-
-#. Default: "Unknown Block {block}"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Unknown Block"
-msgstr ""
-
-#. Default: "Add block in position"
-#: components/manage/Blocks/Accordion/NewBlockAddButton
-msgid "add_block_in_position"
-msgstr ""
-
-#. Default: "delete"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "delete"
 msgstr ""
 
 #. Default: "Panel {panel_index}"
