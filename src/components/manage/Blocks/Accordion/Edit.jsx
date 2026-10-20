@@ -18,7 +18,7 @@ import AccordionEdit from './AccordionEdit';
 import AccordionFilter from './AccordionFilter';
 import './editor.less';
 import { AccordionBlockSchema } from './Schema';
-import { emptyAccordion, getPanels } from './util';
+import { emptyAccordion, fillEmptyPanel, getPanels } from './util';
 import config from '@plone/volto/registry';
 
 const Edit = (props) => {
@@ -165,10 +165,7 @@ const Edit = (props) => {
               ...properties.blocks,
               // Keep the panel's own fields (e.g. title) when all its blocks
               // were removed, only reset its blocks
-              [item]: {
-                ...properties.blocks[item],
-                ...emptyBlocksForm(),
-              },
+              [item]: fillEmptyPanel(properties.blocks[item]),
             },
           },
         });
@@ -217,44 +214,20 @@ const Edit = (props) => {
     instructions = formDescription;
   }
 
+  // BlocksToolbar already computes the new blocks_layout (paste position,
+  // removed blocks on delete/cut), use it as is
   const changeBlockData = (newBlockData) => {
-    const selectedIndex =
-      data.data.blocks[currentUid].blocks_layout.items.indexOf(
-        Object.values(selectedBlock)[0],
-      ) + 1;
-    let pastedBlocks = Object.entries(newBlockData.blocks).filter((block) => {
-      let key = block[0];
-
-      return !data?.data?.blocks[currentUid].blocks_layout.items.find(
-        (x) => x === key,
-      );
-    });
-
-    let blockLayout = pastedBlocks.map((el) => el[0]);
-
     onChangeBlock(block, {
       ...data,
       data: {
+        ...data.data,
         blocks: {
           ...data.data.blocks,
-          [currentUid]: {
+          [currentUid]: fillEmptyPanel({
             ...data.data.blocks[currentUid],
             ...newBlockData,
-            blocks_layout: {
-              items: [
-                ...data.data.blocks[currentUid].blocks_layout.items.slice(
-                  0,
-                  selectedIndex,
-                ),
-                ...blockLayout,
-                ...data.data.blocks[currentUid].blocks_layout.items.slice(
-                  selectedIndex,
-                ),
-              ],
-            },
-          },
+          }),
         },
-        blocks_layout: data.data.blocks_layout,
       },
     });
   };
@@ -343,7 +316,7 @@ const Edit = (props) => {
                       ...panelData,
                       blocks: {
                         ...panelData.blocks,
-                        [uid]: newFormData,
+                        [uid]: fillEmptyPanel(newFormData),
                       },
                     },
                   });
@@ -357,10 +330,10 @@ const Edit = (props) => {
                         ...panelData,
                         blocks: {
                           ...panelData.blocks,
-                          [uid]: {
+                          [uid]: fillEmptyPanel({
                             ...panelData.blocks?.[uid],
                             ...blockState,
-                          },
+                          }),
                         },
                       },
                     });

@@ -355,4 +355,52 @@ describe('Edit Component', () => {
     expect(panel.blocks).toEqual(emptyForm.blocks);
     expect(panel.blocks_layout).toEqual(emptyForm.blocks_layout);
   });
+
+  it('uses the toolbar layout so deleted blocks do not come back', () => {
+    const onChangeBlock = jest.fn();
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={mockData} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Select block1' }));
+    onChangeBlock.mockClear();
+
+    mockBlocksToolbar.mock.calls.at(-1)[0].onChangeBlocks({
+      blocks: { block2: { '@type': 'text' } },
+      blocks_layout: { items: ['block2'] },
+    });
+
+    const panel = onChangeBlock.mock.calls[0][1].data.blocks[1];
+    expect(panel.title).toBe('Panel 1');
+    expect(panel.blocks_layout.items).toEqual(['block2']);
+  });
+
+  it('fills a panel emptied from the toolbar in the same change', () => {
+    const onChangeBlock = jest.fn();
+    emptyBlocksForm.mockReturnValue({
+      blocks: { empty: { '@type': 'slate' } },
+      blocks_layout: { items: ['empty'] },
+    });
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Edit data={mockData} selected={true} onChangeBlock={onChangeBlock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Select block1' }));
+    onChangeBlock.mockClear();
+
+    mockBlocksToolbar.mock.calls.at(-1)[0].onChangeBlocks({
+      blocks: {},
+      blocks_layout: { items: [] },
+    });
+
+    const panel = onChangeBlock.mock.calls[0][1].data.blocks[1];
+    expect(panel.title).toBe('Panel 1');
+    expect(panel.blocks_layout.items).toEqual(['empty']);
+  });
 });
