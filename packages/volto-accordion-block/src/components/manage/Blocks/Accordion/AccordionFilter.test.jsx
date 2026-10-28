@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 import AccordionFilter from './AccordionFilter';
@@ -34,7 +35,7 @@ describe('AccordionFilter', () => {
     },
   };
 
-  const handleFilteredValueChange = jest.fn();
+  const handleFilteredValueChange = vi.fn();
   let filterValue = '';
   const data = {
     styles: {
