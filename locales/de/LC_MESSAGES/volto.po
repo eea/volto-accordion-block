@@ -22,7 +22,6 @@ msgid "A short hint that describes the expected value within this block"
 msgstr ""
 
 #. Default: "Accordion"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 #: index
 msgid "Accordion"
@@ -34,7 +33,6 @@ msgid "Accordion Title size"
 msgstr "Akkordeon Schriftgröße Titel"
 
 #. Default: "Accordion block"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 msgid "Accordion block"
 msgstr "Akkordeon Block"
@@ -129,11 +127,6 @@ msgstr "Neue Blöcke deaktivieren"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Don't allow deletion of this block"
 msgstr "Löschung dieses Blocks nicht zulassen"
-
-#. Default: "Drag and drop"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Drag and drop"
-msgstr ""
 
 #. Default: "Enable filtering"
 #: components/manage/Blocks/Accordion/Schema
@@ -240,11 +233,6 @@ msgstr "Schreibgeschützte Einstellungen"
 msgid "Read-only titles"
 msgstr "Schreibgeschützte Titel"
 
-#. Default: "Remove block"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Remove block"
-msgstr "Block entfernen"
-
 #. Default: "Required"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Required"
@@ -259,11 +247,6 @@ msgstr "Sekundär"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Section friendly name"
 msgstr "Sektion kurzname"
-
-#. Default: "Section help"
-#: components/manage/Blocks/Accordion/Edit
-msgid "Section help"
-msgstr "Sektion Hilfe"
 
 #. Default: "Tertiary"
 #: components/manage/Blocks/Accordion/Schema
@@ -295,21 +278,6 @@ msgstr "Schriftgröße Titel"
 #: components/manage/Blocks/Accordion/AccordionFilter
 msgid "Type to filter..."
 msgstr "Filter..."
-
-#. Default: "Unknown Block {block}"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Unknown Block"
-msgstr "Unbekannter Block"
-
-#. Default: "Add block in position"
-#: components/manage/Blocks/Accordion/NewBlockAddButton
-msgid "add_block_in_position"
-msgstr "Block in Position bringen"
-
-#. Default: "delete"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "delete"
-msgstr "löschen"
 
 #. Default: "Panel {panel_index}"
 #: components/manage/Widgets/PanelsWidget

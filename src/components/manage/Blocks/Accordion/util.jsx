@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import map from 'lodash/map';
+import isEmpty from 'lodash/isEmpty';
 
 import VoltoIcon from '@plone/volto/components/theme/Icon/Icon';
 import { Icon as SemanticIcon } from 'semantic-ui-react';
@@ -27,6 +28,12 @@ export const emptyAccordion = (count) => {
     },
   };
 };
+
+// Fill an emptied panel right away, keeping its title. Filling it later,
+// after the empty panel was saved, adds an undo history entry that every undo
+// lands on and refills, so undo gets stuck.
+export const fillEmptyPanel = (panel) =>
+  isEmpty(panel?.blocks) ? { ...panel, ...emptyBlocksForm() } : panel;
 
 export const getPanels = (data) => {
   return (data?.blocks_layout?.items || []).map((id) => [
