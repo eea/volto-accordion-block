@@ -1,4 +1,9 @@
-import { emptyAccordion, getPanels, accordionBlockHasValue } from './util';
+import {
+  emptyAccordion,
+  fillEmptyPanel,
+  getPanels,
+  accordionBlockHasValue,
+} from './util';
 import config from '@plone/volto/registry';
 
 describe('emptyAccordion', () => {
@@ -85,5 +90,24 @@ describe('accordionBlockHasValue', () => {
       },
     };
     expect(accordionBlockHasValue(content)).toEqual(false);
+  });
+});
+
+describe('fillEmptyPanel', () => {
+  it('fills an emptied panel and keeps its title', () => {
+    const result = fillEmptyPanel({
+      '@type': 'accordionPanel',
+      title: 'Panel',
+      blocks: {},
+      blocks_layout: { items: [] },
+    });
+    expect(result.title).toBe('Panel');
+    expect(result['@type']).toBe('accordionPanel');
+    expect(result.blocks_layout.items).toHaveLength(1);
+  });
+
+  it('returns a panel with blocks unchanged', () => {
+    const panel = { blocks: { a: {} }, blocks_layout: { items: ['a'] } };
+    expect(fillEmptyPanel(panel)).toBe(panel);
   });
 });
