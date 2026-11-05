@@ -22,7 +22,6 @@ msgid "A short hint that describes the expected value within this block"
 msgstr ""
 
 #. Default: "Accordion"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 #: index
 msgid "Accordion"
@@ -34,7 +33,6 @@ msgid "Accordion Title size"
 msgstr "Tamanho do título do Acordeão"
 
 #. Default: "Accordion block"
-#: components/manage/Blocks/Accordion/Edit
 #: components/manage/Blocks/Accordion/Schema
 msgid "Accordion block"
 msgstr "Acordeão bloco"
@@ -128,11 +126,6 @@ msgstr ""
 #. Default: "Don't allow deletion of this block"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Don't allow deletion of this block"
-msgstr ""
-
-#. Default: "Drag and drop"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Drag and drop"
 msgstr ""
 
 #. Default: "Enable filtering"
@@ -240,11 +233,6 @@ msgstr ""
 msgid "Read-only titles"
 msgstr ""
 
-#. Default: "Remove block"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Remove block"
-msgstr ""
-
 #. Default: "Required"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Required"
@@ -258,11 +246,6 @@ msgstr "Secondário"
 #. Default: "Section friendly name"
 #: components/manage/Blocks/Accordion/LayoutSchema
 msgid "Section friendly name"
-msgstr ""
-
-#. Default: "Section help"
-#: components/manage/Blocks/Accordion/Edit
-msgid "Section help"
 msgstr ""
 
 #. Default: "Tertiary"
@@ -295,21 +278,6 @@ msgstr "Tamanho do título"
 #: components/manage/Blocks/Accordion/AccordionFilter
 msgid "Type to filter..."
 msgstr "Filtrar..."
-
-#. Default: "Unknown Block {block}"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "Unknown Block"
-msgstr "Bloco desconhecido"
-
-#. Default: "Add block in position"
-#: components/manage/Blocks/Accordion/NewBlockAddButton
-msgid "add_block_in_position"
-msgstr ""
-
-#. Default: "delete"
-#: components/manage/Blocks/Accordion/EditBlockWrapper
-msgid "delete"
-msgstr "remover"
 
 #. Default: "Panel {panel_index}"
 #: components/manage/Widgets/PanelsWidget
