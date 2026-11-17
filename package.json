@@ -1,6 +1,7 @@
 {
   "name": "@eeacms/volto-accordion-block-dev",
-  "version": "1.0.0-alpha.0",
+  "private": true,
+  "version": "14.0.0",
   "description": "volto-accordion-block: Volto accordion block",
   "author": "European Environment Agency: IDM2 A-Team",
   "homepage": "https://github.com/eea/volto-accordion-block",
