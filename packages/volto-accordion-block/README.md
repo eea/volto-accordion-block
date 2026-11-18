@@ -73,6 +73,17 @@
 
 ## Upgrade
 
+### Upgrading to 14.x
+
+> This version requires `Volto 18` or `Volto 19`. Volto 17 is no longer supported.
+
+The block, its schema and the panels widget keep the same API, so upgrading from 13.x on Volto 18 needs no code changes. The release adds Volto 19 support and moves the repository to the Volto 19 layout, where the published package lives in `packages/volto-accordion-block`.
+
+#### Breaking changes
+
+- **Volto 17 is dropped.** Stay on 13.x if the project runs Volto 17.
+- **Node.js 22 or newer is required** (`engines.node >= 22`), 13.x declared no engine.
+
 ### Upgrading to 13.x
 
 > This version requires `Volto >= 17.18` or `Volto 18+`. It removes the custom `EditBlockWrapper` and `NewBlockAddButton` components in favor of Volto's built-in block chrome provided by `BlocksForm`.
