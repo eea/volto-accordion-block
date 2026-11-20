@@ -161,8 +161,8 @@ describe('View Component', () => {
     expect(contentElement).toBeInTheDocument();
   });
 
-  it('should open accordion content when Enter key is pressed', () => {
-    const { container, getByText } = render(
+  it('renders the title as a native button inside the heading', () => {
+    const { container } = render(
       <Provider store={store}>
         <MemoryRouter>
           <View data={mockData} />
@@ -171,10 +171,29 @@ describe('View Component', () => {
     );
 
     const accordionTitle = container.querySelector('.accordion-title');
-    fireEvent.keyDown(accordionTitle, { keyCode: 13 });
+    expect(accordionTitle.tagName).toBe('BUTTON');
+    expect(accordionTitle).toHaveAttribute('type', 'button');
+    expect(accordionTitle).not.toHaveAttribute('role');
+    expect(accordionTitle.parentElement.tagName).toBe('H3');
 
-    const contentElement = getByText('RenderBlocks');
-    expect(contentElement).toBeInTheDocument();
+    const content = document.getElementById(
+      accordionTitle.getAttribute('aria-controls'),
+    );
+    expect(content).toHaveClass('content');
+  });
+
+  it('wraps the title button in a div without a title size', () => {
+    const { container } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <View data={{ ...mockData, title_size: undefined }} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const accordionTitle = container.querySelector('.accordion-title');
+    expect(accordionTitle.parentElement.tagName).toBe('DIV');
+    expect(accordionTitle.parentElement).toHaveClass('accordion-heading');
   });
 
   it('filters the accordion panels based on the filter value', () => {

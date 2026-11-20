@@ -19,7 +19,7 @@ describe('Accordion Block: Keyboard Accessibility Tests', () => {
   beforeEach(slateBeforeEach);
   afterEach(slateAfterEach);
 
-  it('renders accordion titles as keyboard-focusable buttons', () => {
+  it('renders accordion titles as native buttons', () => {
     setPageTitle('Accordion Keyboard Semantics');
     addAccordionBlock();
 
@@ -30,9 +30,14 @@ describe('Accordion Block: Keyboard Accessibility Tests', () => {
 
     cy.get('.accordion').eq(0).find('.accordion-title').as('firstTitle');
 
-    cy.get('@firstTitle').should('have.attr', 'role', 'button');
-    cy.get('@firstTitle').should('have.attr', 'tabindex', '0');
+    cy.get('@firstTitle').should('match', 'button[type="button"]');
+    cy.get('@firstTitle').should('not.have.attr', 'role');
     cy.get('@firstTitle').should('have.attr', 'aria-expanded', 'false');
+    cy.get('@firstTitle')
+      .invoke('attr', 'aria-controls')
+      .then((contentId) => {
+        cy.get(`[id="${contentId}"]`).should('have.class', 'content');
+      });
   });
 
   it('toggles panel state with Enter and Space keys', () => {
@@ -46,16 +51,12 @@ describe('Accordion Block: Keyboard Accessibility Tests', () => {
 
     cy.get('.accordion').eq(0).find('.accordion-title').as('firstTitle');
 
-    cy.get('@firstTitle')
-      .focus()
-      .trigger('keydown', { key: 'Enter', keyCode: 13, which: 13 });
+    cy.get('@firstTitle').focus().type('{enter}');
 
     cy.get('.accordion').eq(0).find('.content').should('have.class', 'active');
     cy.get('@firstTitle').should('have.attr', 'aria-expanded', 'true');
 
-    cy.get('@firstTitle')
-      .focus()
-      .trigger('keydown', { key: ' ', keyCode: 32, which: 32 });
+    cy.get('@firstTitle').focus().type(' ');
 
     cy.get('.accordion')
       .eq(0)
