@@ -36,6 +36,7 @@ const View = (props) => {
   const { titleIcons } = accordionConfig;
   const iconOnRight = data.right_arrows;
   const iconPosition = iconOnRight ? 'rightPosition' : 'leftPosition';
+  const HeadingTag = data.title_size || 'div';
 
   const query = useQuery(location);
   const activePanels = query.get('activeAccordion')?.split(',');
@@ -142,6 +143,7 @@ const View = (props) => {
         )
         .map(([id, panel], index) => {
           const active = isExclusive(id);
+          const contentId = `${id}-content`;
           return accordionBlockHasValue(panel) ? (
             <Accordion
               key={id}
@@ -155,35 +157,31 @@ const View = (props) => {
               {...accordionConfig.options}
             >
               <React.Fragment>
-                <Accordion.Title
-                  as={data.title_size}
-                  active={active}
-                  aria-expanded={active}
-                  className={cx('accordion-title', {
-                    'align-arrow-left': !iconOnRight,
-                    'align-arrow-right': iconOnRight,
-                  })}
-                  index={index}
-                  onClick={(e) => handleClick(e, { index, id })}
-                  onKeyDown={(e) => {
-                    if (e.keyCode === 13 || e.keyCode === 32) {
-                      e.preventDefault();
-                      handleClick(e, { index, id });
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <Icon
-                    options={titleIcons}
-                    name={
-                      active
-                        ? titleIcons.opened[iconPosition]
-                        : titleIcons.closed[iconPosition]
-                    }
-                  />
-                  <span>{panel?.title}</span>
-                </Accordion.Title>
+                <HeadingTag className="accordion-heading">
+                  <Accordion.Title
+                    as="button"
+                    type="button"
+                    active={active}
+                    aria-expanded={active}
+                    aria-controls={contentId}
+                    className={cx('accordion-title', {
+                      'align-arrow-left': !iconOnRight,
+                      'align-arrow-right': iconOnRight,
+                    })}
+                    index={index}
+                    onClick={(e) => handleClick(e, { index, id })}
+                  >
+                    <Icon
+                      options={titleIcons}
+                      name={
+                        active
+                          ? titleIcons.opened[iconPosition]
+                          : titleIcons.closed[iconPosition]
+                      }
+                    />
+                    <span>{panel?.title}</span>
+                  </Accordion.Title>
+                </HeadingTag>
                 <AnimateHeight
                   animateOpacity
                   duration={500}
@@ -195,7 +193,10 @@ const View = (props) => {
                     }
                   }}
                 >
-                  <Accordion.Content active={diffView ? true : active}>
+                  <Accordion.Content
+                    id={contentId}
+                    active={diffView ? true : active}
+                  >
                     <RenderBlocks
                       {...props}
                       location={location}

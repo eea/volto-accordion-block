@@ -198,14 +198,14 @@ describe('ControlPanel: Dexterity Content-Types Layout', () => {
 
     cy.get('#toolbar-save').click();
     cy.get('.documentFirstHeading').contains('My First Book');
-    cy.get('.accordion:nth-child(1) > h2.title').contains('Chapter 1');
-    cy.get('.accordion:nth-child(2) > h2.title').contains('Chapter 2');
-    cy.get('.accordion:nth-child(3) > h2.title').contains('Chapter 3');
+    cy.get('.accordion:nth-child(1) > h2 > .title').contains('Chapter 1');
+    cy.get('.accordion:nth-child(2) > h2 > .title').contains('Chapter 2');
+    cy.get('.accordion:nth-child(3) > h2 > .title').contains('Chapter 3');
 
-    cy.get('.accordion:nth-child(1) > h2.title').click();
+    cy.get('.accordion:nth-child(1) > h2 > .title').click();
     cy.get('.accordion:nth-child(1) .content').contains('Once upon a time...');
 
-    cy.get('.accordion:nth-child(2) > h2.title').click();
+    cy.get('.accordion:nth-child(2) > h2 > .title').click();
     cy.get('.accordion:nth-child(2) .content').contains(
       'The quick brown fox jumps over the lazy dog',
     );
